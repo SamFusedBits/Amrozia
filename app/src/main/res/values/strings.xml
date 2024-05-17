@@ -1,0 +1,109 @@
+<resources>
+    <string name="app_name">Amrozia</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Amrozia</string>
+    <string name="nav_header_subtitle">Women of Today</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_sidenavbar_home">Home</string>
+    <string name="menu_sidenavbar_shop">Shop Ajrakh</string>
+    <string name="menu_sidenavbar_ship">Shipping and Returns</string>
+    <string name="menu_sidenavbar_contact">Contact Us</string>
+    <string name="menu_sidenavbar_recognition">Recognition</string>
+    <string name="menu_sidenavbar_faq">FAQ</string>
+    <string name="menu_sidenavbar_privacy">Privacy Policy</string>
+    <string name="menu_sidenavbar_about">About Us</string>
+    <string name="menu_sidenavbar_gift">Gift Card</string>
+
+    <string name="contact_heading">Contact Us</string>
+    <string name="operating_hours">Operating Hours</string>
+    <string name="monday_friday">Monday - Friday: 9:00am - 6:30pm</string>
+    <string name="sunday">Sunday and Public Holiday: Closed</string>
+    <string name="contact_name">Name</string>
+    <string name="contact_name_hint">Enter your name</string>
+    <string name="contact_email">Email</string>
+    <string name="contact_email_hint">Enter your email</string>
+    <string name="contact_subject">Subject</string>
+    <string name="contact_subject_hint">Type the subject</string>
+    <string name="contact_message">Message</string>
+    <string name="contact_message_hint">Type your message here...</string>
+    <string name="contact_phone">Phone</string>
+    <string name="contact_phone_hint">Enter your phone number</string>
+    <string name="contact_submit">Submit</string>
+    <string name="contact_support_email">support@amrozia.in</string>
+    <string name="contact_support_phone">+91 7219777055</string>
+    <string name="copyright">©2023 Global Fashion. All Rights Reserved.</string>
+
+    <string name="shipping_and_delivery_title">Shipping &amp; Delivery</string>
+    <string name="shipping_charges_question">1) What are the shipping charges?</string>
+    <string name="shipping_charges_answer">Delivery charge varies with each product. Mostly we provide FREE delivery in India. Some items may have a shipping cost depending on the nature of the product. For International orders, the shipping charges are different for different items and are mentioned clearly on the product page. Also Prices may be different for different countries to account for shipping costs and prices listed in INR are only for India.</string>
+    <string name="estimated_delivery_time_question">2) What is the estimated delivery time?</string>
+    <string name="estimated_delivery_time_answer">The estimated time of delivery is within 7 working days for domestic orders and 21 working days for international orders. All orders get shipped within 5 days from our warehouse.</string>
+    <string name="delivery_method_question">3) How will the delivery be done?</string>
+    <string name="delivery_method_answer">We try to process all deliveries through reputed courier companies like Bluedart, Aramex, DTDC, DHL, and Fedex. In some cases, where the pin/zipcode is not serviceable by these courier companies, we use Indian Speed Post for those deliveries. If there is no courier service available in your area, we will get in touch with you and try to work out a convenient alternate delivery location that is serviced by our courier partners.</string>
+    <string name="international_delivery_question">4) Does Global Fashion deliver internationally?</string>
+    <string name="international_delivery_answer">Yes, we do deliver items internationally. You are more than welcome to make your purchases on our site from anywhere in the world. We use DHL, DTDC, India Post, or FEDEX to deliver your shipments safely and timely to you.</string>
+    <string name="track_delivery_question">5) How can I track the delivery of my order?</string>
+    <string name="track_delivery_answer">All items are delivered through reputed courier partners who will provide a Tracking ID for your order. We also email you the tracking details after we dispatch your order.</string>
+    <string name="cod_option_question">6) Why is the COD option not offered in my location?</string>
+    <string name="cod_option_answer">Availability of Cash on Delivery depends on the ability of our courier partner servicing your location to accept cash as payment at the time of delivery. Our courier partners have limits on the cash amount payable on delivery depending on the destination, and your order value might have exceeded this limit. Please enter your pin code on the product page to check if COD is available in your location.</string>
+    <string name="out_of_stock_question">7) What does &quot;Out of Stock&quot; mean?</string>
+    <string name="out_of_stock_answer">It means that currently, the item is not available for sale.</string>
+    <string name="packaging_question">8) How are items packaged?</string>
+    <string name="packaging_answer">All items are carefully packaged as to avoid any form of damage.</string>
+    <string name="tax_responsibility_question">9) Who would be responsible for paying local taxes in countries outside of India?</string>
+    <string name="tax_responsibility_answer">Customs Duty &amp; other international taxes etc. if applicable will have to be borne by the customer according to the laws of the land.</string>
+    <string name="track_shipments_link">10) Track your shipments https://globalfashion.aftership.com</string>
+
+    <string name="return_policy_title">Return Policy</string>
+    <string name="return_policy_question">1) What is Global Fashion Return Policy?</string>
+    <string name="return_policy_answer">Our &quot;100% Buyer Protection Program&quot; allows for easy returns and refunds for: Products which you may not like for quality, color or design related issues Products which you received in &quot;Damaged/Defective/Broken&quot; condition Products not as per description/photo on the website All products must be returned in their original condition along with the bills and labels. Please follow the below given steps to register your dispute within 3 days of receipt of the product. Disputes registered after 3 days of delivery may not be entertained by us.</string>
+    <string name="raise_dispute_question">2) How to raise dispute for an order?</string>
+    <string name="raise_dispute_answer">You can raise a dispute within 3 days of delivery: By sending an email to support@amrozia.in with images of broken/defective/damaged products within 3 days of delivery. Please mention your order number in the email. (We need photos of the products received so that we can defend your dispute). Please add Bank Details in case of Cash On Delivery Order. Please mention Reason for Return.</string>
+    <string name="after_dispute_question">3) What happens after a dispute is raised?</string>
+    <string name="after_dispute_answer">After we review your return request, you will receive an email containing the instructions and return shipping address to which you need to send back the product within 10 days. We recommend using an online traceable courier service for returning your items.</string>
+    <string name="delivery_charges_question">4) Who pays for the delivery charges for returning of products?</string>
+    <string name="delivery_charges_answer">Buyer has to bear the return delivery charges. We will reimburse you the delivery charges only if the product received by you was in &quot;Damaged/Defective/Broken&quot; condition.</string>
+    <string name="non_returnable_items_question">5) What items are not returnable?</string>
+    <string name="non_returnable_items_answer">Items falling under following categories CANNOT be returned: Custom stitched products Inner wear All types of Accessories - Earrings, Necklace, Pendants</string>
+
+    <string name="blog_rayon_title">RAYON FABRIC</string>
+    <string name="blog_rayon_intro">Rayon is a versatile fiber with comfort properties similar to natural fibers. It can imitate the feel and texture of silk, wool, cotton, and linen. Rayon fabrics are soft, smooth, cool, comfortable, and highly absorbent, making them ideal for use in hot and humid climates.</string>
+    <string name="blog_rayon_production_title">How Rayon is Made</string>
+    <string name="blog_rayon_production">Rayon is made from wood, treated with caustic soda to form cellulose, which is then converted into a viscose solution. This solution is spun into filaments and solidified to form regenerated cellulose.</string>
+    <string name="blog_rayon_washing_tips_title">Washing and Drying Tips</string>
+    <string name="blog_rayon_washing_tip1">1. Hand wash rayon clothes with a mild detergent in cold water. Rayon is weak when wet and less durable than cotton.</string>
+    <string name="blog_rayon_washing_tip2">2. Machine wash rayon blends on the delicate setting, but be cautious as it may damage the fabric.</string>
+    <string name="blog_rayon_washing_tip3">3. Always read the label for specific washing instructions. If it says dry clean only, avoid washing at home to prevent damage or shrinkage.</string>
+    <string name="blog_rayon_washing_tip4">4. Avoid hanging rayon clothes to dry as they can lose their shape. Use line drying or flat drying methods instead.</string>
+    <string name="blog_rayon_source">Source: Wikipedia</string>
+
+    <string name="blog_ajrakh_title">AJRAK ; AJRAKH</string>
+    <string name="blog_ajrakh_intro">Ajrak, also known as Ajrakh, is a unique form of block printing found in Ajrakhpur, Kutch district, India. These shawls display special designs and patterns made using block printing by stamps. Ajrak prints are a symbol of Sindhi culture and traditions, and are also popular in Gujarat due to their historical roots in the Indus Valley Civilization.</string>
+    <string name="blog_ajrakh_history_title">History</string>
+    <string name="blog_ajrakh_history">Early human settlements in the lower Indus Valley used tree cotton to make clothes and mastered the art of making cotton fabrics. Ajrak is a symbol of pride and respect for Sindhi people and is used to honor guests. The geometric designs are created using woodblock printing.</string>
+    <string name="blog_ajrakh_dyes_title">Dyes</string>
+    <string name="blog_ajrakh_dyes">Ajrak products are made with natural dyes, including both vegetable and mineral dyes. Indigo is a key dye used in the production process.</string>
+    <string name="blog_ajrakh_blocks_title">Ajrak Blocks</string>
+    <string name="blog_ajrakh_blocks">Common Ajrak patterns include dots between two lines, often created with brass nails. The designs are influenced by Mughal-era geometry and Muslim architectural elements, with patterns formed by the interaction of circles and the use of a grid system.</string>
+    <string name="blog_ajrakh_source">Source: Wikipedia, Vogue India</string>
+
+    <string name="global_fashion_title">GLOBAL FASHION</string>
+    <string name="global_fashion_subtitle">Amrozia....For the Woman of Today</string>
+    <string name="global_fashion_description">Global Fashion is a place to Discover Indian Products including Handmade Ajrakh, Ethnic and Vintage products from India.</string>
+    <string name="global_fashion_brand_ownership">Amrozia and Ajrakh Studio is a Brand Owned and Copy Righted by Global Fashion.</string>
+    <string name="global_fashion_reach_us">Reach Us</string>
+    <string name="global_fashion_signoff">Yours Truly, Global Fashion.</string>
+    <string name="global_fashion_email">Email: support@amrozia.in</string>
+    <string name="global_fashion_facebook">Facebook: amrozia.in</string>
+    <string name="global_fashion_twitter">Twitter: globalfashion85</string>
+    <string name="global_fashion_blog">Our Blog: amroziafashion.blogspot.com/</string>
+    <string name="global_fashion_instagram">Instagram: global_fashion_85</string>
+    <string name="global_fashion_whatsapp">WhatsApp: +91 7219777055</string>
+    <string name="global_fashion_gst">GST No: 27xxxxx5104C1Z3</string>
+    <string name="global_fashion_msme">MSME Registration No. UDYAM-xx-xx-0000129</string>
+    <string name="global_fashion_iec">IEC: xxxxx5104C</string>
+
+</resources>

@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="@color/light_pink">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/shipping_and_delivery_heading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/shipping_and_delivery_title"
+            android:textSize="20sp"
+            android:textColor="@color/red"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:layout_marginBottom="16dp" />
+
+        <ImageView
+            android:id="@+id/shipping_image"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/shipping_image" /> <!-- Replace with your image resource -->
+
+        <TextView
+            android:id="@+id/shipping_charges_question"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/shipping_charges_question"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp"
+            android:paddingTop="12dp"/>
+
+        <TextView
+            android:id="@+id/shipping_charges_answer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/shipping_charges_answer"
+            android:layout_marginBottom="16dp"/>
+
+        <TextView
+            android:id="@+id/delivery_time_question"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/estimated_delivery_time_question"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp"/>
+
+        <TextView
+            android:id="@+id/delivery_time_answer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/estimated_delivery_time_answer"
+            android:layout_marginBottom="16dp"/>
+
+        <TextView
+            android:id="@+id/delivery_method_question"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/delivery_method_question"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp"/>
+
+        <TextView
+            android:id="@+id/delivery_method_answer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/delivery_method_answer"
+            android:layout_marginBottom="16dp"/>
+
+        <TextView
+            android:id="@+id/delivery_tracking_question"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/track_delivery_question"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp"/>
+
+        <TextView
+            android:id="@+id/delivery_tracking_answer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/track_delivery_answer"
+            android:layout_marginBottom="16dp"/>
+
+        <TextView
+            android:id="@+id/cod_option_question"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/cod_option_question"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp"/>
+
+        <TextView
+            android:id="@+id/cod_option_answer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/cod_option_answer"
+            android:layout_marginBottom="16dp"/>
+
+        <TextView
+            android:id="@+id/out_of_stock_question"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/out_of_stock_question"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp"/>
+
+        <TextView
+            android:id="@+id/out_of_stock_answer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/out_of_stock_answer"
+            android:layout_marginBottom="16dp"/>
+
+        <TextView
+            android:id="@+id/packaging_question"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/packaging_question"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp"/>
+
+        <TextView
+            android:id="@+id/packaging_answer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/packaging_answer"
+            android:layout_marginBottom="16dp"/>
+
+        <TextView
+            android:id="@+id/local_taxes_question"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/tax_responsibility_question"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp"/>
+
+        <TextView
+            android:id="@+id/local_taxes_answer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/tax_responsibility_answer"
+            android:layout_marginBottom="16dp"/>
+
+        <TextView
+            android:id="@+id/track_shipments_question"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/track_shipments_link"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp"/>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"
+            android:layout_marginBottom="16dp"/>
+
+        <TextView
+            android:id="@+id/return_policy_heading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/return_policy_title"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/red"
+            android:textAlignment="center"
+            android:layout_marginBottom="16dp"/>
+
+        <ImageView
+            android:id="@+id/rayon_image"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/rayon_fabric" /> <!-- Replace with your image resource -->
+
+        <TextView
+            android:id="@+id/return_policy_question"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/return_policy_question"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp"/>
+
+        <TextView
+            android:id="@+id/return_policy_answer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/return_policy_answer"
+            android:layout_marginBottom="16dp"/>
+
+        <TextView
+            android:id="@+id/raise_dispute_question"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/raise_dispute_question"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp"/>
+
+        <TextView
+            android:id="@+id/raise_dispute_answer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/raise_dispute_answer"
+            android:layout_marginBottom="16dp"/>
+
+        <TextView
+            android:id="@+id/dispute_process_question"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/after_dispute_question"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp"/>
+
+        <TextView
+            android:id="@+id/dispute_process_answer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/after_dispute_answer"
+            android:layout_marginBottom="16dp"/>
+
+        <TextView
+            android:id="@+id/delivery_charges_return_question"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/delivery_charges_question"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp"/>
+
+        <TextView
+            android:id="@+id/delivery_charges_return_answer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/delivery_charges_answer"
+            android:layout_marginBottom="16dp"/>
+
+        <TextView
+            android:id="@+id/non_returnable_items_question"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/non_returnable_items_question"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp"/>
+
+        <TextView
+            android:id="@+id/non_returnable_items_answer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/non_returnable_items_answer"
+            android:layout_marginBottom="16dp"/>
+
+        <Button
+            android:id="@+id/contact_support_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/contact_support_email"
+            android:padding="16dp"
+            android:textAllCaps="false"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:background="@drawable/button_bg_red"/>
+
+        <!-- Copyright Section -->
+        <TextView
+            android:id="@+id/copyright"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/copyright"
+            android:textAlignment="center"
+            android:padding="16dp"
+            android:textColor="@color/white" />
+    </LinearLayout>
+</ScrollView>
+

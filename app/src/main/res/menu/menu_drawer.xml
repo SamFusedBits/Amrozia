@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/home"
+            android:title="@string/menu_sidenavbar_home" />
+        <item
+            android:id="@+id/nav_gallery"
+            android:icon="@drawable/shop_ajrakh"
+            android:title="@string/menu_sidenavbar_shop" />
+        <item
+            android:id="@+id/nav_ship"
+            android:icon="@drawable/shippingandreturn"
+            android:title="@string/menu_sidenavbar_ship" />
+        <item
+            android:id="@+id/nav_contact_us"
+            android:icon="@drawable/contact_us"
+            android:title="@string/menu_sidenavbar_contact" />
+        <item
+            android:id="@+id/nav_recognition"
+            android:icon="@drawable/recognition"
+            android:title="@string/menu_sidenavbar_recognition" />
+        <item
+            android:id="@+id/nav_faq"
+            android:icon="@drawable/faq"
+            android:title="@string/menu_sidenavbar_faq" />
+        <item
+            android:id="@+id/nav_privacy"
+            android:icon="@drawable/privacy_policy"
+            android:title="@string/menu_sidenavbar_privacy" />
+        <item
+            android:id="@+id/nav_about"
+            android:icon="@drawable/about_us"
+            android:title="@string/menu_sidenavbar_about" />
+        <item
+            android:id="@+id/nav_gift"
+            android:icon="@drawable/gift_card"
+            android:title="@string/menu_sidenavbar_gift" />
+
+    </group>
+</menu>
