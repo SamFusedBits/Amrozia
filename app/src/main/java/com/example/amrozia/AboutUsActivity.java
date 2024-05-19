@@ -14,7 +14,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class AboutUsActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     // Declare ImageView for the grid icon
     ImageView gridIcon;
@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
 
         // Set the layout for this activity to be R.layout.contact_us
-        setContentView(R.layout.contact_us);
+        setContentView(R.layout.about_us);
 
         // Initialize the grid icon ImageView by finding it in the layout
         gridIcon = findViewById(R.id.grid_icon);

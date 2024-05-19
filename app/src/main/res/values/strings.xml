@@ -11,13 +11,12 @@
     <string name="menu_sidenavbar_shop">Shop Ajrakh</string>
     <string name="menu_sidenavbar_ship">Shipping and Returns</string>
     <string name="menu_sidenavbar_contact">Contact Us</string>
-    <string name="menu_sidenavbar_recognition">Recognition</string>
+    <string name="menu_sidenavbar_blog">Blog</string>
     <string name="menu_sidenavbar_faq">FAQ</string>
-    <string name="menu_sidenavbar_privacy">Privacy Policy</string>
     <string name="menu_sidenavbar_about">About Us</string>
     <string name="menu_sidenavbar_gift">Gift Card</string>
 
-    <string name="contact_heading">Contact Us</string>
+    <string name="contact_heading">Get in touch with us</string>
     <string name="operating_hours">Operating Hours</string>
     <string name="monday_friday">Monday - Friday: 9:00am - 6:30pm</string>
     <string name="sunday">Sunday and Public Holiday: Closed</string>
@@ -69,6 +68,7 @@
     <string name="non_returnable_items_question">5) What items are not returnable?</string>
     <string name="non_returnable_items_answer">Items falling under following categories CANNOT be returned: Custom stitched products Inner wear All types of Accessories - Earrings, Necklace, Pendants</string>
 
+    <string name="blog_title">Blog</string>
     <string name="blog_rayon_title">RAYON FABRIC</string>
     <string name="blog_rayon_intro">Rayon is a versatile fiber with comfort properties similar to natural fibers. It can imitate the feel and texture of silk, wool, cotton, and linen. Rayon fabrics are soft, smooth, cool, comfortable, and highly absorbent, making them ideal for use in hot and humid climates.</string>
     <string name="blog_rayon_production_title">How Rayon is Made</string>
@@ -90,12 +90,12 @@
     <string name="blog_ajrakh_blocks">Common Ajrak patterns include dots between two lines, often created with brass nails. The designs are influenced by Mughal-era geometry and Muslim architectural elements, with patterns formed by the interaction of circles and the use of a grid system.</string>
     <string name="blog_ajrakh_source">Source: Wikipedia, Vogue India</string>
 
+    <string name="about_title">About Us</string>
     <string name="global_fashion_title">GLOBAL FASHION</string>
     <string name="global_fashion_subtitle">Amrozia....For the Woman of Today</string>
     <string name="global_fashion_description">Global Fashion is a place to Discover Indian Products including Handmade Ajrakh, Ethnic and Vintage products from India.</string>
-    <string name="global_fashion_brand_ownership">Amrozia and Ajrakh Studio is a Brand Owned and Copy Righted by Global Fashion.</string>
-    <string name="global_fashion_reach_us">Reach Us</string>
-    <string name="global_fashion_signoff">Yours Truly, Global Fashion.</string>
+    <string name="global_fashion_brand_ownership">Amrozia and Ajrakh Studio - ©2023 Global Fashion. All Rights Reserved.</string>
+    <string name="global_fashion_reach_us">Connect With Us</string>
     <string name="global_fashion_email">Email: support@amrozia.in</string>
     <string name="global_fashion_facebook">Facebook: amrozia.in</string>
     <string name="global_fashion_twitter">Twitter: globalfashion85</string>
@@ -105,5 +105,73 @@
     <string name="global_fashion_gst">GST No: 27xxxxx5104C1Z3</string>
     <string name="global_fashion_msme">MSME Registration No. UDYAM-xx-xx-0000129</string>
     <string name="global_fashion_iec">IEC: xxxxx5104C</string>
+
+    <!-- Frequently Asked Questions -->
+    <string name="faq_title">Frequently Asked Questions</string>
+    <!-- Cancellation and Returns -->
+    <string name="cancellation_returns_title">Cancellation and Returns</string>
+    <string name="returns_work">How do returns work?</string>
+    <string name="returns_work_answer">You can raise a request within 3 days to return your items by sending an email to support@amrozia.in by following the shipping and returns policy.</string>
+
+    <string name="returns_time_limit">Can items be returned after the time period mentioned in Returns Policy?</string>
+    <string name="returns_time_limit_answer">No, we will not be able to accept returns after the time period mentioned in the Returns Policy.</string>
+
+    <string name="return_freebie">Do I have to return the freebie when I return a product?</string>
+    <string name="return_freebie_answer">Yes, the freebie has to be returned along with the product.</string>
+
+    <!-- Shipping -->
+    <string name="shipping_title">Shipping</string>
+    <string name="estimated_delivery_time">What is the estimated delivery time?</string>
+    <string name="estimated_delivery_time_ans">We generally procure and ship the items within the time specified on the product page. Business days exclude public holidays and Sundays.</string>
+
+    <string name="tracking_order">Tracking your Order</string>
+    <string name="tracking_order_answer">We will be sending an email with the details of the tracking number for you to be able to track your orders at all stages till the time it is delivered to you.</string>
+
+    <string name="money_back_guarantee">Money Back Guarantee</string>
+    <string name="money_back_guarantee_answer">At Global Fashion, we have a no questions asked return policy. We ensure that our buyers have the best online shopping experience in a stress-free and free manner. We, therefore, offer “100% Buyer Protection Program” for our buyers. At the same time, we vow to be fair towards you.</string>
+
+    <!-- Payments -->
+    <string name="payments_title">Payments</string>
+    <string name="payment_methods">What kinds of payment methods do you accept?</string>
+    <string name="payment_methods_answer">We offer you multiple payment methods. Whatever your online mode of payment, you can rest assured that our trusted payment gateway partners use secure encryption technology to keep your transaction details confidential at all times. You may use Internet Banking, Debit Card, Credit Card, and Cash on Delivery to make your purchase.</string>
+
+    <string name="octroi_charge">Who bears the Octroi for certain locations in India?</string>
+    <string name="octroi_charge_answer">Nagpur, Sangli, Dombivili, Nasik, Mumbai, Pimpri Chinchwardi, Kothrud(Pune), Ahmednagar, Pune, Akola are Octroiable cities. Any applicable octroi will be payable by the customer.</string>
+
+    <!-- eGift Card Section -->
+    <string name="egift_card_title">eGift Card - Amrozia | Ajrakh | Global Fashion</string>
+    <string name="egift_card_price">₹100</string>
+    <string name="egift_card_description">You can\'t go wrong with a gift card. Choose an amount and write a personalized message to make this gift your own. Available to use in Ajrakh Shop.</string>
+    <string name="read_more">Read more</string>
+    <string name="amount">Amount</string>
+
+    <!-- Amount Options -->
+    <string name="amount_100">₹100</string>
+    <string name="amount_200">₹200</string>
+    <string name="amount_300">₹300</string>
+    <string name="amount_500">₹500</string>
+    <string name="amount_1000">₹1,000</string>
+    <string name="other_amount">Other amount</string>
+
+    <!-- Quantity -->
+    <string name="quantity">Quantity</string>
+    <string name="quantity_1">1</string>
+
+    <!-- Recipient Information -->
+    <string name="recipient_info">Who\'s the gift card for?</string>
+    <string name="for_someone_else">For someone else</string>
+    <string name="for_myself">For myself</string>
+    <string name="recipient_email">Recipient email *</string>
+    <string name="recipient_name">Recipient name</string>
+
+    <!-- Delivery Date -->
+    <string name="delivery_date">Delivery date</string>
+    <string name="delivery_now">Now</string>
+
+    <!-- Message -->
+    <string name="message">Message</string>
+
+    <!-- Buy Now Button -->
+    <string name="buy_now">Buy Now</string>
 
 </resources>
