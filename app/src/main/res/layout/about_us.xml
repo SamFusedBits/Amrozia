@@ -110,6 +110,7 @@
 
                 <!-- Facebook TextView -->
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/card_facebook"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
@@ -128,6 +129,7 @@
 
                 <!-- Twitter TextView -->
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/card_twitter"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
@@ -145,6 +147,7 @@
 
                 <!-- Instagram TextView -->
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/card_instagram"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
@@ -163,6 +166,7 @@
 
                 <!-- WhatsApp TextView -->
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/card_whatsapp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
