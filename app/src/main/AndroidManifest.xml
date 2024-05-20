@@ -14,12 +14,17 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         tools:targetApi="34">
         <activity
-            android:name=".GiftCardActivity"
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <!-- Intent filter for ShippingReturnsActivity for handling email intents-->
+                <action android:name="android.intent.action.SENDTO"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <data android:scheme="mailto"/>
             </intent-filter>
         </activity>
         <activity android:name=".HomeActivity" />
@@ -29,7 +34,7 @@
         <activity android:name=".BlogActivity" />
         <activity android:name=".FaqActivity" />
         <activity android:name=".AboutUsActivity" />
-       <!-- <activity android:name=".GiftCardActivity" />-->
+        <activity android:name=".GiftCardActivity" />
     </application>
 
 </manifest>
