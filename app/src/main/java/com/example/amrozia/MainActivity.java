@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
 
         // Set the layout for this activity to be R.layout.contact_us
-        setContentView(R.layout.contact_us);
+        setContentView(R.layout.about_us);
 
         // Initialize the grid icon ImageView by finding it in the layout
         gridIcon = findViewById(R.id.grid_icon);

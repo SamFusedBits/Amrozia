@@ -1,15 +1,16 @@
 package com.example.amrozia;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.view.MenuItem;
 
 public class NavigationUtils {
 
+    private static final String TAG = "NavigationUtils";
+
     public static void navigateTo(MenuItem item, Activity activity) {
-        Log.d("NavigationUtils", "navigateTo called with item ID: " + item.getItemId());
+        Log.d(TAG, "navigateTo called with item ID: " + item.getItemId());
         Intent intent = null;
         int id = item.getItemId();
 
@@ -32,12 +33,11 @@ public class NavigationUtils {
         }
 
         if (intent != null) {
-            Log.d("NavigationUtils", "Starting activity with intent: " + intent.toString());
             activity.startActivity(intent);
+            Log.d(TAG, "Starting activity with intent: " + intent.toString());
             activity.finish();
-        }
-        else {
-            Log.d("NavigationUtils", "Intent is null, not starting activity");
+        } else {
+            Log.d(TAG, "Intent is null, not starting activity");
         }
     }
 }

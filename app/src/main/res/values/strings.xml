@@ -24,12 +24,12 @@
     <string name="contact_name_hint">Enter your name</string>
     <string name="contact_email">Email</string>
     <string name="contact_email_hint">Enter your email</string>
+    <string name="contact_phone">Phone</string>
+    <string name="contact_phone_hint">Enter your phone number</string>
     <string name="contact_subject">Subject</string>
     <string name="contact_subject_hint">Type the subject</string>
     <string name="contact_message">Message</string>
     <string name="contact_message_hint">Type your message here...</string>
-    <string name="contact_phone">Phone</string>
-    <string name="contact_phone_hint">Enter your phone number</string>
     <string name="contact_submit">Submit</string>
     <string name="contact_support_email">support@amrozia.in</string>
     <string name="contact_support_phone">+91 7219777055</string>
@@ -139,7 +139,7 @@
     <string name="octroi_charge_answer">Nagpur, Sangli, Dombivili, Nasik, Mumbai, Pimpri Chinchwardi, Kothrud(Pune), Ahmednagar, Pune, Akola are Octroiable cities. Any applicable octroi will be payable by the customer.</string>
 
     <!-- eGift Card Section -->
-    <string name="egift_card_title">eGift Card - Amrozia | Ajrakh | Global Fashion</string>
+    <string name="egift_card_title">Amrozia | Global Fashion</string>
     <string name="egift_card_price">₹100</string>
     <string name="egift_card_description">You can\'t go wrong with a gift card. Choose an amount and write a personalized message to make this gift your own. Available to use in Ajrakh Shop.</string>
     <string name="read_more">Read more</string>

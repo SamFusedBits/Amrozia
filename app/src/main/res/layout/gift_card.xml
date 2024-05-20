@@ -8,19 +8,7 @@
     android:fitsSystemWindows="true"
     tools:openDrawer="start">
 
-    <com.google.android.material.navigation.NavigationView
-        android:id="@+id/nav_view"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:fitsSystemWindows="true"
-        app:headerLayout="@layout/nav_header_main"
-        android:background="@color/light_pink"
-        app:itemIconTint="@color/black"
-        app:itemTextAppearance="@color/black"
-        app:menu="@menu/menu_drawer"/> <!--For sidenav bar.-->
-
-    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="16dp"
@@ -31,35 +19,41 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/grid_icon"
-                android:layout_width="70dp"
-                android:layout_height="60dp"
-                android:layout_marginTop="5dp"
-                android:src="@drawable/ic_grid"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
-                android:paddingBottom="16dp" />
-
-            <TextView
-                android:id="@+id/egift_card_title"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/egift_card_title"
-                android:textSize="20sp"
-                android:textColor="@color/pink"
-                android:textStyle="bold"
-                android:textAlignment="center"
-                android:layout_marginBottom="16dp" />
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/grid_icon"
+                    android:layout_width="70dp"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="5dp"
+                    android:src="@drawable/ic_grid"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:paddingBottom="16dp" />
+
+                <TextView
+                    android:id="@+id/gift_card_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/egift_card_title"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/pink"
+                    android:layout_marginTop="9dp"
+                    android:textAlignment="center"
+                    android:layout_marginEnd="2dp" />
+            </LinearLayout>
 
             <ImageView
-                android:layout_width="250dp"
-                android:layout_height="138dp"
+                android:layout_width="310dp"
+                android:layout_height="215dp"
                 android:src="@drawable/gift_card_image"
-                android:layout_gravity="center"
-                android:layout_marginTop="8dp"/>
+                android:layout_gravity="center" />
 
             <TextView
                 android:id="@+id/egift_card_description"
@@ -67,9 +61,9 @@
                 android:layout_height="wrap_content"
                 android:text="@string/egift_card_description"
                 android:textSize="16sp"
-                android:textColor="@color/black"
-                android:layout_marginTop="12dp"
-                android:layout_marginBottom="8dp" />
+                android:textColor="@color/pink"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="15dp" />
 
             <TextView
                 android:id="@+id/amount_label"
@@ -193,4 +187,17 @@
                 android:padding="16dp" />
         </LinearLayout>
     </ScrollView>
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+        app:headerLayout="@layout/nav_header_main"
+        android:background="@color/light_pink"
+        app:itemIconTint="@color/black"
+        app:itemTextAppearance="@color/black"
+        app:menu="@menu/menu_drawer"/> <!--For sidenav bar.-->
+
 </androidx.drawerlayout.widget.DrawerLayout>

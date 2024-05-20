@@ -9,6 +9,225 @@
     tools:openDrawer="start"
     android:clickable="true">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/light_pink">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:id="@+id/grid_icon"
+                    android:layout_width="70dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/ic_grid"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp" />
+
+                <TextView
+                    android:id="@+id/about_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/about_title"
+                    android:layout_marginLeft="70dp"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/pink"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/global_fashion_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/global_fashion_title"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/pink"
+                android:textStyle="bold"
+                android:layout_gravity="center"
+                android:paddingBottom="8dp" />
+
+            <TextView
+                android:id="@+id/global_fashion_subtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/global_fashion_subtitle"
+                android:layout_marginTop="8dp"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/red"
+                android:textStyle="italic"
+                android:layout_gravity="center"
+                android:paddingBottom="16dp" />
+
+            <ImageView
+                android:id="@+id/amrozia_logo"
+                android:layout_width="354dp"
+                android:layout_height="175dp"
+                android:layout_marginTop="16dp"
+                android:layout_gravity="center"
+                android:scaleType="centerCrop"
+                android:src="@drawable/amrozia_logo_image" />
+
+            <TextView
+                android:id="@+id/global_fashion_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/global_fashion_description"
+                android:layout_marginTop="16dp"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@android:color/black"
+                android:paddingBottom="16dp"
+                android:textAlignment="center"/>
+
+            <TextView
+                android:id="@+id/global_fashion_reach_us"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/global_fashion_reach_us"
+                android:layout_marginTop="8dp"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/pink"
+                android:paddingBottom="16dp"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:layout_gravity="center"
+                android:textAlignment="center"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <!-- Facebook TextView -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    app:cardCornerRadius="8dp"
+                    app:cardBackgroundColor="@color/pink">
+
+                    <TextView
+                        android:id="@+id/global_fashion_facebook"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/global_fashion_facebook"
+                        android:layout_marginStart="8dp"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="@color/white" />
+                </androidx.cardview.widget.CardView>
+
+                <!-- Twitter TextView -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    app:cardCornerRadius="8dp">
+
+                    <TextView
+                        android:id="@+id/global_fashion_twitter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/global_fashion_twitter"
+                        android:layout_marginStart="8dp"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="@color/pink" />
+                </androidx.cardview.widget.CardView>
+
+                <!-- Instagram TextView -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    app:cardCornerRadius="8dp"
+                    app:cardBackgroundColor="@color/pink">
+
+                    <TextView
+                        android:id="@+id/global_fashion_instagram"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/global_fashion_instagram"
+                        android:layout_marginStart="8dp"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="@color/white" />
+                </androidx.cardview.widget.CardView>
+
+                <!-- WhatsApp TextView -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    app:cardCornerRadius="8dp">
+
+                    <TextView
+                        android:id="@+id/global_fashion_whatsapp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/global_fashion_whatsapp"
+                        android:layout_marginStart="8dp"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="@color/pink" />
+                </androidx.cardview.widget.CardView>
+
+                <!-- GST TextView -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    app:cardCornerRadius="8dp"
+                    app:cardBackgroundColor="@color/pink">
+
+                    <TextView
+                        android:id="@+id/global_fashion_gst"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/global_fashion_gst"
+                        android:layout_marginStart="8dp"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="@color/white" />
+                </androidx.cardview.widget.CardView>
+
+                <!-- MSME TextView -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    app:cardCornerRadius="8dp">
+
+                    <TextView
+                        android:id="@+id/global_fashion_msme"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/global_fashion_msme"
+                        android:layout_marginStart="8dp"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="@color/pink" />
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/global_fashion_brand_ownership"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/global_fashion_brand_ownership"
+                android:layout_marginTop="16dp"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/pink"
+                android:paddingBottom="16dp"
+                android:textStyle="bold"
+                android:textAlignment="center"/>
+        </LinearLayout>
+    </ScrollView>
+
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
         android:layout_width="wrap_content"
@@ -21,216 +240,4 @@
         app:itemTextAppearance="@color/black"
         app:menu="@menu/menu_drawer"/> <!--For sidenav bar.-->
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp"
-        android:background="@color/light_pink">
-
-        <ImageView
-            android:id="@+id/grid_icon"
-            android:layout_width="70dp"
-            android:layout_height="60dp"
-            android:layout_marginTop="5dp"
-            android:src="@drawable/ic_grid"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp" />
-
-        <TextView
-            android:id="@+id/about_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/about_title"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="@color/pink"
-            android:textStyle="bold"
-            android:layout_gravity="center"
-            android:paddingBottom="8dp" />
-
-        <TextView
-            android:id="@+id/global_fashion_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/global_fashion_title"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="@color/pink"
-            android:textStyle="bold"
-            android:layout_gravity="center"
-            android:paddingBottom="8dp" />
-
-        <TextView
-            android:id="@+id/global_fashion_subtitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/global_fashion_subtitle"
-            android:layout_marginTop="8dp"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/red"
-            android:textStyle="italic"
-            android:layout_gravity="center"
-            android:paddingBottom="16dp" />
-
-        <ImageView
-            android:id="@+id/amrozia_logo"
-            android:layout_width="340dp"
-            android:layout_height="175dp"
-            android:layout_marginTop="16dp"
-            android:layout_gravity="center"
-            android:scaleType="centerCrop"
-            android:src="@drawable/amrozia_logo_image" />
-
-        <TextView
-            android:id="@+id/global_fashion_description"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/global_fashion_description"
-            android:layout_marginTop="16dp"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@android:color/black"
-            android:paddingBottom="16dp"
-            android:textAlignment="center"/>
-
-        <TextView
-            android:id="@+id/global_fashion_reach_us"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/global_fashion_reach_us"
-            android:layout_marginTop="8dp"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/pink"
-            android:paddingBottom="16dp"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            android:layout_marginLeft="118dp"
-            android:textAlignment="center"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
-
-            <!-- Facebook TextView -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                app:cardCornerRadius="8dp"
-                app:cardBackgroundColor="@color/pink">
-
-                <TextView
-                    android:id="@+id/global_fashion_facebook"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/global_fashion_facebook"
-                    android:layout_marginStart="8dp"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/white" />
-            </androidx.cardview.widget.CardView>
-
-            <!-- Twitter TextView -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                app:cardCornerRadius="8dp">
-
-                <TextView
-                    android:id="@+id/global_fashion_twitter"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/global_fashion_twitter"
-                    android:layout_marginStart="8dp"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/pink" />
-            </androidx.cardview.widget.CardView>
-
-            <!-- Instagram TextView -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                app:cardCornerRadius="8dp"
-                app:cardBackgroundColor="@color/pink">
-
-                <TextView
-                    android:id="@+id/global_fashion_instagram"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/global_fashion_instagram"
-                    android:layout_marginStart="8dp"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/white" />
-            </androidx.cardview.widget.CardView>
-
-            <!-- WhatsApp TextView -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                app:cardCornerRadius="8dp">
-
-                <TextView
-                    android:id="@+id/global_fashion_whatsapp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/global_fashion_whatsapp"
-                    android:layout_marginStart="8dp"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/pink" />
-            </androidx.cardview.widget.CardView>
-
-        <!-- GST TextView -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                app:cardCornerRadius="8dp"
-                app:cardBackgroundColor="@color/pink">
-
-                <TextView
-                    android:id="@+id/global_fashion_gst"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/global_fashion_gst"
-                    android:layout_marginStart="8dp"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/white" />
-            </androidx.cardview.widget.CardView>
-
-            <!-- MSME TextView -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                app:cardCornerRadius="8dp">
-
-                <TextView
-                    android:id="@+id/global_fashion_msme"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/global_fashion_msme"
-                    android:layout_marginStart="8dp"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/pink" />
-            </androidx.cardview.widget.CardView>
-
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/global_fashion_brand_ownership"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/global_fashion_brand_ownership"
-            android:layout_marginTop="16dp"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/pink"
-            android:paddingBottom="16dp"
-            android:textStyle="bold"
-            android:textAlignment="center"/>
-
-        </LinearLayout>
 </androidx.drawerlayout.widget.DrawerLayout>
