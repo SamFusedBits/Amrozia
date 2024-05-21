@@ -11,8 +11,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="16dp"
-        android:background="@color/light_pink">
+        android:padding="16dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -43,7 +42,7 @@
                     android:text="@string/egift_card_title"
                     android:textSize="24sp"
                     android:textStyle="bold"
-                    android:textColor="@color/pink"
+                    android:textColor="@color/black"
                     android:layout_marginTop="9dp"
                     android:textAlignment="center"
                     android:layout_marginEnd="2dp" />
@@ -61,7 +60,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/egift_card_description"
                 android:textSize="16sp"
-                android:textColor="@color/pink"
+                android:textColor="@color/black"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="15dp" />
 
@@ -182,8 +181,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/buy_now"
+                android:textAllCaps="false"
                 android:background="@drawable/button_bg_red"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:padding="16dp" />
         </LinearLayout>
     </ScrollView>
