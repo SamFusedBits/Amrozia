@@ -7,9 +7,9 @@
     <!-- White circle background -->
     <path
         android:fillColor="@color/white"
-        android:pathData="M50,0C77.6,0 100,22.4 100,50C100,77.6 77.6,100 50,100C22.4,100 0,77.6 0,50C0,22.4 22.4,0 50,0Z"/>
+        android:pathData="M50,0C77.6,0 100,22.4 100,50C100,77.6 77.6,100 50,100C22.4,100 0,77.6 0,50C0,22.4 22.4,0 50,0Z" />
     <!-- Red grid -->
     <path
         android:fillColor="@color/black"
-        android:pathData="M15,15h15v15H15zM40,15h15v15H40zM65,15h15v15H65zM15,40h15v15H15zM40,40h15v15H40zM65,40h15v15H65zM15,65h15v15H15zM40,65h15v15H40zM65,65h15v15H65z"/>
+        android:pathData="M15,15h15v15H15zM40,15h15v15H40zM65,15h15v15H65zM15,40h15v15H15zM40,40h15v15H40zM65,40h15v15H65zM15,65h15v15H15zM40,65h15v15H40zM65,65h15v15H65z" />
 </vector>

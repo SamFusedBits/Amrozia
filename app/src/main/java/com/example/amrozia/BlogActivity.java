@@ -1,20 +1,18 @@
 package com.example.amrozia;
 
-import static androidx.core.view.GravityCompat.*;
+import static androidx.core.view.GravityCompat.START;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
 
-public class BlogActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class BlogActivity extends MainActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     // Declare ImageView for the grid icon
     ImageView gridIcon;

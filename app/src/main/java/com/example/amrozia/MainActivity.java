@@ -1,60 +1,117 @@
 package com.example.amrozia;
 
-import static androidx.core.view.GravityCompat.*;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
-import android.widget.ImageView;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+import java.util.ArrayList;
+import java.util.List;
 
-    // Declare ImageView for the grid icon
-    ImageView gridIcon;
+public class MainActivity extends AppCompatActivity {
+    private RecyclerView recyclerViewMashru;
+    private RecyclerView recyclerViewStaple;
+    private RecyclerView recyclerViewPremiumRayon;
+    private RecyclerView recyclerViewRayon;
+    private RecyclerView recyclerViewCotton;
 
-    // Declare DrawerLayout for the navigation drawer
-    DrawerLayout drawerLayout;
+    private DatabaseReference database;
 
-    // Declare NavigationView
-    NavigationView navigationView;
 
-    // Override the onCreate method which is called when the activity is first created
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        // Call the superclass's onCreate method with the saved instance state and persistent state
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
-        // Set the layout for this activity to be R.layout.contact_us
-        setContentView(R.layout.about_us);
+        // Initialize RecyclerViews
+        recyclerViewMashru = findViewById(R.id.recyclerViewMashru);
+        recyclerViewStaple = findViewById(R.id.recyclerViewStaple);
+        recyclerViewPremiumRayon = findViewById(R.id.recyclerViewPremiumRayon);
+        recyclerViewRayon = findViewById(R.id.recyclerViewRayon);
+        recyclerViewCotton = findViewById(R.id.recyclerViewCotton);
 
-        // Initialize the grid icon ImageView by finding it in the layout
-        gridIcon = findViewById(R.id.grid_icon);
+        database = FirebaseDatabase.getInstance().getReference();
 
-        // Initialize the NavigationView
-        navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+        //Initialize progress bars
+        ProgressBar progressBarMashru = findViewById(R.id.progressBarMashru);
+        ProgressBar progressBarStaple = findViewById(R.id.progressBarStaple);
+        ProgressBar progressBarPremiumRayon = findViewById(R.id.progressBarPremiumRayon);
+        ProgressBar progressBarRayon = findViewById(R.id.progressBarRayon);
+        ProgressBar progressBarCotton = findViewById(R.id.progressBarCotton);
 
-        // Initialize the DrawerLayout
-        drawerLayout = findViewById(R.id.drawer_layout);
+        // Fetch data for each category
+        fetchDataAndDisplay("Mashru Silk Collection", recyclerViewMashru, progressBarMashru);
+        fetchDataAndDisplay("Staple Cotton Collection", recyclerViewStaple, progressBarStaple);
+        fetchDataAndDisplay("Premium Rayon Collection", recyclerViewPremiumRayon, progressBarPremiumRayon);
+        fetchDataAndDisplay("Rayon Collection", recyclerViewRayon, progressBarRayon);
+        fetchDataAndDisplay("Cotton Collection", recyclerViewCotton, progressBarCotton);
 
-        // Set an OnClickListener on the grid icon
-        // When the grid icon is clicked, the navigation drawer will open
-        gridIcon.setOnClickListener(v -> {
-            drawerLayout.openDrawer(START);
+
+        // Set the onClickListener for the cart button
+        LinearLayout cartButton = findViewById(R.id.cart_btn);
+        cartButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Open the cart activity
+                Intent intent = new Intent(MainActivity.this, CartActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
+    }
+
+
+    private void fetchDataAndDisplay(String category, RecyclerView recyclerView, ProgressBar progressBar) {
+        // Fetch data from Firebase
+        // Use limitToLast(8) to get only the last 8 items(most recent 8 items in each category)
+        database.child(category).limitToLast(8).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                List<Product> productList = new ArrayList<>();
+                for (DataSnapshot productSnapshot : dataSnapshot.getChildren()) {
+                    Product product = productSnapshot.getValue(Product.class);
+                    productList.add(product);
+                }
+                ProductAdapter productAdapter = new ProductAdapter(productList);
+                recyclerView.setLayoutManager(new GridLayoutManager(MainActivity.this, 2)); // Changed to GridLayoutManager
+                recyclerView.setAdapter(productAdapter);
+                progressBar.setVisibility(View.GONE); // Hide the progress bar
+
+                // Set the custom layout manager
+                GridLayoutManager layoutManager = new GridLayoutManager(MainActivity.this,2) {
+                    @Override
+                    public void onMeasure(RecyclerView.Recycler recycler, RecyclerView.State state, int widthSpec, int heightSpec) {
+                        if (getChildCount() > 0) {
+                            View firstChild = recycler.getViewForPosition(0);
+                            measureChild(firstChild, widthSpec, heightSpec);
+                            setMeasuredDimension(View.MeasureSpec.getSize(widthSpec), firstChild.getMeasuredHeight() * state.getItemCount());
+                        } else {
+                            super.onMeasure(recycler, state, widthSpec, heightSpec);
+                        }
+                    }
+                };
+                recyclerView.setLayoutManager(layoutManager);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Handle possible errors.
+            }
+
         });
     }
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        NavigationUtils.navigateTo(item, this);
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }
+
 }

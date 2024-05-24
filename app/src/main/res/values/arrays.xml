@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- For Admin Dashboard -->
+<resources>
+    <string-array name="categories_array">
+        <item>Mashru Silk Collection</item>
+        <item>Staple Cotton Collection</item>
+        <item>Premium Rayon Collection</item>
+        <item>Rayon Collection</item>
+        <item>Cotton Collection</item>
+    </string-array>
+</resources>

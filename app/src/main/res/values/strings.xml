@@ -16,6 +16,16 @@
     <string name="menu_sidenavbar_about">About Us</string>
     <string name="menu_sidenavbar_gift">Gift Card</string>
 
+    <string name="mashru_silk">Mashru Silk Collection</string>
+    <string name="staple_cotton">Staple Cotton Collection</string>
+    <string name="premium_rayon">Premium Rayon Collection</string>
+    <string name="rayon">Rayon Collection</string>
+    <string name="cotton">Cotton Collection</string>
+    <string name="see_all">See all</string>
+
+    <string name="search_bar_hint">Search anything</string>
+
+
     <string name="contact_heading">Get in touch with us</string>
     <string name="operating_hours">Operating Hours</string>
     <string name="monday_friday">Monday - Friday: 9:00am - 6:30pm</string>

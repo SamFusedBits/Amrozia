@@ -15,7 +15,6 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header_main"
-        android:background="@color/light_pink"
         app:itemIconTint="@color/black"
         app:itemTextAppearance="@color/black"
         app:menu="@menu/menu_drawer"/> <!--For sidenav bar.-->
