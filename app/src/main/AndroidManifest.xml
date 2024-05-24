@@ -38,7 +38,7 @@
         <activity android:name=".AboutUsActivity" />
         <activity android:name=".GiftCardActivity" />
         <activity android:name=".DetailActivity" />
-
+        <activity android:name=".CategoryActivity" />
     </application>
 
 </manifest>

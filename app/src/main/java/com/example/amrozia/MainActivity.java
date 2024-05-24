@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -59,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
         fetchDataAndDisplay("Cotton Collection", recyclerViewCotton, progressBarCotton);
 
 
-        // Set the onClickListener for the cart button
+        // Set the onClickListeners for the cart buttons to go back to the home page
         LinearLayout cartButton = findViewById(R.id.cart_btn);
         cartButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,7 +71,55 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        TextView mashruSeeAll = findViewById(R.id.mashru_silk_see_all);
+        mashruSeeAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, CategoryActivity.class);
+                intent.putExtra("category", "Mashru Silk Collection");
+                startActivity(intent);
+            }
+        });
 
+        TextView stapleSeeAll = findViewById(R.id.staple_cotton_see_all);
+        stapleSeeAll.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(MainActivity.this, CategoryActivity.class);
+                    intent.putExtra("category", "Staple Cotton Collection");
+                    startActivity(intent);
+                }
+        });
+
+        TextView premiumRayonSeeAll = findViewById(R.id.premium_rayon_see_all);
+        premiumRayonSeeAll.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(MainActivity.this, CategoryActivity.class);
+                    intent.putExtra("category", "Premium Rayon Collection");
+                    startActivity(intent);
+                }
+        });
+
+        TextView rayonSeeAll = findViewById(R.id.rayon_see_all);
+        rayonSeeAll.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(MainActivity.this, CategoryActivity.class);
+                    intent.putExtra("category", "Rayon Collection");
+                    startActivity(intent);
+                }
+        });
+
+        TextView cottonSeeAll = findViewById(R.id.cotton_see_all);
+        cottonSeeAll.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(MainActivity.this, CategoryActivity.class);
+                    intent.putExtra("category", "Cotton Collection");
+                    startActivity(intent);
+                }
+        });
     }
 
 
