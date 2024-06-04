@@ -12,37 +12,41 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.amrozia.Domain.ProductDomain;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class AdminActivity extends AppCompatActivity {
-    private EditText nameEditText, descriptionEditText, priceEditText, imageUrlEditText;
+    private EditText idEditText, titleEditText, descriptionEditText, priceEditText, sizeEditText, picUrlEditText;
     private Spinner categorySpinner;
     private Button submitButton;
-    private DatabaseReference database;
+    private FirebaseFirestore firestore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin);
 
-        nameEditText = findViewById(R.id.nameEditText);
+        idEditText = findViewById(R.id.idEditText);
+        titleEditText = findViewById(R.id.titleEditText);
         descriptionEditText = findViewById(R.id.descriptionEditText);
         priceEditText = findViewById(R.id.priceEditText);
-        imageUrlEditText = findViewById(R.id.imageUrlEditText);
+        picUrlEditText = findViewById(R.id.picUrlEditText);
+        sizeEditText = findViewById(R.id.sizeEditText);
         categorySpinner = findViewById(R.id.categorySpinner);
         submitButton = findViewById(R.id.submitButton);
-
-        database = FirebaseDatabase.getInstance().getReference();
+        firestore = FirebaseFirestore.getInstance();
 
         String[] categories = new String[]{
-            "Mashru Silk Collection",
-            "Staple Cotton Collection",
-            "Premium Rayon Collection",
-            "Rayon Collection",
-            "Cotton Collection"
+                "Mashru Silk Collection",
+                "Staple Cotton Collection",
+                "Premium Rayon Collection",
+                "Rayon Collection",
+                "Cotton Collection"
         };
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, categories);
@@ -52,50 +56,67 @@ public class AdminActivity extends AppCompatActivity {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String name = nameEditText.getText().toString();
+                String id = idEditText.getText().toString();
+                String title = titleEditText.getText().toString();
                 String description = descriptionEditText.getText().toString();
                 double price = Double.parseDouble(priceEditText.getText().toString());
-                String imageUrl = imageUrlEditText.getText().toString();
+                ArrayList<String> size = new ArrayList<>(Arrays.asList(sizeEditText.getText().toString().split(",")));
+                ArrayList<String> picUrl = new ArrayList<>(Arrays.asList(picUrlEditText.getText().toString().split(",")));
                 String category = categorySpinner.getSelectedItem() != null ? categorySpinner.getSelectedItem().toString() : "";
 
+                if (id.isEmpty()) {
+                    Log.e("AdminActivity", "Product ID is empty");
+                    return;
+                }
+
                 if (category.isEmpty()) {
-                    // Show an error message to the user
                     Log.e("AdminActivity", "Category is empty");
                     return;
                 }
 
-                Product product = new Product(name, description, price, imageUrl, category);
-                addProduct(product);
+                ProductDomain product = new ProductDomain(id, title, description, price, size, picUrl, category);
+                addProductToCategory(product, category);
             }
         });
     }
-    public void addProduct(Product product) {
-        Log.d("AdminActivity", "Adding product: " + product.getCategory());
 
-        // Create a new unique key for the product
-        String key = database.child(product.getCategory()).push().getKey();
-
-        // Check if the key was generated successfully
-        Log.d("AdminActivity", "Generated key: " + key);
-
-        if(key == null) {
-            // Show an error message to the user
-            Log.e("AdminActivity", "Failed to generate unique key for product");
+    public void addProductToCategory(ProductDomain product, String category) {
+        if (firestore == null) {
+            Log.e("AdminActivity", "Firestore is null");
             return;
         }
-        // Use the unique key to store the product under the category
-        database.child(product.getCategory()).child(key).setValue(product)
+
+        if (category == null || category.isEmpty()) {
+            Log.e("AdminActivity", "Category is null or empty");
+            return;
+        }
+
+        if (product == null) {
+            Log.e("AdminActivity", "Product is null");
+            return;
+        }
+
+        if (product.getId() == null || product.getId().isEmpty()) {
+            Log.e("AdminActivity", "Product ID is null or empty");
+            return;
+        }
+
+        // If all checks pass, proceed with Firestore operation
+        firestore.collection("Categories").document(category).collection("products")
+                .document(product.getId())  // Use the inputted ID to create the document
+                .set(product)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(AdminActivity.this, "Product added successfully", Toast.LENGTH_SHORT).show();
+                        Log.d("AdminActivity", "Product added with ID: " + product.getId());
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        // Show an error message to the user
                         Toast.makeText(AdminActivity.this, "Failed to add product!", Toast.LENGTH_SHORT).show();
+                        Log.e("AdminActivity", "Error adding product", e);
                     }
                 });
     }
