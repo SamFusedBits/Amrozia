@@ -1,4 +1,15 @@
 <resources>
+
+    <!-- Activity Admin -->
+    <string name="admin_panel">Admin Panel</string>
+    <string name="name_hint">Name</string>
+    <string name="product_id_hint">Product ID</string>
+    <string name="description_hint">Description</string>
+    <string name="price_hint">Price</string>
+    <string name="pic_urls_hint">Pic URLs (comma separated)</string>
+    <string name="sizes_hint">Sizes (comma separated)</string>
+    <string name="submit_button_admin">Submit</string>
+
     <string name="app_name">Amrozia</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
