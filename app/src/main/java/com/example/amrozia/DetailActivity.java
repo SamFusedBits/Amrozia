@@ -8,12 +8,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.amrozia.Adapter.SizeAdapter;
 import com.example.amrozia.Adapter.ViewPagerAdapter;
+import com.example.amrozia.Domain.ItemsDomain;
 import com.example.amrozia.Domain.ProductDomain;
 import com.example.amrozia.Fragment.DescriptionFragment;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -25,6 +27,7 @@ public class DetailActivity extends AppCompatActivity {
     private ViewPager2 viewPager2;
     private List<String> picUrl; // This should be your list of image URLs
     private List<String> sizeTxt;
+    private String description;
 
 
     private FirebaseFirestore firestore;
@@ -60,9 +63,11 @@ public class DetailActivity extends AppCompatActivity {
                 ProductDomain product = documentSnapshot.toObject(ProductDomain.class);
                 titleTxt.setText(product.getTitle());
                 priceTxt.setText(String.format("₹%s", product.getPrice()));
+                description = product.getDescription(); // Fetch the description here
 
                 // Set up the ViewPager for the product images
                 if (product.getPicUrl() != null) {
+                    picUrl = product.getPicUrl(); // Populate picUrl with the product's image URLs
                     List<String> picUrls = new ArrayList<>();
                     picUrls.addAll(product.getPicUrl());
                     ViewPagerAdapter adapter = new ViewPagerAdapter(picUrls);
@@ -94,7 +99,8 @@ public class DetailActivity extends AppCompatActivity {
                         .replace(R.id.fragment_container, descriptionFragment)
                         .commit();
             } else {
-                // Product not found, handle the error
+                // Product not found, handle
+                // error
                 Toast.makeText(this, "Product not found", Toast.LENGTH_SHORT).show();
             }
         })
@@ -111,6 +117,39 @@ public class DetailActivity extends AppCompatActivity {
                 Intent intent = new Intent(DetailActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();
+            }
+        });
+
+        // Initialize picUrl as an empty list
+        picUrl = new ArrayList<>();
+        // Handle add to cart button click
+        AppCompatButton addToCartBtn = findViewById(R.id.addTocartBtn);
+        addToCartBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DetailActivity.this, CartActivity.class);
+
+
+                // Create an ItemsDomain object with the product details
+                ArrayList<String> picUrlList = new ArrayList<>(picUrl);
+
+
+                // Remove the "₹" symbol before parsing the price to a double
+                String priceStr = priceTxt.getText().toString().replace("₹", "").trim();
+                double price = Double.parseDouble(priceStr);
+
+                // Get the selected size from the SizeAdapter
+                SizeAdapter sizeAdapter = (SizeAdapter) sizeRecyclerView.getAdapter();
+                String selectedSize = sizeAdapter.getSelectedSize();
+
+                ItemsDomain item = new ItemsDomain(productId, titleTxt.getText().toString(), description, picUrlList, price, category, selectedSize);
+
+
+                    // Put the ItemsDomain object into the intent
+                    intent.putExtra("item", item);
+
+                    startActivity(intent);
+
             }
         });
     }
