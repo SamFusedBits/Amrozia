@@ -5,16 +5,14 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.example.amrozia.Adapter.ProductAdapter;
+import com.example.amrozia.Domain.ProductDomain;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +20,7 @@ import java.util.List;
 public class CategoryActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
-    private DatabaseReference database;
+    private FirebaseFirestore firestore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +28,7 @@ public class CategoryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_category);
 
         recyclerView = findViewById(R.id.recyclerView);
-        database = FirebaseDatabase.getInstance().getReference();
+        firestore = FirebaseFirestore.getInstance();
 
         // Get the category from the Intent
         String category = getIntent().getStringExtra("category");
@@ -53,24 +51,22 @@ public class CategoryActivity extends AppCompatActivity {
     }
 
     private void fetchDataAndDisplay(String category) {
-        // Fetch data from Firebase
-        database.child(category).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                List<Product> productList = new ArrayList<>();
-                for (DataSnapshot productSnapshot : dataSnapshot.getChildren()) {
-                    Product product = productSnapshot.getValue(Product.class);
-                    productList.add(product);
-                }
-                ProductAdapter productAdapter = new ProductAdapter(productList);
-                recyclerView.setLayoutManager(new GridLayoutManager(CategoryActivity.this, 2));
-                recyclerView.setAdapter(productAdapter);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                // Handle possible errors.
-            }
-        });
+        // Fetch data from Firestore
+        firestore.collection("Categories").document(category).collection("products")
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        List<ProductDomain> productList = new ArrayList<>();
+                        for (DocumentSnapshot document : task.getResult()) {
+                            ProductDomain product = document.toObject(ProductDomain.class);
+                            productList.add(product);
+                        }
+                        ProductAdapter productAdapter = new ProductAdapter(this,productList,category);
+                        recyclerView.setLayoutManager(new GridLayoutManager(CategoryActivity.this, 2));
+                        recyclerView.setAdapter(productAdapter);
+                    } else {
+                        // Handle errors
+                    }
+                });
     }
 }
