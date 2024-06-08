@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.amrozia.Activity.MoreActivity;
 import com.example.amrozia.Adapter.ProductAdapter;
@@ -28,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerViewCotton;
 
     private FirebaseFirestore firestore;
+    private ViewPager2 viewpagerSlider;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +57,17 @@ public class MainActivity extends AppCompatActivity {
         fetchDataAndDisplay("Premium Rayon Collection", recyclerViewPremiumRayon, progressBarPremiumRayon);
         fetchDataAndDisplay("Rayon Collection", recyclerViewRayon, progressBarRayon);
         fetchDataAndDisplay("Cotton Collection", recyclerViewCotton, progressBarCotton);
+
+        // Banner Image Slider
+        viewpagerSlider = findViewById(R.id.viewpagerSlider);
+        viewpagerSlider.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, CategoryActivity.class);
+                intent.putExtra("category","Rayon Collection");
+                startActivity(intent);
+            }
+        });
 
         // Set the onClickListeners for the cart buttons to go back to the home page
         LinearLayout cartButton = findViewById(R.id.cart_btn);
