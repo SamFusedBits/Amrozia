@@ -1,8 +1,8 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-   <!-- Original theme amrozia <style name="Base.Theme.Amrozia" parent="Theme.AppCompat.Light.NoActionBar">-->
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    <!-- Original theme amrozia <style name="Base.Theme.Amrozia" parent="Theme.AppCompat.Light.NoActionBar">-->
+    <!-- Customize your light theme here. -->
+    <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     <style name="Base.Theme.Amrozia" parent="Theme.MaterialComponents.Light.DarkActionBar"></style>
 
     <style name="Theme.Amrozia" parent="Base.Theme.Amrozia" >
