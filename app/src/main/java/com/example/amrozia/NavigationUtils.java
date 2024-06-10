@@ -5,6 +5,12 @@ import android.content.Intent;
 import android.util.Log;
 import android.view.MenuItem;
 
+import com.example.amrozia.Activity.AboutUsActivity;
+import com.example.amrozia.Activity.BlogActivity;
+import com.example.amrozia.Activity.FaqActivity;
+import com.example.amrozia.Activity.GiftCardActivity;
+import com.example.amrozia.Activity.ShippingReturnsActivity;
+
 public class NavigationUtils {
 
     private static final String TAG = "NavigationUtils";

@@ -1,8 +1,7 @@
 package com.example.amrozia;
 
-import static androidx.core.view.GravityCompat.*;
+import static androidx.core.view.GravityCompat.START;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -33,13 +32,6 @@ public class ShopActivity extends AppCompatActivity implements NavigationView.On
 
         // Set the layout for this activity to be R.layout.contact_us
         setContentView(R.layout.about_us);
-
-        // Initialize the grid icon ImageView by finding it in the layout
-        gridIcon = findViewById(R.id.grid_icon);
-
-        // Initialize the NavigationView
-        navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
 
         // Initialize the DrawerLayout
         drawerLayout = findViewById(R.id.drawer_layout);

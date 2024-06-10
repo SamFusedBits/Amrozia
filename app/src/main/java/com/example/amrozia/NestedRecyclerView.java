@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class NestedRecyclerView extends RecyclerView {
 
+    //Cards on the main page
+
     public NestedRecyclerView(Context context) {
         super(context);
     }
@@ -22,6 +24,6 @@ public class NestedRecyclerView extends RecyclerView {
 
     @Override
     protected void onMeasure(int widthSpec, int heightSpec) {
-        super.onMeasure(widthSpec, MeasureSpec.makeMeasureSpec(Integer.MAX_VALUE >> 2, MeasureSpec.AT_MOST));
+        super.onMeasure(widthSpec, MeasureSpec.makeMeasureSpec(Integer.MAX_VALUE >> 1, MeasureSpec.AT_MOST));
     }
 }

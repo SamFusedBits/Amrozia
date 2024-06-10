@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+    android:background="@color/white"
     tools:openDrawer="start">
 
     <ScrollView
@@ -23,18 +24,6 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <ImageView
-                    android:id="@+id/grid_icon"
-                    android:layout_width="70dp"
-                    android:layout_height="60dp"
-                    android:layout_marginTop="5dp"
-                    android:src="@drawable/ic_grid"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    android:paddingStart="16dp"
-                    android:paddingEnd="16dp"
-                    android:paddingBottom="16dp" />
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -43,6 +32,7 @@
                     android:textStyle="bold"
                     android:paddingBottom="8dp"
                     android:layout_marginTop="10dp"
+                    android:layout_marginStart="@dimen/_125sdp"
                     android:layout_marginLeft="85dp"
                     android:textColor="@color/black"/>
 
@@ -183,16 +173,4 @@
 
         </LinearLayout>
     </ScrollView>
-
-    <com.google.android.material.navigation.NavigationView
-        android:id="@+id/nav_view"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:fitsSystemWindows="true"
-        app:headerLayout="@layout/nav_header_main"
-        app:itemIconTint="@color/black"
-        app:itemTextAppearance="@color/black"
-        app:menu="@menu/menu_drawer"/> <!--For sidenav bar.-->
-
 </androidx.drawerlayout.widget.DrawerLayout>

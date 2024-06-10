@@ -28,6 +28,7 @@ public class ViewPagerAdapter extends RecyclerView.Adapter<ViewPagerAdapter.View
 
     public ViewPagerAdapter(List<String> imageUrls) {
         this.imageUrl = imageUrls;
+        Log.d("ViewPagerAdapter", "ViewPagerAdapter: " + imageUrl);
     }
 
     @NonNull

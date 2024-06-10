@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/_8sdp"
     android:background="@drawable/grey_background"
-    android:elevation="@dimen/_8sdp"
+    android:elevation="@dimen/_2sdp"
     android:layout_marginStart="@dimen/_10sdp"
     android:layout_marginEnd="@dimen/_10sdp"
     android:layout_marginBottom="@dimen/_16sdp"

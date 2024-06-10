@@ -17,19 +17,6 @@
             android:layout_height="match_parent">
             <!--android:background="@color/light_pink"-->
 
-            <ImageView
-                android:id="@+id/grid_icon"
-                android:layout_width="70dp"
-                android:layout_height="60dp"
-                android:layout_marginTop="22dp"
-                android:layout_marginLeft="10dp"
-                android:src="@drawable/ic_grid"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
-                android:paddingBottom="16dp" />
-
             <TextView
                 android:id="@+id/contact_heading"
                 android:layout_width="wrap_content"
@@ -223,17 +210,4 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
-
-    <!--For sidenav bar. Implement this always in the last as it might function properly when implemented at first-->
-    <com.google.android.material.navigation.NavigationView
-        android:id="@+id/nav_view"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:fitsSystemWindows="true"
-        app:headerLayout="@layout/nav_header_main"
-        app:itemIconTint="@color/black"
-        app:itemTextAppearance="@color/black"
-        app:menu="@menu/menu_drawer"/> <!--For sidenav bar.-->
-
 </androidx.drawerlayout.widget.DrawerLayout>

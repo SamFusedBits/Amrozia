@@ -1,5 +1,8 @@
 <resources>
 
+    <!-- Google Sign In -->
+    <string name="default_web_client_id">448931502989-nv4fdjf3r2tqans6mgsm8nt29l8mslfv.apps.googleusercontent.com</string>
+
     <!-- Activity Admin -->
     <string name="admin_panel">Admin Panel</string>
     <string name="name_hint">Name</string>
