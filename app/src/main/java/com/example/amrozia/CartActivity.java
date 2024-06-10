@@ -3,6 +3,7 @@ package com.example.amrozia;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.amrozia.Activity.MoreActivity;
+import com.example.amrozia.Activity.OrderConfirmationActivity;
 import com.example.amrozia.Adapter.CartAdapter;
 import com.example.amrozia.Domain.ItemsDomain;
 import com.example.amrozia.Helper.ChangeNumberItemsListener;
@@ -102,6 +104,15 @@ public class CartActivity extends AppCompatActivity implements ChangeNumberItems
             public void onClick(View v) {
                 // Open the cart activity
                 Intent intent = new Intent(CartActivity.this, MoreActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        Button checkOutBtn = findViewById(R.id.checkOutBtn);
+        checkOutBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CartActivity.this, OrderConfirmationActivity.class);
                 startActivity(intent);
             }
         });
