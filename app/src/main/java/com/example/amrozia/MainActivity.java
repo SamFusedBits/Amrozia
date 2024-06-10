@@ -15,6 +15,8 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.example.amrozia.Activity.MoreActivity;
 import com.example.amrozia.Adapter.ProductAdapter;
 import com.example.amrozia.Domain.ProductDomain;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -30,6 +32,23 @@ public class MainActivity extends AppCompatActivity {
 
     private FirebaseFirestore firestore;
     private ViewPager2 viewpagerSlider;
+
+    // Check if the user is logged in, if not redirect to the login page
+    @Override
+    protected void onStart() {
+        super.onStart();
+        checkAuthenticationState();
+    }
+
+    private void checkAuthenticationState() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user == null) {
+            // User is not logged in, redirect to LoginActivity
+            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -155,7 +174,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void fetchDataAndDisplay(String category, RecyclerView recyclerView, ProgressBar progressBar) {
     // Fetch data from Firestore
-    firestore.collection("Categories").document(category).collection("products").limit(8)
+    firestore.collection("Categories").document(category).collection("products").limit(4)
             .get()
             .addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
@@ -172,7 +191,5 @@ public class MainActivity extends AppCompatActivity {
                     // Handle errors
                 }
             });
-
-
 }
-    }
+}
