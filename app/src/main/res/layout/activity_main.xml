@@ -45,14 +45,14 @@
                     <ImageView
                         android:id="@+id/bell_image"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="@dimen/_33sdp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:srcCompat="@drawable/bell" />
 
-                    <ImageView
+<!--                    <ImageView
                         android:id="@+id/bell_notification_count"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -72,7 +72,7 @@
                         app:layout_constraintBottom_toBottomOf="@+id/bell_notification_count"
                         app:layout_constraintEnd_toEndOf="@+id/bell_notification_count"
                         app:layout_constraintStart_toStartOf="@+id/bell_notification_count"
-                        app:layout_constraintTop_toTopOf="@+id/bell_notification_count" />
+                        app:layout_constraintTop_toTopOf="@+id/bell_notification_count" />-->
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </LinearLayout>
 
