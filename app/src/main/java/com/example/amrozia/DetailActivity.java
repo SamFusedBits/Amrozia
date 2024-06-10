@@ -18,6 +18,7 @@ import com.example.amrozia.Adapter.ViewPagerAdapter;
 import com.example.amrozia.Domain.ItemsDomain;
 import com.example.amrozia.Domain.ProductDomain;
 import com.example.amrozia.Fragment.DescriptionFragment;
+import com.google.android.datatransport.backend.cct.BuildConfig;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
@@ -72,9 +73,11 @@ public class DetailActivity extends AppCompatActivity {
                     picUrls.addAll(product.getPicUrl());
                     ViewPagerAdapter adapter = new ViewPagerAdapter(picUrls);
                     viewpageSlider.setAdapter(adapter);
+                    viewpageSlider.getAdapter().notifyDataSetChanged();
                 } else {
                     ViewPagerAdapter adapter = new ViewPagerAdapter(new ArrayList<>());
                     viewpageSlider.setAdapter(adapter);
+                    viewpageSlider.getAdapter().notifyDataSetChanged();
                 }
 
                 // Set up the RecyclerView for the sizes
@@ -117,6 +120,20 @@ public class DetailActivity extends AppCompatActivity {
                 Intent intent = new Intent(DetailActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();
+            }
+        });
+
+        // Handle share button click
+        ImageView shareBtn = findViewById(R.id.shareBtn);
+        shareBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                shareIntent.setType("text/plain");
+                shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Share App");
+                String shareMessage = "Check out this app: https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID; //Replace "https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID with the actual URL of your app on the Google Play Store.
+                shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
+                startActivity(Intent.createChooser(shareIntent, "Share via"));
             }
         });
 
