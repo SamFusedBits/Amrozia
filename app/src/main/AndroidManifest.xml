@@ -30,11 +30,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".SignupActivity" />
-        <activity android:name=".Activity.GoogleSignInActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".AdminActivity"/>
-        <activity android:name=".HomeActivity" />
         <activity android:name=".Activity.MoreActivity" />
         <activity android:name=".CartActivity" />
         <activity android:name=".Activity.OrderConfirmationActivity" />
