@@ -1,27 +1,13 @@
 package com.example.amrozia;
 
-import static androidx.core.view.GravityCompat.START;
-
 import android.os.Bundle;
-import android.view.MenuItem;
-import android.widget.ImageView;
+import android.widget.Button;
+import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
+import com.example.amrozia.Activity.MoreActivity;
 
-import com.google.android.material.navigation.NavigationView;
-
-public class ContactUsActivity extends MainActivity implements NavigationView.OnNavigationItemSelectedListener {
-
-    // Declare ImageView for the grid icon
-    ImageView gridIcon;
-
-    // Declare DrawerLayout for the navigation drawer
-    DrawerLayout drawerLayout;
-
-    // Declare NavigationView
-    NavigationView navigationView;
+public class ContactUsActivity extends MoreActivity {
+    Button submit_button;
 
     // Override the onCreate method which is called when the activity is first created
     @Override
@@ -32,27 +18,9 @@ public class ContactUsActivity extends MainActivity implements NavigationView.On
         // Set the layout for this activity to be R.layout.contact_us
         setContentView(R.layout.contact_us);
 
-        // Initialize the grid icon ImageView by finding it in the layout
-        gridIcon = findViewById(R.id.grid_icon);
-
-        // Initialize the NavigationView
-        navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
-        // Initialize the DrawerLayout
-        drawerLayout = findViewById(R.id.drawer_layout);
-
-        // Set an OnClickListener on the grid icon
-        // When the grid icon is clicked, the navigation drawer will open
-        gridIcon.setOnClickListener(v -> {
-            drawerLayout.openDrawer(START);
+        submit_button = findViewById(R.id.submit_button);
+        submit_button.setOnClickListener(v -> {
+            Toast.makeText(ContactUsActivity.this, "Thank you for your feedback!", Toast.LENGTH_SHORT).show();
         });
-    }
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        NavigationUtils.navigateTo(item, this);
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
     }
 }
