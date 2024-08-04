@@ -21,12 +21,19 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
@@ -35,8 +42,8 @@ public class LoginActivity extends AppCompatActivity {
     private TextView forgotPasswordTextView;
     private ProgressBar progressBar;
     private FirebaseAuth mAuth;
+    private FirebaseFirestore db;
     private SharedPreferences sharedPreferences;
-
     private static final int RC_SIGN_IN = 123; // Request code for the sign-in intent
 
     @Override
@@ -51,6 +58,7 @@ public class LoginActivity extends AppCompatActivity {
         progressBar = new ProgressBar(this);
 
         mAuth = FirebaseAuth.getInstance();  // Initialize Firebase Auth
+        db = FirebaseFirestore.getInstance();  // Initialize Firestore
 
         sharedPreferences = getSharedPreferences("loginPrefs", MODE_PRIVATE);  // Initialize shared preferences
 
@@ -208,12 +216,60 @@ public class LoginActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             FirebaseUser user = mAuth.getCurrentUser();
-                            updateUI(user);
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Toast.makeText(LoginActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-                            updateUI(null);
+                            if (user != null) {
+                                // Get user email and name
+                                String email = user.getEmail();
+                                String name = user.getDisplayName();
+                                String image = user.getPhotoUrl().toString();
+                                String phone = user.getPhoneNumber();
+
+                                // Check if user already exists in Firestore
+                                db.collection("users").document(user.getUid()).get()
+                                        .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                                if (task.isSuccessful()) {
+                                                    DocumentSnapshot document = task.getResult();
+                                                    if (document.exists()) {
+                                                        // User already exists, no need to create a new document
+                                                        Log.d(TAG, "User already exists in Firestore");
+                                                    } else {
+                                                        // Create a new user with a name and email
+                                                        Map<String, Object> userMap = new HashMap<>();
+                                                        userMap.put("name", name);
+                                                        userMap.put("email", email);
+                                                        userMap.put("profileImageUrl", image);
+                                                        userMap.put("phone", phone);
+
+                                                        // Add a new document with the user ID
+                                                        db.collection("users").document(user.getUid())
+                                                                .set(userMap)
+                                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                    @Override
+                                                                    public void onSuccess(Void aVoid) {
+                                                                        Log.d(TAG, "User details successfully written!");
+                                                                        updateUI(user);
+                                                                    }
+                                                                })
+                                                                .addOnFailureListener(new OnFailureListener() {
+                                                                    @Override
+                                                                    public void onFailure(@NonNull Exception e) {
+                                                                        Log.w(TAG, "Error writing document", e);
+                                                                        Toast.makeText(LoginActivity.this, "Failed to save user details. Please try again.",
+                                                                                Toast.LENGTH_SHORT).show();
+                                                                        updateUI(null);
+                                                                    }
+                                                                });
+                                                    }
+                                                } else {
+                                                    // If sign in fails, display a message to the user.
+                                                    Toast.makeText(LoginActivity.this, "Authentication failed.",
+                                                            Toast.LENGTH_SHORT).show();
+                                                    updateUI(null);
+                                                }
+                                            }
+                                        });
+                            }
                         }
                     }
                 });
@@ -221,9 +277,13 @@ public class LoginActivity extends AppCompatActivity {
 
     private void updateUI(FirebaseUser user) {
         if (user != null) {
+            // Store login state locally
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putBoolean("isLoggedIn", true);
+            editor.apply();
+
             // Redirect to the main activity or home screen
-            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-            startActivity(intent);
+            startActivity(new Intent(LoginActivity.this, MainActivity.class));
             finish();
         }
     }
