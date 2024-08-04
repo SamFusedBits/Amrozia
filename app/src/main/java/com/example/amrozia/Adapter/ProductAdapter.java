@@ -24,23 +24,30 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     private Context context;
     private String category;
 
+    // Constructor to initialize the context and product list
     public ProductAdapter(Context context, List<ProductDomain> productList, String category) {
         this.context = context;
         this.productList = productList;
         this.category = category;
     }
 
+    // Create a new view holder
     @NonNull
     @Override
     public ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        // Inflate the view for the product item
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.viewholder_pop_list, parent, false);
+        // Return the view holder
         return new ProductViewHolder(itemView);
     }
 
+    // Bind the product data to the views
     @Override
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
+        // Get the product at the current position
         ProductDomain product = productList.get(position);
+        // Set the product name and price
         holder.name.setText(product.getTitle());
         holder.priceTxt.setText(String.format("\u20B9%s", product.getPrice()));  // \u20B9 is the Unicode for the Indian Rupee symbol
 
@@ -77,26 +84,40 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             holder.pic.setImageResource(R.drawable.image_unavailable); // Placeholder image if picUrl is empty
         }
 
+        // Set click listener to open detail activity
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int pos = holder.getAdapterPosition();
+                // Get the position of the clicked item
+                int pos = holder.getBindingAdapterPosition();
+                // Check if the position is valid
                 if (pos != RecyclerView.NO_POSITION) {
-                    ProductDomain clickedProduct = productList.get(pos);
                     Intent intent = new Intent(context, DetailActivity.class);
-                    intent.putExtra("productId", clickedProduct.getId());
-                    intent.putExtra("category", clickedProduct.getCategory());
+                    // Pass the product
+                    intent.putExtra("productId", productList.get(holder.getBindingAdapterPosition()).getId());
+                    intent.putExtra("category", productList.get(holder.getBindingAdapterPosition()).getCategory());
+                    intent.putExtra("price", productList.get(holder.getBindingAdapterPosition()).getPrice());
+                    // Start the detail activity with the product details passed as extras in the intent
+                    intent.putExtra("fromSalesProductActivity", true);
                     context.startActivity(intent);
                 }
             }
         });
     }
 
+    // Update the product list with new products
+    public void updateProducts(List<ProductDomain> newProducts) {
+        this.productList = newProducts;
+        notifyDataSetChanged();
+    }
+
+    // Get the number of items in the product list
     @Override
     public int getItemCount() {
         return productList.size();
     }
 
+    // ViewHolder class for the product items
     public static class ProductViewHolder extends RecyclerView.ViewHolder {
         public TextView name;
         public TextView priceTxt;
@@ -108,5 +129,11 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             priceTxt = view.findViewById(R.id.priceTxt);
             pic = view.findViewById(R.id.pic);
         }
+    }
+
+    // Update the product list with new products
+    public void updateProductList(List<ProductDomain> newProductList) {
+        this.productList = newProductList;
+        notifyDataSetChanged();
     }
 }
