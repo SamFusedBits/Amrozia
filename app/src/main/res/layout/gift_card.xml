@@ -171,10 +171,10 @@
                 android:layout_height="wrap_content"
                 android:text="@string/buy_now"
                 android:textAllCaps="false"
-                android:background="@drawable/button_bg_red"
+                android:background="@drawable/button_bg"
                 android:textColor="@color/white"
-                android:textSize="16sp"
-                android:padding="15dp" />
+                android:textSize="@dimen/_15ssp"
+                android:layout_marginBottom="@dimen/_15sdp"/>
         </LinearLayout>
     </ScrollView>
 </androidx.drawerlayout.widget.DrawerLayout>

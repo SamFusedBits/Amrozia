@@ -78,7 +78,7 @@
     <string name="packaging_answer">All items are carefully packaged as to avoid any form of damage.</string>
     <string name="tax_responsibility_question">9) Who would be responsible for paying local taxes in countries outside of India?</string>
     <string name="tax_responsibility_answer">Customs Duty &amp; other international taxes etc. if applicable will have to be borne by the customer according to the laws of the land.</string>
-    <string name="track_shipments_link">10) Track your shipments https://globalfashion.aftership.com</string>
+    <string name="track_shipments_link">10) Track your shipments at - https://globalfashion.aftership.com</string>
 
     <string name="return_policy_title">Return Policy</string>
     <string name="return_policy_question">1) What is Global Fashion Return Policy?</string>

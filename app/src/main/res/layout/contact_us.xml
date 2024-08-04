@@ -196,7 +196,7 @@
                 android:layout_marginTop="35dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:background="@drawable/button_bg_red"
+                android:background="@drawable/button_bg"
                 android:text="@string/contact_submit"
                 android:textAllCaps="false"
                 android:textColor="@android:color/white"

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:id="@+id/scrollView2"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -15,18 +15,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingBottom="@dimen/_70sdp">
+            android:paddingBottom="@dimen/_20sdp">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_24sdp"
                 android:orientation="horizontal">
 
                 <EditText
-                    android:id="@+id/search_bar_hint"
-                    android:layout_width="match_parent"
+                    android:id="@+id/search_bar"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
                     android:layout_marginEnd="@dimen/_16ssp"
                     android:layout_weight="1"
                     android:background="@drawable/edittext_bg"
@@ -35,22 +36,24 @@
                     android:ems="10"
                     android:hint="@string/search_bar_hint"
                     android:inputType="text"
+                    android:imeOptions="actionSearch"
                     android:padding="@dimen/_8ssp" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="@dimen/_40sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
                     android:layout_height="wrap_content"
                     android:background="@drawable/edittext_bg">
 
                     <ImageView
-                        android:id="@+id/bell_image"
+                        android:id="@+id/notification"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/_33sdp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/bell" />
+                        app:srcCompat="@drawable/notification" />
 
 <!--                    <ImageView
                         android:id="@+id/bell_notification_count"
@@ -92,7 +95,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <androidx.viewpager2.widget.ViewPager2
-                    android:id="@+id/viewpagerSlider"
+                    android:id="@+id/sale_banner"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingStart="@dimen/_24sdp"
@@ -106,7 +109,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_16sdp"
                 android:layout_marginEnd="@dimen/_24sdp"
@@ -114,7 +117,7 @@
 
                 <TextView
                     android:id="@+id/mashru_silk"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/mashru_silk"
@@ -132,7 +135,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
 
                 <ProgressBar
                     android:id="@+id/progressBarMashru"
@@ -147,7 +150,7 @@
                 <com.example.amrozia.NestedRecyclerView
                     android:id="@+id/recyclerViewMashru"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:clipToPadding="true"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -157,7 +160,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_16sdp"
                 android:layout_marginEnd="@dimen/_24sdp"
@@ -165,7 +168,7 @@
 
                 <TextView
                     android:id="@+id/staple_cotton"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/staple_cotton"
@@ -183,7 +186,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
 
                 <ProgressBar
                     android:id="@+id/progressBarStaple"
@@ -198,7 +201,7 @@
                 <com.example.amrozia.NestedRecyclerView
                     android:id="@+id/recyclerViewStaple"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:clipToPadding="true"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -208,7 +211,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_16sdp"
                 android:layout_marginEnd="@dimen/_24sdp"
@@ -216,7 +219,7 @@
 
                 <TextView
                     android:id="@+id/premium_rayon"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/premium_rayon"
@@ -234,7 +237,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
 
                 <ProgressBar
                     android:id="@+id/progressBarPremiumRayon"
@@ -249,7 +252,7 @@
                 <com.example.amrozia.NestedRecyclerView
                     android:id="@+id/recyclerViewPremiumRayon"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:clipToPadding="true"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -259,7 +262,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_16sdp"
                 android:layout_marginEnd="@dimen/_24sdp"
@@ -267,13 +270,12 @@
 
                 <TextView
                     android:id="@+id/rayon"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/rayon"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_18ssp"
-
                     android:textStyle="bold" />
 
                 <TextView
@@ -286,7 +288,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
 
                 <ProgressBar
                     android:id="@+id/progressBarRayon"
@@ -301,7 +303,7 @@
                 <com.example.amrozia.NestedRecyclerView
                     android:id="@+id/recyclerViewRayon"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:clipToPadding="true"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -311,7 +313,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_16sdp"
                 android:layout_marginEnd="@dimen/_24sdp"
@@ -319,13 +321,12 @@
 
                 <TextView
                     android:id="@+id/cotton"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/cotton"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_18ssp"
-
                     android:textStyle="bold" />
 
                 <TextView
@@ -338,7 +339,8 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_30sdp">
 
                 <ProgressBar
                     android:id="@+id/progressBarCotton"
@@ -353,7 +355,7 @@
                 <com.example.amrozia.NestedRecyclerView
                     android:id="@+id/recyclerViewCotton"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:clipToPadding="true"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -362,7 +364,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </LinearLayout>
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
     <include layout="@layout/navigation_bar"/>
 

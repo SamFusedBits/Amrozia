@@ -44,14 +44,16 @@
             android:text="@string/returns_work"
             android:textStyle="bold"
             android:textSize="16sp"
-            android:layout_marginTop="16dp" />
+            android:layout_marginTop="16dp"
+            android:textColor="@color/black" />
 
         <TextView
             android:id="@+id/returns_work_answer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/returns_work_answer"
-            android:layout_marginTop="8dp" />
+            android:layout_marginTop="8dp"
+            android:textColor="@color/black" />
 
         <TextView
             android:id="@+id/returns_time_limit"
@@ -60,14 +62,16 @@
             android:text="@string/returns_time_limit"
             android:textStyle="bold"
             android:textSize="16sp"
-            android:layout_marginTop="16dp" />
+            android:layout_marginTop="16dp"
+            android:textColor="@color/black" />
 
         <TextView
             android:id="@+id/returns_time_limit_answer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/returns_time_limit_answer"
-            android:layout_marginTop="8dp" />
+            android:layout_marginTop="8dp"
+            android:textColor="@color/black" />
 
         <TextView
             android:id="@+id/return_freebie"
@@ -76,14 +80,16 @@
             android:text="@string/return_freebie"
             android:textStyle="bold"
             android:textSize="16sp"
-            android:layout_marginTop="16dp" />
+            android:layout_marginTop="16dp"
+            android:textColor="@color/black" />
 
         <TextView
             android:id="@+id/return_freebie_answer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/return_freebie_answer"
-            android:layout_marginTop="8dp" />
+            android:layout_marginTop="8dp"
+            android:textColor="@color/black" />
 
         <!-- Shipping Section -->
         <TextView
@@ -104,14 +110,16 @@
             android:text="@string/estimated_delivery_time"
             android:textStyle="bold"
             android:textSize="16sp"
-            android:layout_marginTop="16dp" />
+            android:layout_marginTop="16dp"
+            android:textColor="@color/black" />
 
         <TextView
             android:id="@+id/estimated_delivery_time_ans"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/estimated_delivery_time_ans"
-            android:layout_marginTop="8dp" />
+            android:layout_marginTop="8dp"
+            android:textColor="@color/black" />
 
         <TextView
             android:id="@+id/tracking_order"
@@ -120,14 +128,16 @@
             android:text="@string/tracking_order"
             android:textStyle="bold"
             android:textSize="16sp"
-            android:layout_marginTop="16dp" />
+            android:layout_marginTop="16dp"
+            android:textColor="@color/black" />
 
         <TextView
             android:id="@+id/tracking_order_ans"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/tracking_order_answer"
-            android:layout_marginTop="8dp" />
+            android:layout_marginTop="8dp"
+            android:textColor="@color/black" />
 
         <TextView
             android:id="@+id/money_back_guarantee"
@@ -136,14 +146,16 @@
             android:text="@string/money_back_guarantee"
             android:textStyle="bold"
             android:textSize="16sp"
-            android:layout_marginTop="16dp" />
+            android:layout_marginTop="16dp"
+            android:textColor="@color/black" />
 
         <TextView
             android:id="@+id/money_back_guarantee_ans"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/money_back_guarantee_answer"
-            android:layout_marginTop="8dp" />
+            android:layout_marginTop="8dp"
+            android:textColor="@color/black" />
 
         <!-- Payments Section -->
         <TextView
@@ -164,14 +176,16 @@
             android:text="@string/payment_methods"
             android:textStyle="bold"
             android:textSize="16sp"
-            android:layout_marginTop="16dp" />
+            android:layout_marginTop="16dp"
+            android:textColor="@color/black" />
 
         <TextView
             android:id="@+id/payment_methods_answer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/payment_methods_answer"
-            android:layout_marginTop="8dp" />
+            android:layout_marginTop="8dp"
+            android:textColor="@color/black" />
 
         <TextView
             android:id="@+id/octroi_charge"
@@ -180,14 +194,16 @@
             android:text="@string/octroi_charge"
             android:textStyle="bold"
             android:textSize="16sp"
-            android:layout_marginTop="16dp" />
+            android:layout_marginTop="16dp"
+            android:textColor="@color/black" />
 
         <TextView
             android:id="@+id/octroi_charge_answer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/octroi_charge_answer"
-            android:layout_marginTop="8dp" />
+            android:layout_marginTop="8dp"
+            android:textColor="@color/black" />
 
         </LinearLayout>
     </ScrollView>
