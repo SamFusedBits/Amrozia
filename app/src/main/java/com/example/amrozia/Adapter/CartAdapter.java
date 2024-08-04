@@ -30,8 +30,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             this.managementCart = managementCart;
         }
 
-
-
     @NonNull
     @Override
     public CartViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -51,22 +49,20 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 
     //Display the cart items
     public class CartViewHolder extends RecyclerView.ViewHolder {
-        private TextView titleTxt, priceTxt, sizeTxt, numberItemTxt, plusCartBtn, minusCartBtn;
-
+        private TextView titleTxt, priceTxt, numberItemTxt, plusCartBtn, minusCartBtn;
         private ImageView pic;
 
         public CartViewHolder(@NonNull View itemView) {
             super(itemView);
             titleTxt = itemView.findViewById(R.id.titleTxt);
             priceTxt = itemView.findViewById(R.id.priceTxt);
-            sizeTxt = itemView.findViewById(R.id.sizeTxt);
             pic = itemView.findViewById(R.id.pic);
             numberItemTxt = itemView.findViewById(R.id.numberItemTxt);
             plusCartBtn = itemView.findViewById(R.id.plusCartBtn);
             minusCartBtn = itemView.findViewById(R.id.minusCartBtn);
 
             // Check if the TextViews are null
-            if (titleTxt == null || priceTxt == null || sizeTxt == null | numberItemTxt == null || plusCartBtn == null || minusCartBtn == null) {
+            if (titleTxt == null || priceTxt == null || numberItemTxt == null || plusCartBtn == null || minusCartBtn == null) {
                 throw new RuntimeException("Check your viewholder_cart.xml layout");
             }
         }
@@ -74,7 +70,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         public void bind(ItemsDomain item) {
             titleTxt.setText(item.getTitle());
             priceTxt.setText(String.format("₹%.2f", item.getPrice()));
-            sizeTxt.setText(item.getSize());
+            numberItemTxt.setText(String.valueOf(item.getQuantity()));
 
             // Load the image using Glide
             Glide.with(itemView)
