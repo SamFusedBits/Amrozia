@@ -9,6 +9,7 @@
     <string name="product_id_hint">Product ID</string>
     <string name="description_hint">Description</string>
     <string name="price_hint">Price</string>
+    <string name="stock_hint">Qty</string>
     <string name="pic_urls_hint">Pic URLs (comma separated)</string>
     <string name="sizes_hint">Sizes (comma separated)</string>
     <string name="submit_button_admin">Submit</string>
@@ -37,7 +38,7 @@
     <string name="cotton">Cotton Collection</string>
     <string name="see_all">See all</string>
 
-    <string name="search_bar_hint">Search anything</string>
+    <string name="search_bar_hint">Search Amrozia.in</string>
 
 
     <string name="contact_heading">Get in touch with us</string>
