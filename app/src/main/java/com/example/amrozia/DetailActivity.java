@@ -1,6 +1,8 @@
 package com.example.amrozia;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -9,16 +11,12 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
-import com.example.amrozia.Adapter.SizeAdapter;
 import com.example.amrozia.Adapter.ViewPagerAdapter;
 import com.example.amrozia.Domain.ItemsDomain;
 import com.example.amrozia.Domain.ProductDomain;
 import com.example.amrozia.Fragment.DescriptionFragment;
-import com.google.android.datatransport.backend.cct.BuildConfig;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
@@ -29,14 +27,17 @@ public class DetailActivity extends AppCompatActivity {
     private List<String> picUrl; // This should be your list of image URLs
     private List<String> sizeTxt;
     private String description;
-
-
     private FirebaseFirestore firestore;
+    private ImageView favBtn, shareBtn;
+    private ImageView favDarkBtn, shareDarkBtn;
+    private boolean isFavChecked = false; // To keep track of the button state
+    private static final String PREFS_NAME = "FavPrefs"; // Shared preferences file name
+    private static final String FAV_STATE_KEY = "favState"; // Key for the favorite state
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail);
+        setContentView(R.layout.activity_product_detail);
 
         firestore = FirebaseFirestore.getInstance();
 
@@ -44,16 +45,45 @@ public class DetailActivity extends AppCompatActivity {
         String productId = getIntent().getStringExtra("productId");
         String category = getIntent().getStringExtra("category");
 
-        // Set a default adapter and layout manager for the RecyclerView Size
-        RecyclerView sizeRecyclerView = findViewById(R.id.sizeRecyclerView);
-        sizeRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        sizeRecyclerView.setAdapter(new SizeAdapter(new ArrayList<>()));
+        // Validate the productId and category
+        if (productId == null || category == null) {
+            Toast.makeText(this, "Product not found.", Toast.LENGTH_SHORT).show();
+            finish();
+            return;
+        }
 
         // Get references to the views in activity_detail
         ViewPager2 viewpageSlider = findViewById(R.id.viewpageSlider);
         TextView titleTxt = findViewById(R.id.titleTxt);
         TextView priceTxt = findViewById(R.id.priceTxt);
-        TextView sizeTxt = findViewById(R.id.sizeTxt);
+
+        favBtn = findViewById(R.id.favBtn);
+        favDarkBtn = findViewById(R.id.favDarkBtn);
+        shareBtn = findViewById(R.id.shareBtn);
+        shareDarkBtn = findViewById(R.id.shareDarkBtn);
+
+        // Load saved state
+        SharedPreferences sharedPreferences = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        // Load the favorite state from shared preferences
+        isFavChecked = sharedPreferences.getBoolean(FAV_STATE_KEY, false);
+        // Update the favorite button based on the saved state
+        updateFavoriteButton();
+        // Set the click listeners for the save button
+        favBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                toggleFavorite();
+            }
+        });
+
+        // Set the click listener for the saved button
+        favDarkBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                toggleFavorite();
+            }
+        });
+
 
     // Fetch the Product from Firestore based on its ID
     firestore.collection("Categories").document(category).collection("products").document(productId)
@@ -63,7 +93,29 @@ public class DetailActivity extends AppCompatActivity {
                 // Product found, populate the views with its data
                 ProductDomain product = documentSnapshot.toObject(ProductDomain.class);
                 titleTxt.setText(product.getTitle());
-                priceTxt.setText(String.format("₹%s", product.getPrice()));
+                // Get the price from the intent
+                Intent intent = getIntent();
+                // Check if the intent is from SalesProductActivity
+                boolean fromSalesProductActivity = intent.getBooleanExtra("fromSalesProductActivity", false);
+                double price;
+                // If the intent is from SalesProductActivity, get the price from the intent
+                if (fromSalesProductActivity) {
+                    price = intent.getDoubleExtra("price", 0);
+                } else {
+                    // If the intent is not from SalesProductActivity, get the price from the product
+                    ItemsDomain item = (ItemsDomain) intent.getSerializableExtra("item");
+                    // Check if the item is not null
+                    if (item != null) {
+                        price = item.getPrice();
+                    } else {
+                        // Handle case where item is null
+                        price = product.getPrice();
+                    }
+                }
+                // Display the price
+                TextView priceTextView = findViewById(R.id.priceTxt);
+                // Format the price as a currency string
+                priceTextView.setText(String.format("₹%.2f", price));
                 description = product.getDescription(); // Fetch the description here
 
                 // Set up the ViewPager for the product images
@@ -71,20 +123,20 @@ public class DetailActivity extends AppCompatActivity {
                     picUrl = product.getPicUrl(); // Populate picUrl with the product's image URLs
                     List<String> picUrls = new ArrayList<>();
                     picUrls.addAll(product.getPicUrl());
+                    // Create a new instance of ViewPagerAdapter and set it as the adapter for the ViewPager
                     ViewPagerAdapter adapter = new ViewPagerAdapter(picUrls);
+                    // Set the adapter for the ViewPager
                     viewpageSlider.setAdapter(adapter);
                     viewpageSlider.getAdapter().notifyDataSetChanged();
                 } else {
+                    // If the product has no images, create an empty adapter
                     ViewPagerAdapter adapter = new ViewPagerAdapter(new ArrayList<>());
+                    // Set the adapter for the ViewPager
                     viewpageSlider.setAdapter(adapter);
+                    // Notify the adapter that the data set has changed
                     viewpageSlider.getAdapter().notifyDataSetChanged();
                 }
 
-                // Set up the RecyclerView for the sizes
-                if (product.getSize() != null) {
-                    SizeAdapter sizeAdapter = new SizeAdapter(product.getSize());
-                    sizeRecyclerView.setAdapter(sizeAdapter);
-                }
                 // Create a new instance of DescriptionFragment
                 DescriptionFragment descriptionFragment = new DescriptionFragment();
 
@@ -131,8 +183,8 @@ public class DetailActivity extends AppCompatActivity {
                 Intent shareIntent = new Intent(Intent.ACTION_SEND);
                 shareIntent.setType("text/plain");
                 shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Share App");
-                String shareMessage = "Check out this app: https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID; //Replace "https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID with the actual URL of your app on the Google Play Store.
-                shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
+                //String shareMessage = "Check out this app: https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID; //Replace "https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID with the actual URL of your app on the Google Play Store.
+                //shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
                 startActivity(Intent.createChooser(shareIntent, "Share via"));
             }
         });
@@ -155,19 +207,41 @@ public class DetailActivity extends AppCompatActivity {
                 String priceStr = priceTxt.getText().toString().replace("₹", "").trim();
                 double price = Double.parseDouble(priceStr);
 
-                // Get the selected size from the SizeAdapter
-                SizeAdapter sizeAdapter = (SizeAdapter) sizeRecyclerView.getAdapter();
-                String selectedSize = sizeAdapter.getSelectedSize();
+                ItemsDomain item = new ItemsDomain(productId, titleTxt.getText().toString(), description, picUrlList, price, category);
 
-                ItemsDomain item = new ItemsDomain(productId, titleTxt.getText().toString(), description, picUrlList, price, category, selectedSize);
+                // Put the ItemsDomain object into the intent
+                intent.putExtra("item", item);
 
+                // Pass the category and productId as extras in the intent
+                intent.putExtra("category", category);
+                intent.putExtra("productId", productId);
 
-                    // Put the ItemsDomain object into the intent
-                    intent.putExtra("item", item);
-
-                    startActivity(intent);
-
+                startActivity(intent);
             }
         });
+    }
+    private void toggleFavorite() {
+        isFavChecked = !isFavChecked;
+        updateFavoriteButton();
+
+        // Save the state
+        SharedPreferences sharedPreferences = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(FAV_STATE_KEY, isFavChecked);
+        editor.apply();
+    }
+
+    private void updateFavoriteButton() {
+        if (isFavChecked) {
+            favBtn.setVisibility(View.GONE);
+            favDarkBtn.setVisibility(View.VISIBLE);
+            shareBtn.setVisibility(View.GONE);
+            shareDarkBtn.setVisibility(View.VISIBLE);
+        } else {
+            favBtn.setVisibility(View.VISIBLE);
+            favDarkBtn.setVisibility(View.GONE);
+            shareBtn.setVisibility(View.VISIBLE);
+            shareDarkBtn.setVisibility(View.GONE);
+        }
     }
 }
