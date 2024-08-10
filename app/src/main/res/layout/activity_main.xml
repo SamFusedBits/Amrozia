@@ -46,14 +46,14 @@
                     android:background="@drawable/edittext_bg">
 
                     <ImageView
-                        android:id="@+id/notification"
+                        android:id="@+id/microphone"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/_33sdp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/notification" />
+                        app:srcCompat="@drawable/microphone" />
 
 <!--                    <ImageView
                         android:id="@+id/bell_notification_count"

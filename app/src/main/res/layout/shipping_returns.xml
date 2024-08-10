@@ -303,14 +303,14 @@
                 android:layout_marginBottom="16dp"
                 android:textColor="@color/black"/>
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/contact_support_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/contact_support_email"
                 android:textAllCaps="false"
                 android:textAlignment="center"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:background="@drawable/button_bg"/>
 
             <!-- Copyright Section -->

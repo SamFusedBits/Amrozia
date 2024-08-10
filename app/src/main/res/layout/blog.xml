@@ -54,7 +54,8 @@
                 android:textStyle="bold"
                 android:paddingTop="16dp"
                 android:paddingBottom="8dp"
-                android:textAlignment="center"/>
+                android:textAlignment="center"
+                android:textColor="@color/black"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -63,13 +64,15 @@
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:paddingTop="16dp"
-                android:paddingBottom="8dp" />
+                android:paddingBottom="8dp"
+                android:textColor="@color/black"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/blog_rayon_production"
-                android:paddingBottom="8dp" />
+                android:paddingBottom="8dp"
+                android:textColor="@color/black" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -78,31 +81,36 @@
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:paddingTop="16dp"
-                android:paddingBottom="8dp" />
+                android:paddingBottom="8dp"
+                android:textColor="@color/black" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/blog_rayon_washing_tip1"
-                android:paddingBottom="4dp" />
+                android:paddingBottom="4dp"
+                android:textColor="@color/black" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/blog_rayon_washing_tip2"
-                android:paddingBottom="4dp" />
+                android:paddingBottom="4dp"
+                android:textColor="@color/black" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/blog_rayon_washing_tip3"
-                android:paddingBottom="4dp" />
+                android:paddingBottom="4dp"
+                android:textColor="@color/black" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/blog_rayon_washing_tip4"
-                android:paddingBottom="16dp" />
+                android:paddingBottom="16dp"
+                android:textColor="@color/black" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -126,13 +134,15 @@
                 android:textSize="24sp"
                 android:textStyle="bold"
                 android:paddingTop="16dp"
-                android:paddingBottom="8dp" />
+                android:paddingBottom="8dp"
+                android:textColor="@color/black" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/blog_ajrakh_intro"
-                android:paddingBottom="8dp" />
+                android:paddingBottom="8dp"
+                android:textColor="@color/black" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -141,13 +151,15 @@
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:paddingTop="16dp"
-                android:paddingBottom="8dp" />
+                android:paddingBottom="8dp"
+                android:textColor="@color/black" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/blog_ajrakh_dyes"
-                android:paddingBottom="8dp" />
+                android:paddingBottom="8dp"
+                android:textColor="@color/black" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -156,13 +168,15 @@
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:paddingTop="16dp"
-                android:paddingBottom="8dp" />
+                android:paddingBottom="8dp"
+                android:textColor="@color/black" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/blog_ajrakh_blocks"
-                android:paddingBottom="16dp" />
+                android:paddingBottom="16dp"
+                android:textColor="@color/black" />
 
             <TextView
                 android:layout_width="wrap_content"

@@ -165,15 +165,15 @@
                 android:hint="@string/message"
                 android:layout_marginBottom="16dp" />
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/buy_now"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/buy_now"
                 android:textAllCaps="false"
                 android:background="@drawable/button_bg"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_15ssp"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_16ssp"
                 android:layout_marginBottom="@dimen/_15sdp"/>
         </LinearLayout>
     </ScrollView>

@@ -114,22 +114,12 @@
                 android:elevation="@dimen/_5sdp"
                 android:textColor="#000" />
 
-            <Button
-                android:id="@+id/submitButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/submit_button_admin"
-                android:padding="@dimen/_8sdp"
-                android:backgroundTint="@color/beige"
-                android:textColor="@color/black"
-                android:textAllCaps="false"
-                android:elevation="@dimen/_2sdp" />
-
             <EditText
-                android:id="@+id/notificationMessageEditText"
+                android:id="@+id/stockEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Notification Message"
+                android:hint="@string/stock_hint"
+                android:inputType="numberDecimal"
                 android:padding="@dimen/_12ssp"
                 android:layout_marginBottom="@dimen/_12ssp"
                 android:background="@android:color/white"
@@ -137,10 +127,10 @@
                 android:textColor="#000" />
 
             <Button
-                android:id="@+id/sendNotificationButton"
+                android:id="@+id/submitButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Send Notification"
+                android:text="@string/submit_button_admin"
                 android:padding="@dimen/_8sdp"
                 android:backgroundTint="@color/beige"
                 android:textColor="@color/black"

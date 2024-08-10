@@ -75,16 +75,17 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/_20ssp"/>
 
-    <!-- Submit Button -->
-    <Button
+        <!-- Submit Button -->
+        <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/buttonSubmit"
+        style="@android:style/Widget.Button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Proceed to Payment"
         android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="@dimen/_14ssp"
-        android:background="@drawable/button_bg_layout"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_16ssp"
+        android:background="@drawable/beige_button_bg"
         android:layout_marginTop="@dimen/_20ssp"/>
 
 </LinearLayout>

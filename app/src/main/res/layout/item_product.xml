@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:padding="@dimen/_10sdp"
-    android:background="@color/grey"
+    android:background="@color/light_pink"
     android:layout_marginBottom="@dimen/_8sdp">
 
     <!-- Product details -->
@@ -20,7 +20,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Product Name"
-            android:textSize="@dimen/_14ssp"
+            android:textSize="@dimen/_15ssp"
+            android:layout_marginTop="@dimen/_5ssp"
             android:textColor="@color/black"
             android:textStyle="bold"/>
 
@@ -32,6 +33,16 @@
             android:textSize="@dimen/_14ssp"
             android:layout_marginTop="@dimen/_10ssp"
             android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/productQuantityTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Qty: 1"
+            android:textSize="@dimen/_14ssp"
+            android:layout_marginTop="@dimen/_10ssp"
+            android:textColor="@color/black"/>
+
     </LinearLayout>
 
     <!-- Product image -->
