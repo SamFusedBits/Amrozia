@@ -11,17 +11,21 @@ public class ProductDomain implements Serializable {
     private double price;
     private ArrayList<String> picUrl;
     private String category;
+    private int stock;
+    private int quantity;
 
     // Default constructor is needed for Firebase
     public ProductDomain() {}
 
-    public ProductDomain(String id, String title, String description, double price, ArrayList<String> picUrl, String category) {
+    public ProductDomain(String id, String title, String description, double price, ArrayList<String> picUrl, String category, int stock, int quantity) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.price = price;
         this.picUrl = picUrl;
         this.category = category;
+        this.stock = stock;
+        this.quantity = quantity;
     }
 
     // Getters and setters for all fields
@@ -67,5 +71,21 @@ public class ProductDomain implements Serializable {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    public int getStock() {
+        return stock;
+    }
+
+    public void setStock(int stock) {
+        this.stock = stock;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 }
