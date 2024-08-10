@@ -70,6 +70,9 @@ public class SearchResultsActivity extends AppCompatActivity {
         progressBarSearch.setVisibility(View.VISIBLE);
         String searchLowerCase = searchedTitle.toLowerCase();  // Convert search title to lowercase for case-insensitive search
 
+        // Split the search query into individual words
+        List<String> searchKeywords = Arrays.asList(searchLowerCase.split(" "));
+
         // List to hold tasks for querying each category's products
         List<Task<QuerySnapshot>> tasks = new ArrayList<>();
 
@@ -90,8 +93,7 @@ public class SearchResultsActivity extends AppCompatActivity {
             Log.d("SearchResultsActivity", "Querying category: " + category);
 
             // Query the products subcollection within each category
-            tasks.add(productsRef
-                    .get());
+            tasks.add(productsRef.get());
         }
 
         // When all product queries are complete, process the results
@@ -101,7 +103,6 @@ public class SearchResultsActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<List<QuerySnapshot>> task) {
                 if (task.isSuccessful()) {
                     boolean productFound = false;
-                    ProductDomain product = null; // Product object to hold the found product
 
                     // Clear the list of all products before adding new results
                     allProducts.clear();
@@ -109,13 +110,18 @@ public class SearchResultsActivity extends AppCompatActivity {
                     for (QuerySnapshot querySnapshot : task.getResult()) {
                         for (DocumentSnapshot productDoc : querySnapshot) {
                             if (productDoc.exists()) {
-                                product = productDoc.toObject(ProductDomain.class);
-                                if (product != null && product.getTitle().toLowerCase().contains(searchLowerCase)) {
-                                    // Log product found
-                                    Log.d("SearchResultsActivity", "Product found: " + product.getTitle());
-                                    productFound = true;
-                                    // Add the found product to the list
-                                    allProducts.add(product);
+                                ProductDomain product = productDoc.toObject(ProductDomain.class);
+                                if (product != null) {
+                                    for (String keyword : searchKeywords) {
+                                        if (product.getTitle().toLowerCase().contains(keyword)) {
+                                            // Log product found
+                                            Log.d("SearchResultsActivity", "Product found: " + product.getTitle());
+                                            productFound = true;
+                                            // Add the found product to the list
+                                            allProducts.add(product);
+                                            break;  // Break the loop once a match is found
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -123,8 +129,6 @@ public class SearchResultsActivity extends AppCompatActivity {
 
                     if (productFound) {
                         Log.d("SearchResultsActivity", "Products found: " + allProducts.size());
-                        // Add the found product to the list
-                        allProducts.add(product);
                         // Update the adapter with the new product list
                         productAdapter = new ProductAdapter(SearchResultsActivity.this, allProducts, "Search Results");
                         recyclerViewSearchResults.setAdapter(productAdapter);
