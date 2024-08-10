@@ -4,15 +4,13 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
-
-import androidx.cardview.widget.CardView;
+import android.widget.ImageView;
 
 import com.example.amrozia.R;
 
 public class AboutUsActivity extends MoreActivity {
 
-    // Declare CardViews
-    CardView facebookCard, twitterCard, instagramCard, whatsappCard;
+    ImageView facebookLogo, twitterLogo, instagramLogo, whatsappLogo;
 
     // Override the onCreate method which is called when the activity is first created
     @Override
@@ -22,37 +20,36 @@ public class AboutUsActivity extends MoreActivity {
 
         // Set the layout for this activity to be R.layout.contact_us
         setContentView(R.layout.about_us);
-
-        // Initialize CardViews
-        facebookCard = findViewById(R.id.card_facebook);
-        twitterCard = findViewById(R.id.card_twitter);
-        instagramCard = findViewById(R.id.card_instagram);
-        whatsappCard = findViewById(R.id.card_whatsapp);
+        
+        facebookLogo = findViewById(R.id.facebook_logo);
+        twitterLogo = findViewById(R.id.twitter_logo);
+        instagramLogo = findViewById(R.id.instagram_logo);
+        whatsappLogo = findViewById(R.id.whatsapp_logo);
 
         // Set click listeners for the CardViews
         // Open UrLs in the app installed, otherwise in the default browser
-        facebookCard.setOnClickListener(new View.OnClickListener() {
+        facebookLogo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openUrlInApp("https://facebook.com/amrozia.in");
             }
         });
 
-        twitterCard.setOnClickListener(new View.OnClickListener() {
+        twitterLogo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openUrlInApp("https://twitter.com/globalfashion85");
             }
         });
 
-        instagramCard.setOnClickListener(new View.OnClickListener() {
+        instagramLogo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openUrlInApp("https://instagram.com/global_fashion_amrozia");
             }
         });
 
-        whatsappCard.setOnClickListener(new View.OnClickListener() {
+        whatsappLogo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openUrlInApp("https://wa.me/+917219777055");
