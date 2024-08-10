@@ -32,8 +32,21 @@ public class ManagementCart {
     // Add item to cart
     public void addToCart(ItemsDomain item) {
         List<ItemsDomain> cart = getCart();
-        item.setQuantity(1); // Set the default quantity to 1
-        cart.add(item);
+        boolean itemExists = false;
+
+        for (ItemsDomain cartItem : cart) {
+            if (cartItem.getTitle().equals(item.getTitle())) { // Assuming each item has a unique id
+                cartItem.setQuantity(cartItem.getQuantity() + 1);
+                itemExists = true;
+                break;
+            }
+        }
+
+        if (!itemExists) {
+            item.setQuantity(1); // Set the default quantity to 1
+            cart.add(item);
+        }
+
         saveCart(cart);
     }
 
@@ -72,7 +85,7 @@ public class ManagementCart {
         double totalFee = 0.0;
         List<ItemsDomain> cart = getCart();
         for (ItemsDomain item : cart) {
-            totalFee += item.getPrice();
+            totalFee += item.getPrice() * item.getQuantity();
         }
         return totalFee;
     }
