@@ -3,7 +3,9 @@ package com.example.amrozia;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -21,6 +23,7 @@ public class CategoryActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private FirebaseFirestore firestore;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +38,7 @@ public class CategoryActivity extends AppCompatActivity {
 
         // Set the ActionBar title to the category name
         TextView toolbarTitle = findViewById(R.id.toolbar_title);
+        progressBar = findViewById(R.id.progressBar);
         toolbarTitle.setText(category);
 
         // Handle the back button click
@@ -59,13 +63,18 @@ public class CategoryActivity extends AppCompatActivity {
                         List<ProductDomain> productList = new ArrayList<>();
                         for (DocumentSnapshot document : task.getResult()) {
                             ProductDomain product = document.toObject(ProductDomain.class);
-                            productList.add(product);
+                            if (product != null && product.getStock() > 0) { // Check if the quantity is greater than 0
+                                productList.add(product);
+                            }
                         }
                         ProductAdapter productAdapter = new ProductAdapter(this,productList,category);
                         recyclerView.setLayoutManager(new GridLayoutManager(CategoryActivity.this, 2));
                         recyclerView.setAdapter(productAdapter);
+                        progressBar.setVisibility(View.GONE);
                     } else {
-                        // Handle errors
+                        // Handle the case where the task is not successful
+                        progressBar.setVisibility(View.GONE);
+                        Toast.makeText(CategoryActivity.this, "Error fetching data!", Toast.LENGTH_SHORT).show();
                     }
                 });
     }
