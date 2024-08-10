@@ -25,13 +25,11 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class AdminActivity extends AppCompatActivity {
     private static final int PICK_IMAGES_REQUEST = 1;
-
-    private EditText idEditText, titleEditText, descriptionEditText, priceEditText, sizeEditText;
+    private EditText idEditText, titleEditText, descriptionEditText, priceEditText, stockEditText;
     private Spinner categorySpinner;
     private Button submitButton, selectImagesButton;
     private TextView selectedImagesTextView;
@@ -44,18 +42,20 @@ public class AdminActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin);
 
+        // Initialize views
         idEditText = findViewById(R.id.idEditText);
         titleEditText = findViewById(R.id.titleEditText);
         descriptionEditText = findViewById(R.id.descriptionEditText);
         priceEditText = findViewById(R.id.priceEditText);
-        sizeEditText = findViewById(R.id.sizeEditText);
+        stockEditText = findViewById(R.id.stockEditText);
         categorySpinner = findViewById(R.id.categorySpinner);
         submitButton = findViewById(R.id.submitButton);
         selectImagesButton = findViewById(R.id.selectImagesButton);
         selectedImagesTextView = findViewById(R.id.selectedImagesTextView);
         firestore = FirebaseFirestore.getInstance();
-        storageReference = FirebaseStorage.getInstance().getReference("product_images");
+        storageReference = FirebaseStorage.getInstance().getReference("Products Images");
 
+        // Set up the category spinner
         String[] categories = new String[]{
                 "Mashru Silk Collection",
                 "Staple Cotton Collection",
@@ -64,10 +64,14 @@ public class AdminActivity extends AppCompatActivity {
                 "Cotton Collection"
         };
 
+        // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, categories);
+        // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
         categorySpinner.setAdapter(adapter);
 
+        // Set click listeners for buttons to select images, submit product and send notification
         selectImagesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,6 +87,7 @@ public class AdminActivity extends AppCompatActivity {
         });
     }
 
+    // Open the image chooser to select images
     private void openImageChooser() {
         Intent intent = new Intent();
         intent.setType("image/*");
@@ -91,6 +96,7 @@ public class AdminActivity extends AppCompatActivity {
         startActivityForResult(Intent.createChooser(intent, "Select Images"), PICK_IMAGES_REQUEST);
     }
 
+    // Handle the result of the image chooser
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -98,35 +104,69 @@ public class AdminActivity extends AppCompatActivity {
             if (data.getClipData() != null) { // Multiple images selected
                 int count = data.getClipData().getItemCount();
                 imageUris = new ArrayList<>();
+                // Add each selected image URI to the list
                 for (int i = 0; i < count; i++) {
+                    // Get the URI of the selected image
                     Uri imageUri = data.getClipData().getItemAt(i).getUri();
+                    // Add the URI to the list
                     imageUris.add(imageUri);
                 }
+                // Update the text view to show the number of images selected
                 selectedImagesTextView.setText(count + " images selected");
             } else if (data.getData() != null) { // Single image selected
+                // Create a new list to hold the selected image URI
                 imageUris = new ArrayList<>();
+                // Add the URI of the selected image to the list
                 imageUris.add(data.getData());
                 selectedImagesTextView.setText("1 image selected");
             }
         }
     }
 
+    // Upload the selected images to Firebase Storage and save the product details to Firestore
     private void uploadImagesAndSaveProduct() {
+        // Check if images are selected
         if (imageUris != null && !imageUris.isEmpty()) {
+            // Get the selected category
+            String category = categorySpinner.getSelectedItem() != null ? categorySpinner.getSelectedItem().toString() : "";
+
+            if (category.isEmpty()) {
+                Toast.makeText(this, "Category is not selected", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            // Create a list to hold the URLs of the uploaded images
             final ArrayList<String> uploadedImageUrls = new ArrayList<>();
+            // Get the total number of images to upload
             final int totalImages = imageUris.size();
 
+            // Get the product ID
+            String productId = idEditText.getText().toString();
+            if (productId.isEmpty()) {
+                Toast.makeText(this, "Product ID is empty", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            // Create a StorageReference specific to the selected category and product ID
+            StorageReference categoryStorageReference = storageReference.child(category).child(productId);
+
+            // Upload each image to Firebase Storage
             for (Uri imageUri : imageUris) {
-                final StorageReference fileReference = storageReference.child(System.currentTimeMillis() + ".jpg");
+                // Create a unique reference to the image file in Firebase Storage
+                final StorageReference fileReference = categoryStorageReference.child(System.currentTimeMillis() + ".jpg");
                 fileReference.putFile(imageUri)
                         .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                             @Override
+                            // Get the download URL of the uploaded image
                             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                                 fileReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                     @Override
+                                    // Add the URL to the list of uploaded image URLs
                                     public void onSuccess(Uri uri) {
                                         uploadedImageUrls.add(uri.toString());
+                                        // Check if all images have been uploaded
                                         if (uploadedImageUrls.size() == totalImages) {
+                                            // Save the product details to Firestore
                                             saveProductToFirestore(uploadedImageUrls);
                                         }
                                     }
@@ -146,16 +186,49 @@ public class AdminActivity extends AppCompatActivity {
         }
     }
 
+    // Save the product details to Firestore
     private void saveProductToFirestore(ArrayList<String> imageUrls) {
         String id = idEditText.getText().toString();
         String title = titleEditText.getText().toString();
         String description = descriptionEditText.getText().toString();
-        double price = Double.parseDouble(priceEditText.getText().toString());
-        ArrayList<String> size = new ArrayList<>(Arrays.asList(sizeEditText.getText().toString().split(",")));
+        double price;
+        int stock;
         String category = categorySpinner.getSelectedItem() != null ? categorySpinner.getSelectedItem().toString() : "";
+
+
+        try {
+            price = Double.parseDouble(priceEditText.getText().toString());
+        } catch (NumberFormatException e) {
+            Log.e("AdminActivity", "Invalid price input", e);
+            Toast.makeText(this, "Invalid price input", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        try {
+            stock = Integer.parseInt(stockEditText.getText().toString());
+        } catch (NumberFormatException e) {
+            Log.e("AdminActivity", "Invalid stock input", e);
+            Toast.makeText(this, "Invalid stock input", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         if (id.isEmpty()) {
             Log.e("AdminActivity", "Product ID is empty");
+            return;
+        }
+
+        if (title.isEmpty()) {
+            Log.e("AdminActivity", "Product title is empty");
+            return;
+        }
+
+        if (description.isEmpty()) {
+            Log.e("AdminActivity", "Product description is empty");
+            return;
+        }
+
+        if (price <= 0) {
+            Log.e("AdminActivity", "Product price is invalid");
             return;
         }
 
@@ -164,10 +237,18 @@ public class AdminActivity extends AppCompatActivity {
             return;
         }
 
-        ProductDomain product = new ProductDomain(id, title, description, price, size, imageUrls, category);
+        if (imageUrls.isEmpty()) {
+            Log.e("AdminActivity", "Image URLs are empty");
+            return;
+        }
+
+        // Create a new ProductDomain object with the product details
+        ProductDomain product = new ProductDomain(id, title, description, price, imageUrls, category, stock, 0);
+        // Save the product to Firestore
         addProductToCategory(product, category);
     }
 
+    // Add the product to the specified category in Firestore
     public void addProductToCategory(ProductDomain product, String category) {
         if (firestore == null) {
             Log.e("AdminActivity", "Firestore is null");
@@ -184,16 +265,26 @@ public class AdminActivity extends AppCompatActivity {
             return;
         }
 
+        if (product.getTitle() == null || product.getTitle().isEmpty()) {
+            Log.e("AdminActivity", "Product title is null or empty");
+            return;
+        }
+
         if (product.getId() == null || product.getId().isEmpty()) {
             Log.e("AdminActivity", "Product ID is null or empty");
             return;
         }
 
+        // Get the product ID
+        String id = product.getId();
+
+        // Add the product to the specified category in Firestore
         firestore.collection("Categories").document(category).collection("products")
-                .document(product.getId())
+                .document(id)
                 .set(product)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
+                    // Show a success message if the product is added successfully
                     public void onSuccess(Void aVoid) {
                         runOnUiThread(new Runnable() {
                             @Override
@@ -201,7 +292,7 @@ public class AdminActivity extends AppCompatActivity {
                                 Toast.makeText(AdminActivity.this, "Product added successfully", Toast.LENGTH_SHORT).show();
                             }
                         });
-                        Log.d("AdminActivity", "Product added with ID: " + product.getId());
+                        Log.d("AdminActivity", "Product added with title: " + product.getId());
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -217,4 +308,5 @@ public class AdminActivity extends AppCompatActivity {
                     }
                 });
     }
+
 }
