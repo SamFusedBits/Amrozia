@@ -2,6 +2,7 @@ package com.example.amrozia;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -27,14 +28,21 @@ public class CartActivity extends AppCompatActivity implements ChangeNumberItems
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     private ManagementCart managementCart;
-    private TextView emptyTxt, totalFeeTxt, deliveryTxt, taxTxt, totalTxt;
+    private TextView emptyTxt, totalFeeTxt, deliveryTxt, taxTxt, totalTxt,numberItemTxt;
     private String productId, category, title, description, price;
     private ArrayList<String> picUrl;
+
+    // Calculate the total cost of the cart
+    @Override
+    public void changed() {
+        calculateCart();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
+
 
         // Initialize the management cart
         managementCart = new ManagementCart(this);
@@ -62,8 +70,8 @@ public class CartActivity extends AppCompatActivity implements ChangeNumberItems
         }
 
         // Get the category and productId from the intent
-        String category = intent.getStringExtra("category");
-        String productId = intent.getStringExtra("productId");
+        String category = intent.getStringExtra("productCategories");
+        String productId = intent.getStringExtra("productIds");
 
         initView();
         initList();
@@ -126,20 +134,28 @@ public class CartActivity extends AppCompatActivity implements ChangeNumberItems
                 ArrayList<String> productNames = new ArrayList<>();
                 ArrayList<String> productPrices = new ArrayList<>();
                 ArrayList<String> productImages = new ArrayList<>();
+                ArrayList<String> productIds = new ArrayList<>();
+                ArrayList<String> productCategories = new ArrayList<>();
+                ArrayList<Integer> productQuantities = new ArrayList<>();
 
                 // Populate the lists with product names, prices and images
                 for (ItemsDomain item : cartList) {
                     productNames.add(item.getTitle());
                     productPrices.add(String.valueOf(item.getPrice()));
                     productImages.add(item.getPicUrl().get(0)); // Assuming picUrl is a list and we're taking the first image
+                    productIds.add(item.getId());
+                    productCategories.add(item.getCategory());
+                    productQuantities.add(item.getQuantity());
                 }
 
                 // Pass the lists as extras in the intent
                 intent.putStringArrayListExtra("productNames", productNames);
                 intent.putStringArrayListExtra("productPrices", productPrices);
                 intent.putStringArrayListExtra("productImages", productImages);
-                intent.putExtra("category", category);
-                intent.putExtra("productId", productId);
+                intent.putStringArrayListExtra("productIds", productIds);
+                intent.putStringArrayListExtra("productCategories", productCategories);
+                intent.putIntegerArrayListExtra("productQuantities", productQuantities);
+                Log.d("CartActivity", "productQuantities: " + productQuantities);
 
                 startActivity(intent);
             }
@@ -177,12 +193,6 @@ public class CartActivity extends AppCompatActivity implements ChangeNumberItems
         }
     }
 
-    // Calculate the total cost of the cart
-    @Override
-    public void changed() {
-        calculateCart();
-    }
-
     public void calculateCart() {
             double totalCost = 0.0;
             // Get the existing cart items
@@ -191,6 +201,7 @@ public class CartActivity extends AppCompatActivity implements ChangeNumberItems
             // Calculate the total cost of the cart
             for (ItemsDomain item : cartList) {
                 totalCost += item.getPrice() * item.getQuantity();
+                Log.d("Quantity", "Quantity: " + item.getQuantity());
             }
 
             // Calculate the delivery fee
