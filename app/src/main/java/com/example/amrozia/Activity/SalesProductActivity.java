@@ -114,7 +114,7 @@ public class SalesProductActivity extends AppCompatActivity {
                             // Convert the document to a ProductDomain object
                             ProductDomain product = productDoc.toObject(ProductDomain.class);
                             // Ensure the product is not null
-                            if (product != null) {
+                            if (product != null && product.getStock() > 0) { // Check if the quantity is greater than 0
                                 // Set the product ID
                                 productsInCategory.add(product);
                             }
