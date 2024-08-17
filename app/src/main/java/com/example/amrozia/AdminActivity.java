@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.amrozia.Activity.ManageOrdersActivity;
 import com.example.amrozia.Domain.ProductDomain;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -83,6 +85,15 @@ public class AdminActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 uploadImagesAndSaveProduct();
+            }
+        });
+
+        LinearLayout manageOrdersIcon = findViewById(R.id.manage_orders_icon);
+        manageOrdersIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AdminActivity.this, ManageOrdersActivity.class);
+                startActivity(intent);
             }
         });
     }
