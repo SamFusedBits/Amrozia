@@ -10,18 +10,20 @@ public class OrderDomain {
     private Date timestamp;
     private String productId;
     private String category;
+    private String trackingLink;
 
     public OrderDomain() {
         // Default constructor required for calls to DataSnapshot.getValue(OrderDomain.class)
     }
 
-    public OrderDomain(String productName, String productPrice, String productImage, Timestamp timestamp, String productId, String category) {
+    public OrderDomain(String productName, String productPrice, String productImage, Timestamp timestamp, String productId, String category, String trackingLink) {
         this.productName = productName;
         this.productPrice = productPrice;
         this.productImage = productImage;
         this.timestamp = timestamp;
         this.productId = productId;
         this.category = category;
+        this.trackingLink = trackingLink;
     }
 
     public String getProductName() {
@@ -70,5 +72,13 @@ public class OrderDomain {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    public String getTrackingLink() {
+        return trackingLink;
+    }
+
+    public void setTrackingLink(String trackingLink) {
+        this.trackingLink = trackingLink;
     }
 }
