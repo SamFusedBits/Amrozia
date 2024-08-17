@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.view.KeyEvent;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -26,15 +28,22 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.amrozia.Activity.MoreActivity;
-import com.example.amrozia.Activity.SalesProductActivity;
+import com.example.amrozia.Adapter.BannerAdapter;
 import com.example.amrozia.Adapter.ProductAdapter;
 import com.example.amrozia.Domain.ProductDomain;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.ListResult;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -158,14 +167,41 @@ public class MainActivity extends AppCompatActivity {
         fetchDataAndDisplay("Rayon Collection", recyclerViewRayon, progressBarRayon);
         fetchDataAndDisplay("Cotton Collection", recyclerViewCotton, progressBarCotton);
 
-        // Banner Image Slider
         saleBanner = findViewById(R.id.sale_banner);
 
-        saleBanner.setOnClickListener(new View.OnClickListener() {
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference bannersRef = storage.getReference().child("Banners");
+
+        // List all items in the Banners folder
+        bannersRef.listAll().addOnCompleteListener(new OnCompleteListener<ListResult>() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, SalesProductActivity.class);
-                startActivity(intent);
+            public void onComplete(@NonNull Task<ListResult> task) {
+                if (task.isSuccessful()) {
+                    List<String> bannerUrls = new ArrayList<>();
+                    ListResult result = task.getResult();
+                    for (StorageReference item : result.getItems()) {
+                        item.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+                                bannerUrls.add(uri.toString());
+                                // If all URLs have been fetched, set the adapter for the ViewPager
+                                if (bannerUrls.size() == result.getItems().size()) {
+                                    BannerAdapter adapter = new BannerAdapter(MainActivity.this, bannerUrls);
+                                    saleBanner.setAdapter(adapter);
+                                }
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception exception) {
+                                // Handle any errors
+                                Toast.makeText(MainActivity.this, "Error fetching banner images", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                } else {
+                    // Handle any errors
+                    Toast.makeText(MainActivity.this, "Error fetching banner images", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -314,7 +350,7 @@ public class MainActivity extends AppCompatActivity {
     // Fetch data from Firestore and display it in the RecyclerView
     private void fetchDataAndDisplay(String category, RecyclerView recyclerView, ProgressBar progressBar) {
         // Fetch data from Firestore
-        firestore.collection("Categories").document(category).collection("products").limit(4)
+        firestore.collection("Categories").document(category).collection("products").limit(8)
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
