@@ -104,6 +104,15 @@ public class ProfileActivity extends AppCompatActivity {
         logoutRow.setOnClickListener(v -> logoutUser());
     }
 
+    // Method to share product details
+    private void shareApp() {
+        // Create and launch the share intent
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.setType("text/plain");
+        shareIntent.putExtra(Intent.EXTRA_TEXT, "Check out the Amrozia app on the Play Store! https://play.google.com/store/apps/details?id=com.globalfashion.amrozia");
+        startActivity(Intent.createChooser(shareIntent, "Share via"));
+    }
+
     private void logoutUser() {
         // Log out the user from Firebase Authentication
         mAuth.signOut();
@@ -306,15 +315,6 @@ public class ProfileActivity extends AppCompatActivity {
                 Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show();
             }
         }
-    }
-
-    // Method to share the app
-    private void shareApp() {
-        Intent sendIntent = new Intent();
-        sendIntent.setAction(Intent.ACTION_SEND);
-        sendIntent.putExtra(Intent.EXTRA_TEXT, "Check out this amazing app!");
-        sendIntent.setType("text/plain");
-        startActivity(sendIntent);
     }
 
     // User class to map user data from Firestore
