@@ -2,6 +2,7 @@ package com.example.amrozia.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +13,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.amrozia.DetailActivity;
 import com.example.amrozia.Domain.OrderDomain;
 import com.example.amrozia.R;
 
@@ -57,24 +57,49 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
             SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy", Locale.getDefault());
             String formattedDate = sdf.format(order.getTimestamp());
             holder.timestamp.setText("Ordered on: " + formattedDate);
+        } else {
+            holder.timestamp.setText("Ordered on: N/A");
+        }
+
+        // Check if trackingLink is not null
+        if (order.getTrackingLink() != null && !order.getTrackingLink().isEmpty()) {
+            holder.trackingLink.setVisibility(View.VISIBLE);
+            holder.trackingLink.setText("Track your order >");
+            holder.trackingLink.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(order.getTrackingLink()));
+                    context.startActivity(browserIntent);
+                }
+            });
+        } else {
+            holder.trackingLink.setVisibility(View.GONE);
         }
 
         Glide.with(context)
                 .load(order.getProductImage())
+                .placeholder(R.drawable.image_unavailable)
+                .error(R.drawable.image_unavailable)
                 .into(holder.productImage);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (onItemClickListener != null) {
-                    onItemClickListener.onItemClick(orders.get(position));
-                    OrderDomain order = orders.get(position);
-                    // Pass the order to the listener
-                    Intent intent = new Intent(context, DetailActivity.class);
-                    intent.putExtra("productId", order.getProductId());
-                    intent.putExtra("category", order.getCategory());
-                    context.startActivity(intent);
+                    onItemClickListener.onItemClick(order); // Pass the order to the listener
                 }
+            }
+        });
+
+        holder.trackingLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = order.getTrackingLink();
+                if (!url.startsWith("http://") && !url.startsWith("https://")) {
+                    url = "http://" + url;
+                }
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                context.startActivity(browserIntent);
             }
         });
     }
@@ -90,7 +115,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
     }
 
     static class OrderViewHolder extends RecyclerView.ViewHolder {
-        TextView productName, productPrice, timestamp;
+        TextView productName, productPrice, timestamp, trackingLink;
         ImageView productImage;
 
         public OrderViewHolder(@NonNull View itemView) {
@@ -99,6 +124,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
             productPrice = itemView.findViewById(R.id.productPrice);
             timestamp = itemView.findViewById(R.id.timestamp);
             productImage = itemView.findViewById(R.id.productImage);
+            trackingLink = itemView.findViewById(R.id.trackingLink);
         }
     }
 }
