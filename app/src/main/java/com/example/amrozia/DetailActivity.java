@@ -30,6 +30,7 @@ public class DetailActivity extends AppCompatActivity {
     private FirebaseFirestore firestore;
     private ImageView favBtn, shareBtn;
     private ImageView favDarkBtn, shareDarkBtn;
+    private TextView titleTxt, priceTxt;
     private boolean isFavChecked = false; // To keep track of the button state
     private static final String PREFS_NAME = "FavPrefs"; // Shared preferences file name
     private static final String FAV_STATE_KEY = "favState"; // Key for the favorite state
@@ -51,6 +52,9 @@ public class DetailActivity extends AppCompatActivity {
             finish();
             return;
         }
+
+        titleTxt = findViewById(R.id.titleTxt);
+        priceTxt = findViewById(R.id.priceTxt);
 
         // Get references to the views in activity_detail
         ViewPager2 viewpageSlider = findViewById(R.id.viewpageSlider);
@@ -95,6 +99,7 @@ public class DetailActivity extends AppCompatActivity {
                 titleTxt.setText(product.getTitle());
                 // Get the price from the intent
                 Intent intent = getIntent();
+
                 // Check if the intent is from SalesProductActivity
                 boolean fromSalesProductActivity = intent.getBooleanExtra("fromSalesProductActivity", false);
                 double price;
@@ -169,8 +174,6 @@ public class DetailActivity extends AppCompatActivity {
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(DetailActivity.this, MainActivity.class);
-                startActivity(intent);
                 finish();
             }
         });
@@ -180,12 +183,16 @@ public class DetailActivity extends AppCompatActivity {
         shareBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent shareIntent = new Intent(Intent.ACTION_SEND);
-                shareIntent.setType("text/plain");
-                shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Share App");
-                //String shareMessage = "Check out this app: https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID; //Replace "https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID with the actual URL of your app on the Google Play Store.
-                //shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
-                startActivity(Intent.createChooser(shareIntent, "Share via"));
+                shareProductDetails();
+            }
+        });
+
+        // Handle share dark button click
+        ImageView shareDarkBtn = findViewById(R.id.shareDarkBtn);
+        shareDarkBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                shareProductDetails();
             }
         });
 
@@ -220,6 +227,26 @@ public class DetailActivity extends AppCompatActivity {
             }
         });
     }
+
+    // Method to share product details
+    private void shareProductDetails() {
+        // Get product details
+        String productName = titleTxt.getText().toString();
+        String productPrice = priceTxt.getText().toString();
+
+        // Create share message
+        String shareMessage = " Check out this product on Amrozia:\n\n" +
+                              "Product Name: " + productName + "\n" +
+                              "Price: " + productPrice + "\n\n";
+
+        // Create and launch the share intent
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.setType("text/plain");
+        shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Share Product");
+        shareIntent.putExtra(Intent.EXTRA_TEXT, "Check out the Amrozia app on the Play Store!"+shareMessage+"https://play.google.com/store/apps/details?id=com.globalfashion.amrozia");
+        startActivity(Intent.createChooser(shareIntent, "Share via"));
+    }
+
     private void toggleFavorite() {
         isFavChecked = !isFavChecked;
         updateFavoriteButton();
