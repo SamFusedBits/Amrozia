@@ -1,7 +1,23 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.Amrozia" parent="Theme.Material3.Light.NoActionBar">
-        <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+    <!-- Original theme amrozia <style name="Base.Theme.Amrozia" parent="Theme.AppCompat.Light.NoActionBar">-->
+    <!-- Customize your light theme here. -->
+    <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    <style name="Base.Theme.Amrozia" parent="Theme.MaterialComponents.Light.DarkActionBar"></style>
+
+    <style name="Theme.Amrozia" parent="Base.Theme.Amrozia" >
+        <item name="android:windowTranslucentNavigation">true</item>
+    </style>
+
+
+    <style name="Theme.Amrozia.AppBarOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="Theme.Amrozia.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar"/>
+
+    <style name="tab_layout">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textAlignment">center</item>
     </style>
 </resources>
