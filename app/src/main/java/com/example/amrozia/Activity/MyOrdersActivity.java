@@ -26,7 +26,6 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -34,7 +33,7 @@ import java.util.List;
 public class MyOrdersActivity extends AppCompatActivity {
     private RecyclerView recyclerViewOrders;
     private ProgressBar progressBar;
-    private TextView noOrdersFound;
+    private TextView noOrdersFound, trackingLink;
     private OrderAdapter orderAdapter;
     private List<OrderDomain> allOrders = new ArrayList<>();
     private FirebaseFirestore firestore = FirebaseFirestore.getInstance();
@@ -55,9 +54,6 @@ public class MyOrdersActivity extends AppCompatActivity {
         recyclerViewOrders.setLayoutManager(new LinearLayoutManager(this));
         orderAdapter = new OrderAdapter(this, new ArrayList<>());
         recyclerViewOrders.setAdapter(orderAdapter);
-
-        // Get the category and productId from the intent
-        Intent intent = getIntent();
 
         // Fetch orders
         fetchOrders();
@@ -80,7 +76,7 @@ public class MyOrdersActivity extends AppCompatActivity {
             String userId = currentUser.getUid();
 
             // Reference to the user's orders sub-collection
-            CollectionReference ordersRef = FirebaseFirestore.getInstance()
+            CollectionReference ordersRef = firestore
                     .collection("Orders")
                     .document(userId)
                     .collection("UserOrders");
@@ -96,36 +92,27 @@ public class MyOrdersActivity extends AppCompatActivity {
                             ArrayList<String> productNames = (ArrayList<String>) document.get("productNames");
                             ArrayList<String> productPrices = (ArrayList<String>) document.get("productPrices");
                             ArrayList<String> productImages = (ArrayList<String>) document.get("productImages");
+                            ArrayList<String> categories = (ArrayList<String>) document.get("category"); // category is also an array
+                            ArrayList<String> productIds = (ArrayList<String>) document.get("productId");
+                            String trackingLink = document.getString("trackingLink");
 
-                            // Get the 'category' field as an Object
-                            Object categoryObject = document.get("category");
 
-                            // Check if 'category' is a String before casting
-                            if (categoryObject instanceof String) {
-                                String category = (String) categoryObject;
-                                String productId = document.getString("productId");
 
-                                // Log received values
-                                Log.d("FetchOrders", "ProductId: " + productId);
-                                Log.d("FetchOrders", "Category: " + category);
+                            // Get timestamp
+                            Date timestamp = document.getDate("timestamp");
 
-                                // Get timestamp
-                                Date timestamp = document.getDate("timestamp");
+                            // Iterate over the products and create an OrderDomain object for each one
+                            for (int i = 0; i < productNames.size(); i++) {
+                                OrderDomain order = new OrderDomain();
+                                order.setProductName(productNames.get(i));
+                                order.setProductPrice(productPrices.get(i));
+                                order.setProductImage(productImages.get(i));
+                                order.setTimestamp(timestamp); // Set timestamp
+                                order.setCategory(categories.get(i));  // Set the category for each product
+                                order.setProductId(productIds.get(i)); // Set the product ID
+                                order.setTrackingLink(trackingLink); // Set the tracking link
 
-                                // Iterate over the products and create an OrderDomain object for each one
-                                for (int i = 0; i < productNames.size(); i++) {
-                                    OrderDomain order = new OrderDomain();
-                                    order.setProductName(productNames.get(i));
-                                    order.setProductPrice(productPrices.get(i));
-                                    order.setProductImage(productImages.get(i));
-                                    order.setTimestamp(timestamp); // Set timestamp
-                                    order.setCategory(category);
-                                    order.setProductId(productId);
-                                    allOrders.add(order);
-                                }
-                            } else {
-                                // Handle the case where 'category' is not a String
-                                Log.e("FetchOrders", "'category' is not a String: " + categoryObject);
+                                allOrders.add(order);
                             }
                         }
 
