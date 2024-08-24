@@ -97,14 +97,12 @@
                 <androidx.viewpager2.widget.ViewPager2
                     android:id="@+id/sale_banner"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="@dimen/_24sdp"
-                    android:paddingEnd="@dimen/_24sdp"
-                    android:background="@drawable/app_banner"
+                    android:layout_height="match_parent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <LinearLayout

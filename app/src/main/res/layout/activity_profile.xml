@@ -11,9 +11,9 @@
         android:layout_marginStart="@dimen/_10sdp"
         android:layout_marginEnd="@dimen/_10sdp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        app:cardCornerRadius="8dp"
-        app:cardElevation="4dp"
+        android:layout_marginBottom="@dimen/_16sdp"
+        app:cardCornerRadius="@dimen/_8sdp"
+        app:cardElevation="@dimen/_4sdp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
@@ -73,6 +73,8 @@
                     android:textAllCaps="false"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:text="Edit Profile"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/_12sdp"
                     android:background="@drawable/button_bg_layout"
                     android:textColor="#FFFFFF" />
 
@@ -186,8 +188,10 @@
                     android:layout_marginStart="@dimen/_10sdp"
                     android:layout_marginEnd="@dimen/_10sdp"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="@dimen/_16sdp"
                     android:textAllCaps="false"
+                    android:textSize="@dimen/_14sdp"
+                    android:textAlignment="center"
                     android:text="Save"
                     android:background="@drawable/button_bg_layout"
                     android:visibility="gone" />
