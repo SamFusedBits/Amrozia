@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="@dimen/_145sdp"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/_8sdp"
     android:background="@drawable/grey_background"
@@ -12,11 +12,11 @@
     android:layout_marginBottom="@dimen/_16sdp"
     android:layout_marginTop="@dimen/_16sdp">
 
-
+    <!-- Layout for product card view -->
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/pic"
-        android:layout_width="175dp"
-        android:layout_height="155dp"
+        android:layout_width="@dimen/_125sdp"
+        android:layout_height="@dimen/_125sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -37,9 +37,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_4sdp"
-        android:layout_marginStart="@dimen/_4ssp"
-        android:lines="2"
-        android:maxLines="2"
         android:text="title"
         android:textColor="@color/black"
         android:textSize="@dimen/_12ssp"
@@ -50,13 +47,14 @@
 
     <TextView
         android:id="@+id/priceTxt"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginTop="@dimen/_4ssp"
         android:text="price"
         android:textStyle="bold"
         android:textColor="@color/green"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/nameTxt"
         app:layout_constraintTop_toBottomOf="@+id/nameTxt" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

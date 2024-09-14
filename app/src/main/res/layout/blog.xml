@@ -9,182 +9,197 @@
     android:background="@color/white"
     tools:openDrawer="start">
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="16dp">
+        android:orientation="vertical">
 
-        <LinearLayout
+        <!-- Header with Back Button -->
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:padding="@dimen/_8sdp">
+
+            <ImageView
+                android:id="@+id/backBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:srcCompat="@drawable/back_arrow" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/blog_title"
+                android:textSize="@dimen/_24ssp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:textColor="@color/black"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/_12sdp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="vertical">
+
+                <!-- Rayon Fabric Section -->
+                <ImageView
+                    android:id="@+id/rayon_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_200sdp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/rayon_fabric_image" /> <!-- Replace with your image resource -->
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/blog_title"
-                    android:textSize="24sp"
+                    android:text="@string/blog_rayon_title"
+                    android:textSize="@dimen/_24ssp"
                     android:textStyle="bold"
-                    android:paddingBottom="8dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginStart="@dimen/_125sdp"
-                    android:layout_marginLeft="85dp"
+                    android:paddingTop="@dimen/_16sdp"
+                    android:textAlignment="center"
                     android:textColor="@color/black"/>
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/blog_rayon_production_title"
+                    android:textSize="@dimen/_20ssp"
+                    android:textStyle="bold"
+                    android:paddingTop="@dimen/_12sdp"
+                    android:paddingBottom="@dimen/_8sdp"
+                    android:textColor="@color/black"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/blog_rayon_production"
+                    android:paddingBottom="@dimen/_8sdp"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/blog_rayon_washing_tips_title"
+                    android:textSize="@dimen/_20ssp"
+                    android:textStyle="bold"
+                    android:paddingTop="@dimen/_12sdp"
+                    android:paddingBottom="@dimen/_8sdp"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/blog_rayon_washing_tip1"
+                    android:paddingBottom="@dimen/_4sdp"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/blog_rayon_washing_tip2"
+                    android:paddingBottom="@dimen/_4sdp"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/blog_rayon_washing_tip3"
+                    android:paddingBottom="@dimen/_4sdp"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/blog_rayon_washing_tip4"
+                    android:paddingBottom="@dimen/_16sdp"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/blog_rayon_source"
+                    android:paddingBottom="@dimen/_24sdp"
+                    android:textColor="@color/pink"/>
+
+                <!-- Ajrak Section -->
+                <ImageView
+                    android:id="@+id/ajrakh_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_300sdp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ajrakh_image" /> <!-- Replace with your image resource -->
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/blog_ajrakh_title"
+                    android:textSize="@dimen/_24ssp"
+                    android:textStyle="bold"
+                    android:paddingTop="@dimen/_16sdp"
+                    android:paddingBottom="@dimen/_8sdp"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/blog_ajrakh_intro"
+                    android:paddingBottom="@dimen/_8sdp"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/blog_ajrakh_dyes_title"
+                    android:textSize="@dimen/_20ssp"
+                    android:textStyle="bold"
+                    android:paddingTop="@dimen/_12sdp"
+                    android:paddingBottom="@dimen/_8sdp"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/blog_ajrakh_dyes"
+                    android:paddingBottom="@dimen/_8sdp"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/blog_ajrakh_blocks_title"
+                    android:textSize="@dimen/_20ssp"
+                    android:textStyle="bold"
+                    android:paddingTop="@dimen/_12sdp"
+                    android:paddingBottom="@dimen/_8sdp"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/blog_ajrakh_blocks"
+                    android:paddingBottom="@dimen/_16sdp"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/blog_ajrakh_source"
+                    android:paddingBottom="@dimen/_25sdp"
+                    android:textColor="@color/pink"/>
+
             </LinearLayout>
-
-            <!-- Rayon Fabric Section -->
-            <ImageView
-                android:id="@+id/rayon_image"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/rayon_fabric_image" /> <!-- Replace with your image resource -->
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/blog_rayon_title"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                android:paddingTop="16dp"
-                android:paddingBottom="8dp"
-                android:textAlignment="center"
-                android:textColor="@color/black"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/blog_rayon_production_title"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:paddingTop="16dp"
-                android:paddingBottom="8dp"
-                android:textColor="@color/black"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/blog_rayon_production"
-                android:paddingBottom="8dp"
-                android:textColor="@color/black" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/blog_rayon_washing_tips_title"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:paddingTop="16dp"
-                android:paddingBottom="8dp"
-                android:textColor="@color/black" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/blog_rayon_washing_tip1"
-                android:paddingBottom="4dp"
-                android:textColor="@color/black" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/blog_rayon_washing_tip2"
-                android:paddingBottom="4dp"
-                android:textColor="@color/black" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/blog_rayon_washing_tip3"
-                android:paddingBottom="4dp"
-                android:textColor="@color/black" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/blog_rayon_washing_tip4"
-                android:paddingBottom="16dp"
-                android:textColor="@color/black" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/blog_rayon_source"
-                android:paddingBottom="24dp"
-                android:textColor="@color/pink"/>
-
-            <!-- Ajrak Section -->
-            <ImageView
-                android:id="@+id/ajrakh_image"
-                android:layout_width="match_parent"
-                android:layout_height="300dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ajrakh_image" /> <!-- Replace with your image resource -->
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/blog_ajrakh_title"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                android:paddingTop="16dp"
-                android:paddingBottom="8dp"
-                android:textColor="@color/black" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/blog_ajrakh_intro"
-                android:paddingBottom="8dp"
-                android:textColor="@color/black" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/blog_ajrakh_dyes_title"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:paddingTop="16dp"
-                android:paddingBottom="8dp"
-                android:textColor="@color/black" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/blog_ajrakh_dyes"
-                android:paddingBottom="8dp"
-                android:textColor="@color/black" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/blog_ajrakh_blocks_title"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:paddingTop="16dp"
-                android:paddingBottom="8dp"
-                android:textColor="@color/black" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/blog_ajrakh_blocks"
-                android:paddingBottom="16dp"
-                android:textColor="@color/black" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/blog_ajrakh_source"
-                android:paddingBottom="24dp"
-                android:textColor="@color/pink"/>
-
-        </LinearLayout>
-    </ScrollView>
+        </ScrollView>
+    </LinearLayout>
 </androidx.drawerlayout.widget.DrawerLayout>

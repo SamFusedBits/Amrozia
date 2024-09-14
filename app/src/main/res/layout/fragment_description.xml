@@ -5,10 +5,11 @@
     android:id="@+id/frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-<!--
-    tools:context=".Fragment.DescriptionFragment"
--->
+    <!--
+        tools:context=".Fragment.DescriptionFragment"
+    -->
 
+    <!-- Description of the selected product -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">

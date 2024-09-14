@@ -25,6 +25,7 @@
         app:layout_constraintTop_toBottomOf="@id/adminTitle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginBottom="@dimen/_50sdp"
         app:layout_constraintEnd_toEndOf="parent">
 
         <LinearLayout
@@ -85,13 +86,16 @@
                 android:id="@+id/selectImagesButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_22sdp"
+                android:layout_marginTop="@dimen/_22sdp"
+                android:layout_marginEnd="@dimen/_22sdp"
+                android:layout_marginBottom="@dimen/_22sdp"
                 android:text="Select Images"
-                android:padding="@dimen/_5ssp"
-                android:layout_marginBottom="@dimen/_12ssp"
-                android:background="@drawable/button_bg"
                 android:textColor="@color/white"
+                android:textSize="@dimen/_14ssp"
                 android:textAllCaps="false"
-                android:elevation="@dimen/_2ssp" />
+                android:background="@drawable/social_button_background_login"
+                android:backgroundTint="@color/purple" />
 
             <TextView
                 android:id="@+id/selectedImagesTextView"
@@ -129,12 +133,16 @@
                 android:id="@+id/submitButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/submit_button_admin"
-                android:padding="@dimen/_5sdp"
-                android:background="@drawable/button_bg_layout"
+                android:layout_marginStart="@dimen/_22sdp"
+                android:layout_marginTop="@dimen/_22sdp"
+                android:layout_marginEnd="@dimen/_22sdp"
+                android:layout_marginBottom="@dimen/_22sdp"
                 android:textColor="@color/white"
+                android:text="@string/submit_button_admin"
+                android:textSize="@dimen/_14ssp"
                 android:textAllCaps="false"
-                android:elevation="@dimen/_2sdp" />
+                android:background="@drawable/social_button_background_login"
+                android:backgroundTint="@color/purple" />
 
         </LinearLayout>
     </ScrollView>

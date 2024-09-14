@@ -1,25 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center"
     android:padding="@dimen/_16sdp">
 
-    <ImageView
-        android:id="@+id/orderPlacedIcon"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_70sdp"
-        android:src="@drawable/order_confirmation_image"
-        android:layout_marginBottom="@dimen/_24sdp"/>
-
-    <TextView
-        android:id="@+id/orderPlacedMessage"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Thank you for shopping with us! Your order has been placed. You'll receive a confirmation mail shortly."
-        android:textSize="@dimen/_14ssp"
-        android:textColor="@android:color/black"
-        android:gravity="center"/>
+        android:orientation="vertical"
+        android:gravity="center">
 
-</LinearLayout>
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/paymentStatusSuccess"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_400sdp"
+            app:lottie_url="https://lottie.host/27ced9e8-4876-4518-ae86-a6603db85533/wrH5gR8UpM.json"
+            app:lottie_autoPlay="true"
+            android:visibility="gone"
+            app:lottie_loop="true"/>
+
+        <TextView
+            android:id="@+id/orderPlacedMessage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/orderPlacedMessage"
+            android:textSize="@dimen/_14ssp"
+            android:textColor="@android:color/black"
+            android:visibility="gone"
+            android:gravity="center"/>
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/paymentStatusFailed"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_400sdp"
+            app:lottie_url="https://lottie.host/52510512-2a58-4995-8977-0b74f774d4af/DKlGDE9xhY.json"
+            app:lottie_autoPlay="true"
+            android:visibility="gone"
+            app:lottie_loop="true"/>
+
+        <TextView
+            android:id="@+id/orderFailedMessage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/orderFailedMessage"
+            android:textSize="@dimen/_14ssp"
+            android:textColor="@android:color/black"
+            android:visibility="gone"
+            android:gravity="center"/>
+
+        <Button
+            android:id="@+id/continueShoppingBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_22sdp"
+            android:layout_marginTop="@dimen/_22sdp"
+            android:layout_marginEnd="@dimen/_22sdp"
+            android:layout_marginBottom="@dimen/_22sdp"
+            android:text="@string/continueShoppingButton"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_16ssp"
+            android:textAllCaps="false"
+            android:background="@drawable/social_button_background_login"
+            android:backgroundTint="@color/purple"
+            android:textStyle="bold"/>
+
+    </LinearLayout>
+</ScrollView>

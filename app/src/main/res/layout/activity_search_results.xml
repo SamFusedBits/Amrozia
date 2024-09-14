@@ -21,7 +21,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="@dimen/_16sdp"
-                android:layout_marginTop="@dimen/_24sdp"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:layout_marginEnd="@dimen/_16sdp">
 
             <ImageView
@@ -40,6 +40,7 @@
                 android:layout_marginBottom="@dimen/_8sdp"
                 android:gravity="center"
                 android:text="Search Results"
+                android:textStyle="bold"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_20ssp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -63,7 +64,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <com.example.amrozia.NestedRecyclerView
+                <com.globalfashion.amrozia.NestedRecyclerView
                     android:id="@+id/recyclerViewSearchResults"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

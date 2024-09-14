@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/_8sdp"
+    app:cardCornerRadius="@dimen/_8sdp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/_13sdp">
+
+        <TextView
+            android:id="@+id/orderNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Order Number"
+            android:textSize="@dimen/_15ssp"
+            android:textStyle="bold"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/textViewName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Name"
+            android:textSize="@dimen/_15ssp"
+            android:textStyle="bold"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/textViewEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Email"
+            android:textSize="@dimen/_13ssp"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/textViewPhone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Phone"
+            android:textSize="@dimen/_13ssp"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/textViewAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Address"
+            android:textSize="@dimen/_13ssp"
+            android:textColor="@color/black"
+            android:layout_marginBottom="@dimen/_5ssp"/>
+
+        <TextView
+            android:id="@+id/textViewTimestamp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ordered On"
+            android:textSize="@dimen/_13ssp"
+            android:textColor="@color/black"
+            android:layout_marginBottom="@dimen/_3ssp"/>
+
+        <TextView
+            android:id="@+id/textViewTotalCost"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Total Cost"
+            android:textSize="@dimen/_13ssp"
+            android:textColor="@color/black"
+            android:layout_marginBottom="@dimen/_5ssp"/>
+
+
+        <TextView
+            android:id="@+id/textViewProductDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Product Details"
+            android:textSize="@dimen/_15ssp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_marginBottom="@dimen/_5ssp"/>
+
+        <EditText
+            android:id="@+id/editTextTrackingLink"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter order tracking link here"
+            android:padding="@dimen/_8sdp"
+            android:background="@drawable/edittext_bg"
+            android:textColor="@color/black"
+            android:layout_marginBottom="@dimen/_8ssp"
+            android:visibility="visible"/>  <!-- Initially visible -->
+
+        <!-- TextView for displaying the saved tracking link -->
+        <TextView
+            android:id="@+id/textViewTrackingLink"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Tracking link here"
+            android:padding="8dp"
+            android:textColor="@color/black"
+            android:layout_marginBottom="@dimen/_8sdp"
+            android:visibility="gone"/>  <!-- Initially gone -->
+
+        <Button
+            android:id="@+id/buttonSaveTrackingLink"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Save tracking link"
+            android:background="@drawable/button_bg"
+            android:textSize="@dimen/_12sdp"
+            android:textColor="@color/white"
+            android:paddingHorizontal="@dimen/_16sdp"
+            android:paddingVertical="@dimen/_6sdp"
+            android:textAllCaps="false"
+            android:layout_gravity="end"/>
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

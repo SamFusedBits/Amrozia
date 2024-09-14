@@ -44,6 +44,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="@dimen/_44sdp"
+            android:layout_marginBottom="@dimen/_50sdp"
             android:background="@color/white"
             android:scrollbars="none">
 
@@ -62,20 +63,20 @@
                     android:backgroundTint="#0A5B02"
                     android:src="@drawable/user_icon" />
 
-                <Button
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/edit_profile_button"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_10sdp"
                     android:layout_marginEnd="@dimen/_10sdp"
                     android:layout_gravity="center_horizontal"
-                    android:backgroundTint="#0A5B02"
+                    android:backgroundTint="@color/purple"
                     android:textAllCaps="false"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:text="Edit Profile"
                     android:textAlignment="center"
-                    android:textSize="@dimen/_12sdp"
-                    android:background="@drawable/button_bg_layout"
+                    android:textSize="@dimen/_14sdp"
+                    android:background="@drawable/social_button_background_login"
                     android:textColor="#FFFFFF" />
 
                 <TextView
@@ -181,7 +182,7 @@
                     android:inputType="phone"
                     android:visibility="gone"/>
 
-                <Button
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/save_profile_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -192,9 +193,11 @@
                     android:textAllCaps="false"
                     android:textSize="@dimen/_14sdp"
                     android:textAlignment="center"
+                    android:textColor="@color/white"
                     android:text="Save"
-                    android:background="@drawable/button_bg_layout"
-                    android:visibility="gone" />
+                    android:background="@drawable/social_button_background_login"
+                    android:backgroundTint="@color/purple"
+                    android:visibility="gone"/>
 
                 <!-- Share Row -->
                 <LinearLayout
@@ -242,7 +245,6 @@
                     android:gravity="center_vertical"
                     android:layout_marginStart="@dimen/_10sdp"
                     android:layout_marginEnd="@dimen/_10sdp"
-
                     android:paddingTop="@dimen/_10sdp">
 
                     <ImageView
@@ -271,10 +273,14 @@
                 </LinearLayout>
             </LinearLayout>
         </ScrollView>
+
     <include
         android:id="@+id/navigation_bar"
         layout="@layout/navigation_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         android:layout_alignParentBottom="true" />
 </RelativeLayout>

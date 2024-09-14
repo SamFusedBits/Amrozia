@@ -9,7 +9,7 @@
 
     <com.google.android.material.bottomappbar.BottomAppBar
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_47sdp"
+        android:layout_height="@dimen/_43sdp"
         android:layout_gravity="bottom">
 
         <LinearLayout

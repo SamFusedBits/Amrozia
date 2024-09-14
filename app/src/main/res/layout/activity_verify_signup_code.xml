@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp">
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/_15sdp"
+        android:layout_centerInParent="true">
+
 
     <EditText
         android:id="@+id/edit_text_code"
@@ -12,14 +18,25 @@
         android:hint="Enter verification code"
         android:inputType="number" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button_verify"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Verify" />
+        android:layout_marginStart="@dimen/_22sdp"
+        android:layout_marginTop="@dimen/_22sdp"
+        android:layout_marginEnd="@dimen/_22sdp"
+        android:layout_marginBottom="@dimen/_22sdp"
+        android:text="Verify"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_16ssp"
+        android:textAllCaps="false"
+        android:background="@drawable/social_button_background_login"
+        android:backgroundTint="@color/purple"
+        android:textStyle="bold" />
 
     <ProgressBar
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone" />
 </LinearLayout>
+</RelativeLayout>

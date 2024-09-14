@@ -166,6 +166,7 @@
                 android:background="@drawable/beige_button_bg"
                 android:text="Add to Cart"
                 android:textColor="@color/black"
+                android:textStyle="bold"
                 android:textSize="@dimen/_15ssp" />
 
         </LinearLayout>
