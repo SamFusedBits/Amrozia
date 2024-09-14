@@ -1,12 +1,14 @@
-package com.example.amrozia;
+package com.globalfashion.amrozia;
 
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -27,10 +29,10 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
-import com.example.amrozia.Activity.MoreActivity;
-import com.example.amrozia.Adapter.BannerAdapter;
-import com.example.amrozia.Adapter.ProductAdapter;
-import com.example.amrozia.Domain.ProductDomain;
+import com.globalfashion.amrozia.Activity.MoreActivity;
+import com.globalfashion.amrozia.Adapter.BannerAdapter;
+import com.globalfashion.amrozia.Adapter.ProductAdapter;
+import com.globalfashion.amrozia.Domain.ProductDomain;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -41,6 +43,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.ListResult;
 import com.google.firebase.storage.StorageReference;
@@ -48,9 +51,9 @@ import com.google.firebase.storage.StorageReference;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-
-
+// This activity displays the main screen of the app with different categories and a search bar
 public class MainActivity extends AppCompatActivity {
+    // Request code for speech input
     private static final int REQUEST_CODE_SPEECH_INPUT = 1000;
     private RecyclerView recyclerViewMashru;
     private RecyclerView recyclerViewStaple;
@@ -60,9 +63,8 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseFirestore firestore;
     private ViewPager2 saleBanner;
     private FirebaseAnalytics mFirebaseAnalytics;
-    // Notification channel ID
-    private static final String CHANNEL_ID = "PRODUCT_NOTIFICATION_CHANNEL";
-    private static final int PERMISSION_REQUEST_CODE = 1;
+    // Notification permission code for Android 12 and above
+    private static final int NOTIFICATION_PERMISSION_CODE = 123;
     private EditText searchBar;
     private ImageView microphone;
 
@@ -89,6 +91,17 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    // Handle back button press to close the app
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            finishAffinity();
+        } else {
+            finishAffinity();
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,6 +120,7 @@ public class MainActivity extends AppCompatActivity {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                     // Start SearchResultsActivity with the search query
                     Intent intent = new Intent(MainActivity.this, SearchResultsActivity.class);
+                    // Pass the search query to the SearchResultsActivity
                     intent.putExtra("search_query", v.getText().toString());
                     startActivity(intent);
                     return true;
@@ -133,6 +147,7 @@ public class MainActivity extends AppCompatActivity {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                     // Start SearchResultsActivity with the search query
                     Intent intent = new Intent(MainActivity.this, SearchResultsActivity.class);
+                    // Pass the search query to the SearchResultsActivity
                     intent.putExtra("search_query", v.getText().toString());
                     startActivity(intent);
                     return true;
@@ -144,6 +159,8 @@ public class MainActivity extends AppCompatActivity {
         // Initialize Firebase
         FirebaseApp.initializeApp(this);
 
+        requestNotificationPermission();
+        setupFirebaseMessaging();
 
         // Initialize RecyclerViews
         recyclerViewMashru = findViewById(R.id.recyclerViewMashru);
@@ -177,15 +194,19 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<ListResult> task) {
                 if (task.isSuccessful()) {
+                    // List of banner image URLs
                     List<String> bannerUrls = new ArrayList<>();
+                    // Loop through each item in the list
                     ListResult result = task.getResult();
                     for (StorageReference item : result.getItems()) {
                         item.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                             @Override
                             public void onSuccess(Uri uri) {
+                                // Add the URL to the list
                                 bannerUrls.add(uri.toString());
                                 // If all URLs have been fetched, set the adapter for the ViewPager
                                 if (bannerUrls.size() == result.getItems().size()) {
+                                    // Set the adapter for the ViewPager
                                     BannerAdapter adapter = new BannerAdapter(MainActivity.this, bannerUrls);
                                     saleBanner.setAdapter(adapter);
                                 }
@@ -200,7 +221,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 } else {
                     // Handle any errors
-                    Toast.makeText(MainActivity.this, "Error fetching banner images", Toast.LENGTH_SHORT).show();
+                    Log.e("MainActivity", "Error fetching banner images", task.getException());
                 }
             }
         });
@@ -293,21 +314,74 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-        // Request notification permission if needed
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.POST_NOTIFICATIONS}, PERMISSION_REQUEST_CODE);
+        // Check if the device is running Android 12 or above
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            // Request notification permission
+            requestNotificationPermission();
         }
     }
 
-    // Voice input launcher
+    // Request notification permission for Android 12 and above
+    private void requestNotificationPermission() {
+        // Check if the device is running Android 12 or above
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            // Check if the notification permission is granted
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+                // Request the notification permission
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.POST_NOTIFICATIONS}, NOTIFICATION_PERMISSION_CODE);
+            }
+        }
+    }
+
+    // Setup Firebase Cloud Messaging
+    private void setupFirebaseMessaging() {
+        // Subscribe to the topic "all_users"
+        FirebaseMessaging.getInstance().subscribeToTopic("all_users")
+                // Add a listener to handle the completion of the task
+                .addOnCompleteListener(task -> {
+                    // Log the result of the task
+                    String msg = task.isSuccessful() ? "Subscribed to all_users" : "Subscribe failed";
+                    Log.d("MainActivity", msg);
+                });
+    }
+
+    // Handle the permission request result
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        // Check the request code
+        switch (requestCode) {
+            case 1012: // Microphone permission request code
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // Permission granted, you can now send notifications
+                    startVoiceInput();
+                } else {
+                    // Permission denied, show a message to the user
+                    Toast.makeText(this, "Microphone permission denied", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case 123: // Notification permission request code
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Log.d("MainActivity", "Notification permission granted");
+                } else {
+                    Log.e("MainActivity", "Notification permission denied");
+                }
+                break;
+        }
+    }
+
+    // Voice input launcher for Android 12 and above
     private final ActivityResultLauncher<Intent> voiceInputLauncher = registerForActivityResult(
+            // Register the activity result contract for starting the voice input activity
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
+                // Check if the result is OK and the data is not null
                 if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
                     ArrayList<String> voiceResult = result.getData().getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                     if (voiceResult != null && !voiceResult.isEmpty()) {
+                        // Get the search query from the voice input
                         String searchQuery = voiceResult.get(0);
+                        // Set the search query in the search bar
                         searchBar.setText(searchQuery);
 
                         // Directly start the search activity
@@ -319,20 +393,29 @@ public class MainActivity extends AppCompatActivity {
             }
     );
 
-    // Start voice input
+    // Start voice input method
     private void startVoiceInput() {
-        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
-        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Speak now...");
-        try {
-            voiceInputLauncher.launch(intent);
-        } catch (Exception e) {
-            Toast.makeText(this, "Speech recognition is not supported on this device.", Toast.LENGTH_SHORT).show();
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+            // Request the microphone permission
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECORD_AUDIO}, 1012);
+        } else {
+            // Start the voice input activity
+            Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+            // Set the language model and language for the voice input activity intent to the default locale
+            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
+            // Set the prompt message for the voice input activity
+            intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Speak now...");
+            try {
+                // Launch the voice input activity
+                voiceInputLauncher.launch(intent);
+            } catch (Exception e) {
+                Toast.makeText(this, "Speech recognition is not supported on this device.", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
-    // Start voice input
+    // Start voice input method for older versions of Android
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -342,6 +425,7 @@ public class MainActivity extends AppCompatActivity {
             ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
             // Check if the result is not empty
             if (result != null && !result.isEmpty()) {
+                // Set the search query in the search bar
                 searchBar.setText(result.get(0));
             }
         }
@@ -354,20 +438,24 @@ public class MainActivity extends AppCompatActivity {
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
+                        // Create a list to store the products
                         List<ProductDomain> productList = new ArrayList<>();
+                        // Loop through the documents and add the products to the list
                         for (DocumentSnapshot document : task.getResult()) {
+                            // Convert the document to a ProductDomain object
                             ProductDomain product = document.toObject(ProductDomain.class);
                             if (product != null && product.getStock() > 0) { // Check if the quantity is greater than 0
                                 productList.add(product);
                             }
                         }
+                        // Create a ProductAdapter and set it to the RecyclerView to display the products
                         ProductAdapter productAdapter = new ProductAdapter(this, productList, category);
                         recyclerView.setLayoutManager(new GridLayoutManager(MainActivity.this, 2));
                         recyclerView.setAdapter(productAdapter);
                         progressBar.setVisibility(View.GONE); // Hide the progress bar
                     } else {
                         progressBar.setVisibility(View.GONE); // Hide the progress bar
-                        Toast.makeText(MainActivity.this, "Error fetching data", Toast.LENGTH_SHORT).show();
+                        Log.e("MainActivity", "Error getting documents: ", task.getException());
                     }
                 });
     }
