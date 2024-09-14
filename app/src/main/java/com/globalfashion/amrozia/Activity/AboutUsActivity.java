@@ -1,4 +1,4 @@
-package com.example.amrozia.Activity;
+package com.globalfashion.amrozia.Activity;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -6,11 +6,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.example.amrozia.R;
-
+import com.globalfashion.amrozia.R;
+// The AboutUsActivity class is responsible for displaying the About Us screen
 public class AboutUsActivity extends MoreActivity {
-
-    ImageView facebookLogo, twitterLogo, instagramLogo, whatsappLogo;
+    // Declare the ImageViews for the social media logos and the back button
+    ImageView facebookLogo, twitterLogo, instagramLogo, whatsappLogo, backBtn;
 
     // Override the onCreate method which is called when the activity is first created
     @Override
@@ -20,13 +20,22 @@ public class AboutUsActivity extends MoreActivity {
 
         // Set the layout for this activity to be R.layout.contact_us
         setContentView(R.layout.about_us);
-        
+
+        // Find the views by their IDs
+        backBtn = findViewById(R.id.backBtn);
         facebookLogo = findViewById(R.id.facebook_logo);
         twitterLogo = findViewById(R.id.twitter_logo);
         instagramLogo = findViewById(R.id.instagram_logo);
         whatsappLogo = findViewById(R.id.whatsapp_logo);
 
         // Set click listeners for the CardViews
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Finish the current activity
+                finish();
+            }
+        });
         // Open UrLs in the app installed, otherwise in the default browser
         facebookLogo.setOnClickListener(new View.OnClickListener() {
             @Override
