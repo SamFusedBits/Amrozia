@@ -1,8 +1,8 @@
-package com.example.amrozia.Domain;
+package com.globalfashion.amrozia.Domain;
 
 import java.sql.Timestamp;
 import java.util.Date;
-
+// The OrderDomain class contains the order details for the myorders activity
 public class OrderDomain {
     private String productName;
     private String productPrice;

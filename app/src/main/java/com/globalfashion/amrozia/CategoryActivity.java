@@ -1,4 +1,4 @@
-package com.example.amrozia;
+package com.globalfashion.amrozia;
 
 import android.os.Bundle;
 import android.view.View;
@@ -11,20 +11,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.amrozia.Adapter.ProductAdapter;
-import com.example.amrozia.Domain.ProductDomain;
+import com.globalfashion.amrozia.Adapter.ProductAdapter;
+import com.globalfashion.amrozia.Domain.ProductDomain;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.List;
-
+// This activity displays the products in different categories
 public class CategoryActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private FirebaseFirestore firestore;
     private ProgressBar progressBar;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,21 +53,28 @@ public class CategoryActivity extends AppCompatActivity {
         fetchDataAndDisplay(category);
     }
 
+    // Fetch data from Firestore and display it in the RecyclerView
     private void fetchDataAndDisplay(String category) {
         // Fetch data from Firestore
         firestore.collection("Categories").document(category).collection("products")
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
+                        // Create a list to store the products
                         List<ProductDomain> productList = new ArrayList<>();
+                        // Loop through the documents and add the products to the list
                         for (DocumentSnapshot document : task.getResult()) {
+                            // Convert the document to a ProductDomain object
                             ProductDomain product = document.toObject(ProductDomain.class);
                             if (product != null && product.getStock() > 0) { // Check if the quantity is greater than 0
                                 productList.add(product);
                             }
                         }
+                        // Create a ProductAdapter and set it to the RecyclerView
                         ProductAdapter productAdapter = new ProductAdapter(this,productList,category);
+                        // Set the layout manager for the RecyclerView
                         recyclerView.setLayoutManager(new GridLayoutManager(CategoryActivity.this, 2));
+                        // Set the adapter for the RecyclerView
                         recyclerView.setAdapter(productAdapter);
                         progressBar.setVisibility(View.GONE);
                     } else {

@@ -1,4 +1,4 @@
-package com.example.amrozia;
+package com.globalfashion.amrozia;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,15 +13,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.viewpager2.widget.ViewPager2;
 
-import com.example.amrozia.Adapter.ViewPagerAdapter;
-import com.example.amrozia.Domain.ItemsDomain;
-import com.example.amrozia.Domain.ProductDomain;
-import com.example.amrozia.Fragment.DescriptionFragment;
+import com.globalfashion.amrozia.Adapter.ViewPagerAdapter;
+import com.globalfashion.amrozia.Domain.ItemsDomain;
+import com.globalfashion.amrozia.Domain.ProductDomain;
+import com.globalfashion.amrozia.Fragment.DescriptionFragment;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.List;
-
+// This activity displays the details of a product and allows the user to add it to the cart
 public class DetailActivity extends AppCompatActivity {
     private ViewPager2 viewPager2;
     private List<String> picUrl; // This should be your list of image URLs
@@ -31,6 +31,7 @@ public class DetailActivity extends AppCompatActivity {
     private ImageView favBtn, shareBtn;
     private ImageView favDarkBtn, shareDarkBtn;
     private TextView titleTxt, priceTxt;
+
     private boolean isFavChecked = false; // To keep track of the button state
     private static final String PREFS_NAME = "FavPrefs"; // Shared preferences file name
     private static final String FAV_STATE_KEY = "favState"; // Key for the favorite state
@@ -40,6 +41,7 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_detail);
 
+        // Initialize Firestore
         firestore = FirebaseFirestore.getInstance();
 
         // Get the Product ID from the Intent
@@ -205,15 +207,14 @@ public class DetailActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(DetailActivity.this, CartActivity.class);
 
-
                 // Create an ItemsDomain object with the product details
                 ArrayList<String> picUrlList = new ArrayList<>(picUrl);
-
 
                 // Remove the "₹" symbol before parsing the price to a double
                 String priceStr = priceTxt.getText().toString().replace("₹", "").trim();
                 double price = Double.parseDouble(priceStr);
 
+                // Create an ItemsDomain object with the product details
                 ItemsDomain item = new ItemsDomain(productId, titleTxt.getText().toString(), description, picUrlList, price, category);
 
                 // Put the ItemsDomain object into the intent
@@ -234,7 +235,7 @@ public class DetailActivity extends AppCompatActivity {
         String productName = titleTxt.getText().toString();
         String productPrice = priceTxt.getText().toString();
 
-        // Create share message
+        // Create share message with product details
         String shareMessage = " Check out this product on Amrozia:\n\n" +
                               "Product Name: " + productName + "\n" +
                               "Price: " + productPrice + "\n\n";
@@ -247,6 +248,7 @@ public class DetailActivity extends AppCompatActivity {
         startActivity(Intent.createChooser(shareIntent, "Share via"));
     }
 
+    // Method to toggle the favorite state
     private void toggleFavorite() {
         isFavChecked = !isFavChecked;
         updateFavoriteButton();
@@ -258,12 +260,14 @@ public class DetailActivity extends AppCompatActivity {
         editor.apply();
     }
 
+    // Method to update the favorite button based on the state
     private void updateFavoriteButton() {
         if (isFavChecked) {
             favBtn.setVisibility(View.GONE);
             favDarkBtn.setVisibility(View.VISIBLE);
             shareBtn.setVisibility(View.GONE);
             shareDarkBtn.setVisibility(View.VISIBLE);
+            Toast.makeText(this, "Added to favorites", Toast.LENGTH_SHORT).show();
         } else {
             favBtn.setVisibility(View.VISIBLE);
             favDarkBtn.setVisibility(View.GONE);

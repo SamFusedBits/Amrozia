@@ -1,4 +1,4 @@
-package com.example.amrozia;
+package com.globalfashion.amrozia;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -13,8 +13,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.amrozia.Adapter.ProductAdapter;
-import com.example.amrozia.Domain.ProductDomain;
+import com.globalfashion.amrozia.Adapter.ProductAdapter;
+import com.globalfashion.amrozia.Domain.ProductDomain;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
@@ -25,12 +25,13 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
+// This activity displays the search results for a given query
 public class SearchResultsActivity extends AppCompatActivity {
     private RecyclerView recyclerViewSearchResults;
     private ProgressBar progressBarSearch;
     private TextView NoProductsFound;
     private ProductAdapter productAdapter;
+    // List to hold all products
     private List<ProductDomain> allProducts = new ArrayList<>();
     private FirebaseFirestore firestore = FirebaseFirestore.getInstance();
     private ImageView backBtn;
@@ -66,6 +67,7 @@ public class SearchResultsActivity extends AppCompatActivity {
         });
     }
 
+    // Method to check if the product is present in the database
     private void checkProductPresence(String searchedTitle) {
         progressBarSearch.setVisibility(View.VISIBLE);
         String searchLowerCase = searchedTitle.toLowerCase();  // Convert search title to lowercase for case-insensitive search
@@ -102,15 +104,21 @@ public class SearchResultsActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<List<QuerySnapshot>> task) {
                 if (task.isSuccessful()) {
+                    // Flag to check if any product is found
                     boolean productFound = false;
 
                     // Clear the list of all products before adding new results
                     allProducts.clear();
 
+                    // Iterate over each query snapshot
                     for (QuerySnapshot querySnapshot : task.getResult()) {
+                        // Iterate over each product document in the query snapshot
                         for (DocumentSnapshot productDoc : querySnapshot) {
+                            // Check if the product document exists
                             if (productDoc.exists()) {
+                                // Convert the product document to a ProductDomain object
                                 ProductDomain product = productDoc.toObject(ProductDomain.class);
+                                // Check if the product title contains any of the search keywords
                                 if (product != null) {
                                     for (String keyword : searchKeywords) {
                                         if (product.getTitle().toLowerCase().contains(keyword)) {
@@ -126,17 +134,17 @@ public class SearchResultsActivity extends AppCompatActivity {
                             }
                         }
                     }
-
+                    // Check if any products are found
                     if (productFound) {
                         Log.d("SearchResultsActivity", "Products found: " + allProducts.size());
                         // Update the adapter with the new product list
                         productAdapter = new ProductAdapter(SearchResultsActivity.this, allProducts, "Search Results");
+                        // Set the adapter for the RecyclerView
                         recyclerViewSearchResults.setAdapter(productAdapter);
                     } else {
                         progressBarSearch.setVisibility(View.GONE);
                         NoProductsFound.setVisibility(View.VISIBLE);
                     }
-
                     // Update the adapter with the new product list
                     productAdapter.notifyDataSetChanged();
                     progressBarSearch.setVisibility(View.GONE);

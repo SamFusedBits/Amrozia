@@ -1,4 +1,4 @@
-package com.example.amrozia.Activity;
+package com.globalfashion.amrozia.Activity;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -13,9 +13,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.amrozia.Adapter.ProductAdapter;
-import com.example.amrozia.Domain.ProductDomain;
-import com.example.amrozia.R;
+import com.globalfashion.amrozia.Adapter.ProductAdapter;
+import com.globalfashion.amrozia.Domain.ProductDomain;
+import com.globalfashion.amrozia.R;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -26,19 +26,19 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
-
+// The SalesProductActivity class is responsible for displaying the sales products
 public class SalesProductActivity extends AppCompatActivity {
-
     private RecyclerView recyclerViewProducts;
     private ProgressBar progressBar;
     private TextView noProductsFound;
+    // Adapter for products list
     private ProductAdapter productAdapter;
+    // List to hold selected products
     private List<ProductDomain> selectedProducts = new ArrayList<>();
     private FirebaseFirestore firestore = FirebaseFirestore.getInstance();
     private ImageView backBtn;
     private static final long TWO_HOURS = 2 * 60 * 60 * 1000; // 2 hours in milliseconds
     private static final long THREE_HOURS = 3 * 60 * 60 * 1000; // 3 hours in milliseconds
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +58,7 @@ public class SalesProductActivity extends AppCompatActivity {
         // Set the adapter to the RecyclerView
         recyclerViewProducts.setAdapter(productAdapter);
 
-        // Load products
+        // Call the method to load products
         loadProducts();
 
         // Set back button click listener
@@ -121,6 +121,7 @@ public class SalesProductActivity extends AppCompatActivity {
                         }
                     }
 
+                    // Add the products in this category to the list of all products
                     if (shuffleProducts) {
                         // Shuffle and select 3 products from this category
                         Collections.shuffle(productsInCategory);
@@ -193,22 +194,29 @@ public class SalesProductActivity extends AppCompatActivity {
                     noProductsFound.setVisibility(View.VISIBLE);
                 }
             } else {
+                // Show an error message
                 showError();
             }
         });
     }
 
+    // Apply discount to the products
     private void applyDiscount(List<ProductDomain> products) {
+        // Get the last updated time from SharedPreferences
         SharedPreferences sharedPreferences = getSharedPreferences("DiscountPrefs", MODE_PRIVATE);
         long lastUpdated = sharedPreferences.getLong("lastUpdated", 0);
         long currentTime = System.currentTimeMillis();
         boolean generateNewDiscounts = currentTime - lastUpdated > 2 * 60 * 60 * 1000; // Check if 2 hours have passed
 
+        // Initialize the editor for SharedPreferences
         SharedPreferences.Editor editor = sharedPreferences.edit();
         Random random = new Random();
 
+        // Iterate over each product
         for (ProductDomain product : products) {
+            // Generate a new discount if needed
             int discount;
+            // Check if we need to generate new discounts
             if (generateNewDiscounts) {
                 // Randomly decide the range for discount
                 if (random.nextDouble() < 0.8) { // 80% chance for ₹15 to ₹30
@@ -226,6 +234,7 @@ public class SalesProductActivity extends AppCompatActivity {
             product.setPrice(discountedPrice);
         }
 
+        // Apply the changes to SharedPreferences
         if (generateNewDiscounts) {
             editor.putLong("lastUpdated", currentTime); // Update the timestamp
             editor.apply();
@@ -237,6 +246,7 @@ public class SalesProductActivity extends AppCompatActivity {
         noProductsFound.setVisibility(View.VISIBLE);
     }
 
+    // Show an error message if products cannot be loaded
     private void showError() {
         progressBar.setVisibility(View.GONE);
         Toast.makeText(SalesProductActivity.this, "Error loading products. Please try again later.", Toast.LENGTH_SHORT).show();

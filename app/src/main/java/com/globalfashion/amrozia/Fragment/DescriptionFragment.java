@@ -1,4 +1,4 @@
-package com.example.amrozia.Fragment;
+package com.globalfashion.amrozia.Fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,11 +10,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.amrozia.R;
-
-
+import com.globalfashion.amrozia.R;
+// This fragment displays the description of a product
 public class DescriptionFragment extends Fragment {
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -28,11 +26,12 @@ public class DescriptionFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_description, container, false);
     }
 
+    // Set the description text in the TextView
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         TextView descTxt=view.findViewById(R.id.descriptionTxt);
+        // Get the description from the arguments and set it in the TextView
         descTxt.setText(getArguments().getString("description",""));
     }
 }

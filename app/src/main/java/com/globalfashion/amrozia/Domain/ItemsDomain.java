@@ -1,8 +1,8 @@
-package com.example.amrozia.Domain;
+package com.globalfashion.amrozia.Domain;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-
+// The ItemsDomain class contains the detail for the product displayed in the app
 public class ItemsDomain implements Serializable {
     private String id;
     private String title;
@@ -16,6 +16,7 @@ public class ItemsDomain implements Serializable {
     public ItemsDomain() {
     }
 
+    // Constructor to initialize the fields
     public ItemsDomain(String id, String title, String description, ArrayList<String> picUrl, double price, String category) {
         this.id=id;
         this.title = title;

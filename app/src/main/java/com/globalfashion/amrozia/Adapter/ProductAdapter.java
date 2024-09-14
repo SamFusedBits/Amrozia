@@ -1,4 +1,4 @@
-package com.example.amrozia.Adapter;
+package com.globalfashion.amrozia.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,14 +12,15 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.amrozia.DetailActivity;
-import com.example.amrozia.Domain.ProductDomain;
-import com.example.amrozia.R;
+import com.globalfashion.amrozia.DetailActivity;
+import com.globalfashion.amrozia.Domain.ProductDomain;
+import com.globalfashion.amrozia.R;
 
 import java.util.List;
-
+// This adapter class is used to bind the product data to the views in the RecyclerView
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
 
+    // List of products
     private List<ProductDomain> productList;
     private Context context;
     private String category;
@@ -31,7 +32,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         this.category = category;
     }
 
-    // Create a new view holder
+    // Create a new view holder for the product items
     @NonNull
     @Override
     public ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -51,7 +52,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         holder.name.setText(product.getTitle());
         holder.priceTxt.setText(String.format("\u20B9%s", product.getPrice()));  // \u20B9 is the Unicode for the Indian Rupee symbol
 
-        // Assuming picUrl is a list of strings, showing the first image if available
+        // picUrl is a list of strings, showing the first image if available
         if (!product.getPicUrl().isEmpty()) {
             Glide.with(context).load(product.getPicUrl().get(0)).into(holder.pic);
         } else if(product.getPicUrl().size() > 1) {
@@ -93,7 +94,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
                 // Check if the position is valid
                 if (pos != RecyclerView.NO_POSITION) {
                     Intent intent = new Intent(context, DetailActivity.class);
-                    // Pass the product
+                    // Pass the product details to the detail activity
                     intent.putExtra("productId", productList.get(holder.getBindingAdapterPosition()).getId());
                     intent.putExtra("category", productList.get(holder.getBindingAdapterPosition()).getCategory());
                     intent.putExtra("price", productList.get(holder.getBindingAdapterPosition()).getPrice());
@@ -108,6 +109,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     // Update the product list with new products
     public void updateProducts(List<ProductDomain> newProducts) {
         this.productList = newProducts;
+        // Notify the adapter that the data set has changed
         notifyDataSetChanged();
     }
 
@@ -123,6 +125,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         public TextView priceTxt;
         public ImageView pic;
 
+        // Constructor to initialize the views
         public ProductViewHolder(View view) {
             super(view);
             name = view.findViewById(R.id.nameTxt);
@@ -134,6 +137,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     // Update the product list with new products
     public void updateProductList(List<ProductDomain> newProductList) {
         this.productList = newProductList;
+        // Notify the adapter that the data set has changed
         notifyDataSetChanged();
     }
 }
