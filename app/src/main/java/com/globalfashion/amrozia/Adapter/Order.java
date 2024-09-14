@@ -1,8 +1,8 @@
-package com.example.amrozia.Adapter;
+package com.globalfashion.amrozia.Adapter;
 
 import com.google.firebase.Timestamp;
 import java.util.List;
-
+// The Order class represents the order object and contains the order details
 public class Order {
     private String address;
     private List<String> category;
@@ -17,8 +17,9 @@ public class Order {
     private Timestamp timestamp;
     private String userId;
     private String trackingLink;
-
+    private double totalCost;
     private String orderId;
+    private String orderNumber;
 
     // Default constructor required for calls to DataSnapshot.getValue(Order.class)
     public Order() {}
@@ -120,12 +121,28 @@ public class Order {
         this.userId = userId;
     }
 
+    public double getTotalCost() {
+        return totalCost;
+    }
+
+    public void setTotalCost(double totalCost) {
+        this.totalCost = totalCost;
+    }
+
     public String getOrderId() {
             return orderId;
     }
 
     public void setOrderId(String orderId) {
             this.orderId = orderId;
+    }
+
+    public String getOrderNumber() {
+        return orderNumber;
+    }
+
+    public void setOrderNumber(String orderNumber) {
+        this.orderNumber = orderNumber;
     }
 
     public String getTrackingLink() {
@@ -136,4 +153,3 @@ public class Order {
         this.trackingLink = trackingLink;
     }
 }
-
