@@ -1,10 +1,10 @@
-package com.example.amrozia.Domain;
+package com.globalfashion.amrozia.Domain;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-
+// This class is used to store the product details
 public class ProductDomain implements Serializable {
-
+    // Fields for the product details
     private String id;
     private String title;
     private String description;
@@ -13,7 +13,7 @@ public class ProductDomain implements Serializable {
     private String category;
     private int stock;
     private int quantity;
-
+    private String name;
     // Default constructor is needed for Firebase
     public ProductDomain() {}
 
@@ -26,6 +26,7 @@ public class ProductDomain implements Serializable {
         this.category = category;
         this.stock = stock;
         this.quantity = quantity;
+        this.name = name;
     }
 
     // Getters and setters for all fields
@@ -87,5 +88,13 @@ public class ProductDomain implements Serializable {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
