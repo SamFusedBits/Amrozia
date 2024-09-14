@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     id("com.android.application")
     id("com.google.gms.google-services")
@@ -7,18 +9,32 @@ plugins {
     // Add the dependency for the Google services Gradle plugin
 }
 
+val localProperties = Properties().apply {
+    rootProject.file("local.properties").inputStream().use { load(it) } // Load the local.properties file
+}
+
 android {
-    namespace = "com.example.amrozia"
+    namespace = "com.globalfashion.amrozia"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.amrozia"
+        applicationId = "com.globalfashion.amrozia"
         minSdk = 24
         targetSdk = 34
-        versionCode = 1
+        versionCode = 7
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        // Add the following line to the defaultConfig block.
+        buildConfigField("String", "CONTENT_TYPE", "\"${localProperties["CONTENT_TYPE"]}\"")
+        buildConfigField("String", "CLIENT_ID", "\"${localProperties["CLIENT_ID"]}\"")
+        buildConfigField("String", "CLIENT_SECRET", "\"${localProperties["CLIENT_SECRET"]}\"")
+        buildConfigField("String", "API_VERSION", "\"${localProperties["API_VERSION"]}\"")
+        buildConfigField("String", "API_KEY_SENDINBLUE", "\"${localProperties["API_KEY_SENDINBLUE"]}\"")
+        buildConfigField("String", "BUSINESS_EMAIL", "\"${localProperties["BUSINESS_EMAIL"]}\"")
+        buildConfigField("String", "WORK_EMAIL", "\"${localProperties["WORK_EMAIL"]}\"")
+        buildConfigField("String", "GOOGLE_CLIENT_ID", "\"${localProperties["GOOGLE_CLIENT_ID"]}\"")
     }
 
     buildTypes {
@@ -36,6 +52,7 @@ android {
     }
     buildFeatures{
         viewBinding = true  // Enable view binding
+        buildConfig = true  // Enable build config
     }
 }
 
@@ -44,7 +61,6 @@ dependencies {
     // Material Design
     implementation("com.google.android.material:material:1.12.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-
 
     // Firebase Authentication
     implementation("com.google.firebase:firebase-auth:23.0.0")
@@ -80,9 +96,33 @@ dependencies {
     // Youtube Player
     implementation("com.pierfrancescosoffritti.androidyoutubeplayer:chromecast-sender:0.28")
 
+    // Firebase Crashlytics and Firebase Analytics
     implementation("com.google.firebase:firebase-crashlytics")
     implementation("com.google.firebase:firebase-analytics")
-    
+
+    // Sendinblue SDK
     implementation("com.sun.mail:android-mail:1.6.2")
     implementation("com.sun.mail:android-activation:1.6.2")
+
+    // Retrofit is used to make network requests.
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+
+    implementation("com.google.firebase:firebase-storage:20.1.0")
+    // Glide library is used to load the product image from a URL into the ImageView.
+    implementation("com.github.bumptech.glide:glide:4.15.1")
+    annotationProcessor("com.github.bumptech.glide:compiler:4.15.1")
+
+    // Add this dependency for Cashfree Payment SDK
+    implementation("com.cashfree.pg:api:2.1.17")
+
+    // Volley is used to make network requests.
+    implementation("com.android.volley:volley:1.2.1")
+    // Lottie is used to display animations.
+    implementation("com.airbnb.android:lottie:6.5.1")
+    // OkHttp is used to make network requests.
+    implementation("com.squareup.okhttp3:okhttp:4.9.3")
+
+    // PhotoView library
+    implementation("com.github.chrisbanes:PhotoView:2.3.0")
 }
