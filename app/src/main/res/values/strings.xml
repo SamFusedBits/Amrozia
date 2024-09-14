@@ -1,17 +1,12 @@
 <resources>
-
-    <!-- Google Sign In -->
-    <string name="default_web_client_id">448931502989-nv4fdjf3r2tqans6mgsm8nt29l8mslfv.apps.googleusercontent.com</string>
-
-    <!-- Activity Admin -->
-    <string name="admin_panel">Admin Panel</string>
+    <!-- Order Management -->
+    <string name="admin_panel">Product Management</string>
     <string name="name_hint">Name</string>
     <string name="product_id_hint">Product ID</string>
     <string name="description_hint">Description</string>
     <string name="price_hint">Price</string>
     <string name="stock_hint">Qty</string>
     <string name="pic_urls_hint">Pic URLs (comma separated)</string>
-    <string name="sizes_hint">Sizes (comma separated)</string>
     <string name="submit_button_admin">Submit</string>
 
     <string name="app_name">Amrozia</string>
@@ -40,8 +35,8 @@
 
     <string name="search_bar_hint">Search Amrozia.in</string>
 
-
     <string name="contact_heading">Get in touch with us</string>
+    <string name="faq_heading">Frequently Asked Questions</string>
     <string name="operating_hours">Operating Hours</string>
     <string name="monday_friday">Monday - Friday: 9:00am - 6:30pm</string>
     <string name="sunday">Sunday and Public Holiday: Closed</string>
@@ -118,7 +113,7 @@
     <string name="about_title">About Us</string>
     <string name="global_fashion_title">Global Fashion</string>
     <string name="global_fashion_subtitle">Amrozia....For the Women of Today</string>
-    <string name="global_fashion_description">Global Fashion is a place to Discover Indian Products including Handmade Ajrakh, Ethnic and Vintage products from India.</string>
+    <string name="global_fashion_description">Global Fashion - Amrozia is a place to Discover Indian Products including Handmade Ajrakh, Ethnic and Vintage products from India.</string>
     <string name="global_fashion_brand_ownership">Amrozia and Ajrakh Studio - ©2023 Global Fashion. All Rights Reserved.</string>
     <string name="global_fashion_reach_us">Connect With Us</string>
     <string name="global_fashion_email">Email: support@amrozia.in</string>
@@ -199,5 +194,8 @@
 
     <!-- Buy Now Button -->
     <string name="buy_now">Buy Now</string>
+    <string name="orderPlacedMessage">Thank you for shopping with us! Your order has been placed. You\'ll receive a confirmation mail shortly.</string>
+    <string name="orderFailedMessage"><![CDATA[We encountered an issue processing your order. If your payment was deducted, please rest assured that we will process it within 48 hours.\n\nFor further assistance, contact our support team: support@amrozia.in]]></string>
+    <string name="continueShoppingButton">Go back to shopping</string>
 
 </resources>
