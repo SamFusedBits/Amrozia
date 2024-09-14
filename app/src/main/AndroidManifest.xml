@@ -2,16 +2,20 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- Required permissions -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
+    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <!-- For backwards compatibility (Android 12L and below) -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="32" />
 
     <application
-
         android:allowBackup="true"
         android:enableOnBackInvokedCallback="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -21,15 +25,21 @@
         android:roundIcon="@drawable/app_icon_image"
         android:supportsRtl="true"
         tools:targetApi="34"
-        android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">   <!--change this line if button color or other colors aren't changing-->
-        <service android:name=".MyFirebaseMessagingService" android:exported="true">
+        android:theme="@style/Theme.Amrozia">   <!--change this line if button color or other colors aren't changing-->
+
+        <!-- Firebase Messaging Service -->
+        <service
+            android:name=".MyFirebaseMessagingService"
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+
+        <!--  SplashActivity is the first activity to be launched when the app is opened -->
         <activity
-            android:name=".MainActivity"
-            android:windowSoftInputMode="adjustPan"
+            android:name=".Activity.SplashActivity"
+            android:theme="@style/SplashTheme"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -47,11 +57,15 @@
         <activity android:name=".SignupActivity" />
         <activity android:name="VerifySignupCodeActivity" />
         <activity android:name=".SearchResultsActivity"/>
-        <activity android:name=".AdminActivity" />
+        <activity android:name=".MainActivity"
+            android:windowSoftInputMode="adjustPan"/>
+        <activity android:name=".AdminActivity"
+            android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".ProfileActivity" />
         <activity android:name=".LoginActivity"/>
         <activity android:name=".Activity.MoreActivity" />
-        <activity android:name=".CartActivity" />
+        <activity android:name=".CartActivity"
+            android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".Activity.SalesProductActivity"/>
         <activity android:name=".Activity.PurchaseActivity" />
         <activity android:name=".Activity.OrderConfirmationActivity" />
@@ -61,10 +75,11 @@
         <activity android:name=".Activity.BlogActivity" />
         <activity android:name=".Activity.FaqActivity" />
         <activity android:name=".Activity.AboutUsActivity" />
-        <activity android:name=".Activity.GiftCardActivity" />
         <activity android:name=".DetailActivity" />
         <activity android:name=".CategoryActivity" />
-        <activity android:name=".Activity.ManageOrdersActivity" />
+        <activity android:name=".Activity.ManageOrdersActivity"
+            android:windowSoftInputMode="adjustPan"/>
+        <activity android:name=".Activity.PhoneAuthActivity" />
     </application>
 
 </manifest>
