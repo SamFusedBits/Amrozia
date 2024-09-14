@@ -1,4 +1,4 @@
-package com.example.amrozia.Activity;
+package com.globalfashion.amrozia.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,10 +14,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.amrozia.Adapter.OrderAdapter;
-import com.example.amrozia.DetailActivity;
-import com.example.amrozia.Domain.OrderDomain;
-import com.example.amrozia.R;
+import com.globalfashion.amrozia.Adapter.OrderAdapter;
+import com.globalfashion.amrozia.DetailActivity;
+import com.globalfashion.amrozia.Domain.OrderDomain;
+import com.globalfashion.amrozia.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -26,11 +26,16 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
+
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
-
+// The MyOrdersActivity class is responsible for displaying the user's orders
 public class MyOrdersActivity extends AppCompatActivity {
+
+    // Declare the RecyclerView, ProgressBar, TextView, ImageView, and OrderAdapter
     private RecyclerView recyclerViewOrders;
     private ProgressBar progressBar;
     private TextView noOrdersFound, trackingLink;
@@ -38,7 +43,6 @@ public class MyOrdersActivity extends AppCompatActivity {
     private List<OrderDomain> allOrders = new ArrayList<>();
     private FirebaseFirestore firestore = FirebaseFirestore.getInstance();
     private ImageView backBtn;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,7 +59,7 @@ public class MyOrdersActivity extends AppCompatActivity {
         orderAdapter = new OrderAdapter(this, new ArrayList<>());
         recyclerViewOrders.setAdapter(orderAdapter);
 
-        // Fetch orders
+        // Call fetchOrders method
         fetchOrders();
 
         // Set back button listener
@@ -67,18 +71,23 @@ public class MyOrdersActivity extends AppCompatActivity {
         });
     }
 
+    // Method to fetch orders from Firestore
     private void fetchOrders() {
+        // Show the progress bar
         progressBar.setVisibility(View.VISIBLE);
 
         // Get the current user
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser != null) {
+            // Get the user ID
             String userId = currentUser.getUid();
 
-            // Reference to the user's orders sub-collection
             CollectionReference ordersRef = firestore
+                    // Reference to the Orders collection
                     .collection("Orders")
+                    // Reference to the user's document
                     .document(userId)
+                    // Reference to the UserOrders sub-collection
                     .collection("UserOrders");
 
             // Query to fetch orders
@@ -86,7 +95,10 @@ public class MyOrdersActivity extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
                     if (task.isSuccessful()) {
+                        progressBar.setVisibility(View.GONE);
+                        // Clear the allOrders list
                         allOrders.clear();
+                        // Iterate over the documents and parse them into OrderDomain objects
                         for (DocumentSnapshot document : task.getResult()) {
                             // Get product names, prices, and images
                             ArrayList<String> productNames = (ArrayList<String>) document.get("productNames");
@@ -95,8 +107,6 @@ public class MyOrdersActivity extends AppCompatActivity {
                             ArrayList<String> categories = (ArrayList<String>) document.get("category"); // category is also an array
                             ArrayList<String> productIds = (ArrayList<String>) document.get("productId");
                             String trackingLink = document.getString("trackingLink");
-
-
 
                             // Get timestamp
                             Date timestamp = document.getDate("timestamp");
@@ -112,12 +122,23 @@ public class MyOrdersActivity extends AppCompatActivity {
                                 order.setProductId(productIds.get(i)); // Set the product ID
                                 order.setTrackingLink(trackingLink); // Set the tracking link
 
+                                // Add the order to the allOrders list
                                 allOrders.add(order);
                             }
                         }
 
+                        // Sort the allOrders list in descending order of timestamp
+                        Collections.sort(allOrders, new Comparator<OrderDomain>() {
+                            @Override
+                            public int compare(OrderDomain o1, OrderDomain o2) {
+                                return o2.getTimestamp().compareTo(o1.getTimestamp());
+                            }
+                        });
+
+                        // If the allOrders list is empty, show the noOrdersFound TextView
                         if (allOrders.isEmpty()) {
                             noOrdersFound.setVisibility(View.VISIBLE);
+                            progressBar.setVisibility(View.GONE);
                             Log.d("FetchOrders", "No orders found.");
                         } else {
                             noOrdersFound.setVisibility(View.GONE);
@@ -129,18 +150,38 @@ public class MyOrdersActivity extends AppCompatActivity {
                         orderAdapter.setOnItemClickListener(new OrderAdapter.OnItemClickListener() {
                             @Override
                             public void onItemClick(OrderDomain order) {
-                                Intent intent = new Intent(MyOrdersActivity.this, DetailActivity.class);
-                                intent.putExtra("productId", order.getProductId());
-                                intent.putExtra("category", order.getCategory());
-                                startActivity(intent);
+                                // Check if the product exists in the database before starting the DetailActivity
+                                firestore.collection("Categories").document(order.getCategory()).collection("products").document(order.getProductId())
+                                        .get()
+                                        .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                                if (task.isSuccessful()) {
+                                                    // If the task is successful, get the document
+                                                    DocumentSnapshot document = task.getResult();
+                                                    if (document.exists()) {
+                                                        // If the product exists, start the DetailActivity
+                                                        Intent intent = new Intent(MyOrdersActivity.this, DetailActivity.class);
+                                                        // Pass the product ID and category to the DetailActivity
+                                                        intent.putExtra("productId", order.getProductId());
+                                                        intent.putExtra("category", order.getCategory());
+                                                        startActivity(intent);
+                                                    } else {
+                                                        // If the product doesn't exist, show a toast message to the user
+                                                        Toast.makeText(MyOrdersActivity.this, "This product is out of stock", Toast.LENGTH_SHORT).show();
+                                                    }
+                                                } else {
+                                                    // If the task is not successful, show a toast message to the user
+                                                    Toast.makeText(MyOrdersActivity.this, "Error while checking product: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                                }
+                                            }
+                                        });
                             }
                         });
-
-                        progressBar.setVisibility(View.GONE);
                     } else {
                         progressBar.setVisibility(View.GONE);
-                        Toast.makeText(MyOrdersActivity.this, "Failed to fetch orders. Please try again.", Toast.LENGTH_SHORT).show();
-                        Log.e("FetchOrders", "Failed to fetch orders: ", task.getException());
+                        Toast.makeText(MyOrdersActivity.this, "User not logged in.", Toast.LENGTH_SHORT).show();
+                        Log.e("FetchOrders", "User not logged in.");
                     }
                 }
             });
