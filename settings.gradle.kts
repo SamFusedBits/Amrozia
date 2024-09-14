@@ -10,6 +10,8 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven("https://maven.cashfree.com/release")
+        maven("https://jitpack.io")
     }
 }
 
