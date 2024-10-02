@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -17,16 +18,21 @@ import com.globalfashion.amrozia.Adapter.ViewPagerAdapter;
 import com.globalfashion.amrozia.Domain.ItemsDomain;
 import com.globalfashion.amrozia.Domain.ProductDomain;
 import com.globalfashion.amrozia.Fragment.DescriptionFragment;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 // This activity displays the details of a product and allows the user to add it to the cart
 public class DetailActivity extends AppCompatActivity {
     private ViewPager2 viewPager2;
     private List<String> picUrl; // This should be your list of image URLs
     private List<String> sizeTxt;
-    private String description;
+    private String description, userId, userEmail;
     private FirebaseFirestore firestore;
     private ImageView favBtn, shareBtn;
     private ImageView favDarkBtn, shareDarkBtn;
@@ -70,15 +76,19 @@ public class DetailActivity extends AppCompatActivity {
 
         // Load saved state
         SharedPreferences sharedPreferences = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+
+        String favStateKey = FAV_STATE_KEY + "_" + productId; // This will create a unique key for each product
+
         // Load the favorite state from shared preferences
-        isFavChecked = sharedPreferences.getBoolean(FAV_STATE_KEY, false);
+        isFavChecked = sharedPreferences.getBoolean(favStateKey, false);
+
         // Update the favorite button based on the saved state
         updateFavoriteButton();
         // Set the click listeners for the save button
         favBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                toggleFavorite();
+                toggleFavorite(favStateKey);
             }
         });
 
@@ -86,7 +96,7 @@ public class DetailActivity extends AppCompatActivity {
         favDarkBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                toggleFavorite();
+                toggleFavorite(favStateKey);
             }
         });
 
@@ -249,15 +259,57 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     // Method to toggle the favorite state
-    private void toggleFavorite() {
+    private void toggleFavorite(String favStateKey) {
         isFavChecked = !isFavChecked;
-        updateFavoriteButton();
 
         // Save the state
         SharedPreferences sharedPreferences = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean(FAV_STATE_KEY, isFavChecked);
+        editor.putBoolean(favStateKey, isFavChecked);
         editor.apply();
+
+        // Show a toast message based on the new state
+        if (isFavChecked) {
+            Toast.makeText(this, "Added to favorites", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Removed from favorites", Toast.LENGTH_SHORT).show();
+        }
+
+        // Update the favorite button based on the new state
+        updateFavoriteButton();
+
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+
+        if (currentUser != null) {
+            userId = currentUser.getUid(); // Get user id
+            userEmail = currentUser.getEmail(); // Get user email
+        } else {
+            // Handle case where user is not logged in
+            return;
+        }
+
+        // Get the product's id and name
+        String productId = favStateKey.replace(FAV_STATE_KEY + "_", "");
+        String productName = titleTxt.getText().toString();
+
+        if (isFavChecked) {
+            // If the product is saved, add it to Firestore
+            Map<String, Object> savedProduct = new HashMap<>();
+            savedProduct.put("userId", userId);
+            savedProduct.put("email", userEmail);
+            savedProduct.put("productId", productId);
+            savedProduct.put("productName", productName);
+
+            firestore.collection("saved").document(userId + "_" + productId).set(savedProduct)
+                    .addOnSuccessListener(aVoid -> Log.d("DetailActivity", "Product added to favorites"))
+                    .addOnFailureListener(e -> Log.d("DetailActivity", "Failed to add product: " + e.getMessage()));
+        } else {
+            // If the product is unsaved, remove it from Firestore
+            firestore.collection("saved").document(userId + "_" + productId).delete()
+                    .addOnSuccessListener(aVoid -> Log.d("DetailActivity", "Product removed from favorites"))
+                    .addOnFailureListener(e -> Log.d("DetailActivity", "Failed to remove product: " + e.getMessage()));
+        }
     }
 
     // Method to update the favorite button based on the state
@@ -267,7 +319,6 @@ public class DetailActivity extends AppCompatActivity {
             favDarkBtn.setVisibility(View.VISIBLE);
             shareBtn.setVisibility(View.GONE);
             shareDarkBtn.setVisibility(View.VISIBLE);
-            Toast.makeText(this, "Added to favorites", Toast.LENGTH_SHORT).show();
         } else {
             favBtn.setVisibility(View.VISIBLE);
             favDarkBtn.setVisibility(View.GONE);
