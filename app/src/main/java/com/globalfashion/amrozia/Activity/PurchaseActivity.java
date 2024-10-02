@@ -31,9 +31,8 @@ import com.cashfree.pg.core.api.CFSession;
 import com.cashfree.pg.core.api.callback.CFCheckoutResponseCallback;
 import com.cashfree.pg.core.api.exception.CFException;
 import com.cashfree.pg.core.api.utils.CFErrorResponse;
-import com.cashfree.pg.ui.api.upi.intent.CFIntentTheme;
-import com.cashfree.pg.ui.api.upi.intent.CFUPIIntentCheckout;
-import com.cashfree.pg.ui.api.upi.intent.CFUPIIntentCheckoutPayment;
+import com.cashfree.pg.core.api.webcheckout.CFWebCheckoutPayment;
+import com.cashfree.pg.core.api.webcheckout.CFWebCheckoutTheme;
 import com.globalfashion.amrozia.Adapter.PurchaseProductAdapter;
 import com.globalfashion.amrozia.CartActivity;
 import com.globalfashion.amrozia.Domain.ProductDomain;
@@ -55,7 +54,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -322,22 +320,14 @@ public class PurchaseActivity extends AppCompatActivity implements CFCheckoutRes
                     .build();
 
             // Set up CFIntentTheme with custom colors
-            CFIntentTheme cfTheme = new CFIntentTheme.CFIntentThemeBuilder()
-                    .setBackgroundColor("#FFFFFF")
-                    .setPrimaryTextColor("#000000")
+            CFWebCheckoutTheme cfTheme = new CFWebCheckoutTheme.CFWebCheckoutThemeBuilder()
+                    .setNavigationBarBackgroundColor("#FFFFFF")
+                    .setNavigationBarTextColor("#000000")
                     .build();
 
-            // Set up CFUPIIntentCheckout with the order details
-            CFUPIIntentCheckout cfupiIntentCheckout = new CFUPIIntentCheckout.CFUPIIntentBuilder()
-                    .setOrder(Arrays.asList(CFUPIIntentCheckout.CFUPIApps.BHIM, CFUPIIntentCheckout.CFUPIApps.PHONEPE))
-                    .setOrderUsingPackageName(Arrays.asList("com.dreamplug.androidapp", "in.org.npci.upiapp"))
-                    .build();
-
-            // Set up CFUPIIntentCheckoutPayment with the session, order, and theme
-            CFUPIIntentCheckoutPayment cfupiIntentCheckoutPayment = new CFUPIIntentCheckoutPayment.CFUPIIntentPaymentBuilder()
+            CFWebCheckoutPayment cfWebCheckoutPayment = new CFWebCheckoutPayment.CFWebCheckoutPaymentBuilder()
                     .setSession(cfSession)
-                    .setCfUPIIntentCheckout(cfupiIntentCheckout)
-                    .setCfIntentTheme(cfTheme)
+                    .setCFWebCheckoutUITheme(cfTheme)
                     .build();
 
             // Initiate the payment process
@@ -346,7 +336,7 @@ public class PurchaseActivity extends AppCompatActivity implements CFCheckoutRes
             Log.d("PurchaseActivity", "Customer details: " + customerDetails);
             Log.d("PurchaseActivity", "Cart details: " + cartDetails);
             // Call the doPayment method to initiate the payment
-            CFPaymentGatewayService.getInstance().doPayment(this, cfupiIntentCheckoutPayment);
+            CFPaymentGatewayService.getInstance().doPayment(this, cfWebCheckoutPayment);
         } catch (CFException exception) {
             exception.printStackTrace();
         } catch (Exception e) {
@@ -698,7 +688,7 @@ public class PurchaseActivity extends AppCompatActivity implements CFCheckoutRes
                                 orderDetails.append("<tr><td style='padding: 12px; border: 1px solid #ddd;'><strong>Order Amount</strong></td><td style='padding: 12px; border: 1px solid #ddd;'>").append(orderAmount).append("</td></tr>");
                                 orderDetails.append("<tr><td style='padding: 12px; border: 1px solid #ddd;'><strong>Payment Amount</strong></td><td style='padding: 12px; border: 1px solid #ddd;'>").append(paymentAmount).append("</td></tr>");
                                 orderDetails.append("<tr><td style='padding: 12px; border: 1px solid #ddd;'><strong>Payment Status</strong></td><td style='padding: 12px; border: 1px solid #ddd;'>").append(paymentStatus[0]).append("</td></tr>");
-                                orderDetails.append("<tr><td style='padding: 12px; border: 1px solid #ddd;'><strong>Payment Method (UPI ID)</strong></td><td style='padding: 12px; border: 1px solid #ddd;'>").append(upiId).append("</td></tr>");
+                                orderDetails.append("<tr><td style='padding: 12px; border: 1px solid #ddd;'><strong>Payment Method</strong></td><td style='padding: 12px; border: 1px solid #ddd;'>").append(paymentMethod).append("</td></tr>");
                                 orderDetails.append("<tr><td style='padding: 12px; border: 1px solid #ddd;'><strong>Payment Time</strong></td><td style='padding: 12px; border: 1px solid #ddd;'>").append(paymentTime).append("</td></tr>");
                                 orderDetails.append("</table>");
                                 orderDetails.append("</body></html>");
