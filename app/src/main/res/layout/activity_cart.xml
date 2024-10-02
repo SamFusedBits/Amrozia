@@ -87,7 +87,7 @@
                     android:layout_weight="1"
                     android:background="#00ffffff"
                     android:ems="10"
-                    android:hint="Enter Your Copoun"
+                    android:hint="Enter Your Coupon"
                     android:inputType="text"
                     android:paddingStart="@dimen/_8ssp"
                     android:textSize="@dimen/_14ssp" />
