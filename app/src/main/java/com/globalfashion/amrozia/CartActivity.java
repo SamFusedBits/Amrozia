@@ -35,10 +35,13 @@ public class CartActivity extends AppCompatActivity implements ChangeNumberItems
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     private ManagementCart managementCart;
-    private TextView emptyTxt, totalFeeTxt, deliveryTxt, taxTxt, totalTxt,numberItemTxt;
+    private TextView emptyTxt, totalFeeTxt, deliveryTxt, taxTxt, totalTxt,numberItemTxt, discountTxt;
+    private int discountPercentage;
     private String productId, category, title, description, price;
     private ArrayList<String> picUrl;
     public double totalCost = 0.0;
+    private String appliedCouponCode = null;
+    private int appliedDiscountPercentage = 0;
 
     // Calculate the total cost of the cart
     @Override
@@ -100,9 +103,10 @@ public class CartActivity extends AppCompatActivity implements ChangeNumberItems
 
         EditText couponCodeEditTxt = findViewById(R.id.couponCodeEditTxt);
 
-        Button applyBtn = findViewById(R.id.applyBtn);
-        TextView discountTxt = findViewById(R.id.discountTxt); // Reference to the discount TextView
+        Button applyBtn = findViewById(R.id.applyBtn); // Reference to the apply button
         TextView textView15 = findViewById(R.id.textView15); // Reference to the discount label
+
+        discountTxt = findViewById(R.id.discountTxt); // Initialize discountTxt
 
         applyBtn.setOnClickListener(new View.OnClickListener() {
             private boolean isCouponApplied = false; // To ensure the coupon is applied only once
@@ -111,6 +115,8 @@ public class CartActivity extends AppCompatActivity implements ChangeNumberItems
             public void onClick(View v) {
                 // Get the coupon code entered by the user (EditText for coupon input)
                 String enteredCouponCode = couponCodeEditTxt.getText().toString().trim();
+
+                appliedCouponCode = enteredCouponCode;
 
                 if (TextUtils.isEmpty(enteredCouponCode)) {
                     Toast.makeText(CartActivity.this, "Please enter a coupon code", Toast.LENGTH_SHORT).show();
@@ -132,7 +138,7 @@ public class CartActivity extends AppCompatActivity implements ChangeNumberItems
                 }
 
                 // Parse the numeric part as the discount percentage
-                int discountPercentage = Integer.parseInt(discountString);
+                discountPercentage = Integer.parseInt(discountString); // Update the instance variable
 
                 // Firestore reference
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -161,6 +167,9 @@ public class CartActivity extends AppCompatActivity implements ChangeNumberItems
                                         // Display updated total amount in the UI
                                         totalTxt.setText(String.format("₹%.2f", totalCost));
 
+                                        // Assign the discountPercentage to appliedDiscountPercentage
+                                        appliedDiscountPercentage = discountPercentage;
+
                                         // Mark the coupon as applied
                                         isCouponApplied = true;
 
@@ -172,7 +181,7 @@ public class CartActivity extends AppCompatActivity implements ChangeNumberItems
                                     }
                                 } else {
                                     // Handle any errors that occurred during the query
-                                    Toast.makeText(CartActivity.this, "Error applying coupon", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(CartActivity.this, "Error applying coupon. Please try again", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         });
@@ -261,6 +270,25 @@ public class CartActivity extends AppCompatActivity implements ChangeNumberItems
         });
     }
 
+    private double applyDiscount(double totalCost) {
+        if (appliedCouponCode != null && appliedDiscountPercentage > 0) {
+            // Calculate the discount amount (percentage of the totalCost)
+            double discountAmount = totalCost * (appliedDiscountPercentage / 100.0);
+
+            // Subtract the discount amount from the total cost
+            totalCost -= discountAmount;
+
+            // Update the discount TextView to show the discount applied
+            discountTxt.setText(String.format("₹%.2f", discountAmount));
+
+            // Display updated total amount in the UI
+            totalTxt.setText(String.format("₹%.2f", totalCost));
+        }
+
+        // Return the updated total cost after applying the discount
+        return totalCost;
+    }
+
     // Initialize the view
     private void initView() {
         recyclerView = findViewById(R.id.cartView);
@@ -293,19 +321,26 @@ public class CartActivity extends AppCompatActivity implements ChangeNumberItems
     }
 
     public void calculateCart() {
-            totalCost = 0.0;
+            double subtotal = 0.0;
+
             // Get the existing cart items
             List<ItemsDomain> cartList = managementCart.getCart();
 
             // Calculate the total cost of the cart
             for (ItemsDomain item : cartList) {
-                totalCost += item.getPrice() * item.getQuantity();
+                subtotal += item.getPrice() * item.getQuantity();
                 Log.d("Quantity", "Quantity: " + item.getQuantity());
             }
 
-            // Calculate the delivery fee
-            totalFeeTxt.setText(String.format("₹%.2f", totalCost));
-            // Calculate the tax
+            // Set totalCost to subtotal first
+            totalCost = subtotal;
+
+            // Apply discount if coupon code is present
+            if (appliedCouponCode != null) {
+                totalCost = applyDiscount(totalCost);  // Get the discounted totalCost
+            }
+
+            totalFeeTxt.setText(String.format("₹%.2f", subtotal));
             totalTxt.setText(String.format("₹%.2f", totalCost));
     }
 }
