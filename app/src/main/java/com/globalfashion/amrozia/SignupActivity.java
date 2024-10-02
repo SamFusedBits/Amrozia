@@ -123,7 +123,7 @@ public class SignupActivity extends AppCompatActivity {
     private void verifyPhoneNumber(String phone) {
         PhoneAuthOptions options = PhoneAuthOptions.newBuilder(FirebaseAuth.getInstance())
                 .setPhoneNumber(phone)       // Phone number to verify
-                .setTimeout(60L, TimeUnit.SECONDS) // Timeout duration
+                .setTimeout(10L, TimeUnit.SECONDS) // Timeout duration
                 .setActivity(this)          // Activity for callback
                 .setCallbacks(new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
                     @Override
